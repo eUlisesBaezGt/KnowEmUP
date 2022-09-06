@@ -1,0 +1,9 @@
+/*Add underline to headers*/
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: underline;
+}
+
+/* Change font style to permanent marker*/
+body {
+    font-family: Consolas, "Courier New", Courier, monospace;
+}
