@@ -1,25 +1,3 @@
-.gradient-custom-2 {
-    /* fallback for old browsers */
-    background: #c20b0b;
-
-    /* Chrome 10-25, Safari 5.1-6 */
-    background: -webkit-linear-gradient(to right, #e5b355, #f1a90f, #f1a90f, #eaba61);
-
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-    background: linear-gradient(to right, #c20b0b, #ff0000, #b90303, #c43232);
-}
-
-@media (min-width: 768px) {
-    .gradient-form {
-        height: 100vh !important;
-    }
-}
-@media (min-width: 769px) {
-    .gradient-custom-2 {
-        border-top-right-radius: .3rem;
-        border-bottom-right-radius: .3rem;
-    }
-}
 
 :root {
     --error-color: #dc3545;
@@ -44,12 +22,6 @@ body {
 
 }
 
-.form-control {
-    margin-bottom: 5px;
-
-}
-
-
 .form-control input {
     border: solid 2px #f0f0f0;
     border-radius: 3px;
@@ -58,10 +30,6 @@ body {
     font-size: 14px;
     display: block;
     width: 100%;
-}
-
-.form-control input:focus {
-    outline: none;
 }
 
 .form-control.error input {
@@ -97,4 +65,16 @@ body {
 
 .btn:focus {
     outline: none;
+}
+
+@media (min-width: 768px) {
+    .gradient-form {
+        height: 100vh !important;
+    }
+}
+@media (min-width: 769px) {
+    .gradient-custom-2 {
+        border-top-right-radius: .3rem;
+        border-bottom-right-radius: .3rem;
+    }
 }
