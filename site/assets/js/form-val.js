@@ -64,7 +64,7 @@ const showSuccess = (input) => {
 
 /*ID MUST START WITH 0 AND MUST BE ONLY 7 NUMBERS*/
 function idCheck() {
-    if (ID.value.charAt(0) === 0 && ID.value.length === 7) {
+    if (ID.value.charAt(0) === '0' && ID.value.length === 7) {
         showSuccess(ID);
         passCheck();
     } else {
