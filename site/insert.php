@@ -34,12 +34,12 @@ if (strlen($id) == 7 && $id[0] == '0') {
 
     // IF ID ALREADY EXISTS
     if ($result->num_rows > 0) {
-        echo "ID already exists";
+        header("Location: error.html");
     } else {
         // IF ID DOES NOT EXIST
         // CHECK SECURE PASSWORD
         if (!preg_match('/^(?=.*[A-Z])(?=.{8,})/', $pass)) {
-            echo "Password must be at least 8 characters & min 1 Uppercase <br/>";
+            header("Location: error.html");
         } else {
 
             // INSERT DATA INTO DATABASE
@@ -49,13 +49,13 @@ if (strlen($id) == 7 && $id[0] == '0') {
                 if ($conn->query($sql) === TRUE) {
                     header("Location: login.html");
                 } else {
-                    echo "Error: " . $sql . "<br>" . $conn->error;
+                    header("Location: error.html");
                 }
             }
         }
     }
 } else {
-    echo "ID must start with 0 and have 7 digits";
+    header("Location: error.html");
     exit();
 }
 

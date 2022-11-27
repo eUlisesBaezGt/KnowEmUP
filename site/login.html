@@ -51,24 +51,24 @@
                             <div class="text-center">
                                 <img src="assets/img/logo.png" class="img-responsive" width="400"
                                      height="200">
-                                <form>
+                                <form id="form" method="post" action="loginval.php">
                                     <div class="form-outline mb-4">
-                                        <input type="email" id="form2Example11" class="form-control" required
-                                               placeholder="ID"/>
-                                        <label class="form-label" for="form2Example11"></label>
-                                        <input type="password" id="form2Example22" class="form-control" required
-                                               placeholder="PASSWORD"/>
-                                        <label class="form-label" for="form2Example22"></label>
+                                        <input type="text" id="fid" class="form-control" required
+                                               placeholder="ID" name="fid"/>
+                                        <label class="form-label" for="fid"></label>
+                                        <input type="password" id="pass" class="form-control" required
+                                               placeholder="Password" name="pass"/>
+                                        <label class="form-label" for="pass"></label>
                                         <br>
-                                        <button class="btn btn-primary btn-block gradient-custom-2 mb-3"
-                                                type="submit">LOG IN
+                                        <button type="submit" class="btn btn-primary btn-block gradient-custom-2 mb-3"
+                                        >LOG IN
                                         </button>
-                                        <a class="text-muted" href="signup.html"><br>
-                                            <button type="button" class="btn btn-outline-danger">Crear Cuenta
-                                            </button>
-                                        </a>
                                     </div>
                                 </form>
+                                <a class="text-muted" href="signup.html"><br>
+                                    <button type="button" class="btn btn-outline-danger">Crear Cuenta
+                                    </button>
+                                </a>
                             </div>
                         </div>
                     </div>
