@@ -1,4 +1,5 @@
 -- Crear base de datos
+DROP DATABASE IF EXISTS KnowEmUP;
 CREATE DATABASE IF NOT EXISTS KnowEmUP;
 USE KnowEmUP;
 
@@ -12,10 +13,9 @@ CREATE TABLE IF NOT EXISTS `users`
     `lname`       varchar(50) NOT NULL,
     `email`       varchar(50) NOT NULL,
     `password`    varchar(50) NOT NULL,
-    `faculty`     varchar(50) NOT NULL,
-    `carreer`     varchar(50) NOT NULL,
+    `faculty`     varchar(10) NOT NULL,
+    `carreer`     varchar(250) NOT NULL,
     `semester`    INT(2)      NOT NULL,
-    `gender`      varchar(50) NOT NULL,
     PRIMARY KEY (`studentID`, `progress_id`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
