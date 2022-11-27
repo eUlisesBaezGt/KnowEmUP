@@ -1,4 +1,3 @@
-<!--get all data from form and insert into database-->
 <?php
 $servername = "localhost";
 $username = "root";
@@ -27,30 +26,37 @@ $lname = $names[1];
 $email = $id . '@up.edu.mx';
 
 
-// CHECK IF ID ALREADY EXISTS
-$sql = "SELECT * FROM knowemup.users WHERE studentID = '$id'";
-$result = $conn->query($sql);
+// CHECK IF ID STARTS WITH 0 AND HAS 7 DIGITS
+if (strlen($id) == 7 && $id[0] == '0') {
+    // CHECK IF ID IS ALREADY REGISTERED
+    $sql = "SELECT * FROM knowemup.users WHERE studentID = '$id'";
+    $result = $conn->query($sql);
 
-// IF ID ALREADY EXISTS
-if ($result->num_rows > 0) {
-    echo "ID already exists <br/>";
-} else {
-    // IF ID DOES NOT EXIST
-    // INSERT DATA INTO DATABASE
-    if ($id != '' || $user != '' || $carr != '' || $names != '' || $pass != '' || $sem != '') {
-        $sql = "INSERT INTO users (studentID, progress_id, username, fname, lname, email, `password`, faculty, carreer, semester)
+    // IF ID ALREADY EXISTS
+    if ($result->num_rows > 0) {
+        echo "ID already exists";
+    } else {
+        // IF ID DOES NOT EXIST
+        // CHECK SECURE PASSWORD
+        if (!preg_match('/^(?=.*[A-Z])(?=.{8,})/', $pass)) {
+            echo "Password must be at least 8 characters & min 1 Uppercase <br/>";
+        } else {
+
+            // INSERT DATA INTO DATABASE
+            if ($id != '' || $user != '' || $carr != '' || $names != '' || $pass != '' || $sem != '') {
+                $sql = "INSERT INTO users (studentID, progress_id, username, fname, lname, email, `password`, faculty, carreer, semester)
         VALUES ('$id','$progress_id', '$user', '$fname', '$lname', '$email', '$pass', 'ING', '$carr', '$sem')";
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error: " . $sql . "<br>" . $conn->error;
-        }
-
-        if ($conn->query($sql) === TRUE) {
-            echo "New record created successfully";
-        } else {
-            echo "Error";
+                if ($conn->query($sql) === TRUE) {
+                    header("Location: login.html");
+                } else {
+                    echo "Error: " . $sql . "<br>" . $conn->error;
+                }
+            }
         }
     }
+} else {
+    echo "ID must start with 0 and have 7 digits";
+    exit();
 }
+
 
