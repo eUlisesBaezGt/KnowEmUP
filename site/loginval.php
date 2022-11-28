@@ -1,4 +1,6 @@
 <?php
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $password = "";
@@ -14,14 +16,14 @@ if ($conn->connect_error) {
 // recieve data
 $id = $_POST['fid'];
 $pass = $_POST['pass'];
-echo "ID: " . $id;
-echo "PASS: " . $pass;
 
 $sql = "SELECT * FROM knowemup.users WHERE studentID = '$id' AND `password` = '$pass'";
 $result = $conn->query($sql);
 
-//if ($result->num_rows > 0) {
-//    echo "Login successful";
-//} else {
-//    header("Location: error2.html");
-//}
+if ($result->num_rows > 0) {
+    $_SESSION['id'] = $id;
+    header("Location: calif_alumno_prof.html");
+} else {
+    header("Location: error2.html");
+}
+
