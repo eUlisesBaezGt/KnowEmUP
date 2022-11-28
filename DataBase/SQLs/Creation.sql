@@ -34,7 +34,7 @@ VALUES ('Daniel Contreras'),
         ('Nelly Flores'),
         ('Ivonne Dominguez'),
         ('Liliana Osnaya'),
-        ('Rodolfo Cobos'),('Mauricio Pardo'),('Jorge Ramirez'),('Héctor Garrido'),('Felipe Zetina'),('Sebas Montes'),
+        ('Rodolfo Cobos'),('Mauricio Pardo'),('Jorge Ramirez'),('Héctor Garrido'),('Felipe Zetina'),('Sebas Montes'), ('Raúl Lima'),
  ('Francisco Javier'),('Gerardo Bárcena'),('Félix Martínez'),('Vicky Carreras'),('Giancarlo Xavier'),('Karina Pérez'),('David Escobar'),('Erendira García'),('Oscar Amador'),('Antonieta Martínez'),('Pável Real');
 
 
