@@ -27,7 +27,6 @@
                     <li class="nav-item"><a class="nav-link" href="https://kikinacademy.xyz/knowemup/knowemup#areas">BUSCAR
                         CLASE</a>
                     </li>
-                    <li class="nav-item"><a class="nav-link" href="profes.html">BUSCAR PROFESOR</a></li>
                     <li class="nav-item"><a class="nav-link"
                                             href="https://kikinacademy.xyz/knowemup/knowemup#portfolio">TOPS</a></li>
                     <li class="nav-item"><a class="nav-link" href="login.html">LOG IN</a></li>
@@ -49,14 +48,11 @@
                     <div class="col-lg-6" style="background-color: #4b4a44">
                         <div class="card-body p-md-5 mx-md-4">
                             <div class="text-center">
-                                <img src="assets/img/logo.png" class="img-responsive" width="400"
-                                     height="200">
-                                <form method = "post" action = "sendcalif.php">
+                                <img src="assets/img/logo.png" class="img-responsive" width="300"
+                                     height="150">
+                                <form method="post" action="sendcalif.php">
                                     <div class="form-outline mb-4">
-
-                                        <label for=""><h4 style="color: white;">Califica a tus profesores</h4></label>
-                                        <br>
-                                        <br>
+                                        <h4 style="color: white;">Califica a tus profesores</h4>
                                         <select name="profesor" id="profesor" class="form-control">
                                             <option value="prof11">prof11</option>
                                             <option value="prof12">prof12</option>
@@ -64,14 +60,17 @@
                                             <option value="prof22">prof22</option>
                                         </select>
                                         <br>
-                                        <input type="number" id="califAlumno" name="califAlumno" class="form-control" min="0" max="100" required placeholder="Tu Calificacion (0-100)"/>
+                                        <input type="number" id="califAlumno" name="califAlumno" class="form-control"
+                                               min="0" max="100" required placeholder="Tu Calificacion (0-100)"/>
                                         <label class="form-label" for="califAlumno"></label>
                                         <br>
-                                        <input type="number" id="califProfe" name="califProfe" class="form-control" min="0" max="100" required placeholder="Califica al Profesor (0-100)"/>
+                                        <input type="number" id="califProfe" name="califProfe" class="form-control"
+                                               min="0" max="100" required placeholder="Califica al Profesor (0-100)"/>
                                         <label class="form-label" for="califProfe"></label>
                                         <br>
                                         <button class="btn btn-primary btn-block gradient-custom-2 mb-3"
-                                                type="submit">Enviar Calificacion</button>
+                                                type="submit">Enviar Calificación
+                                        </button>
                                     </div>
                                 </form>
                             </div>
