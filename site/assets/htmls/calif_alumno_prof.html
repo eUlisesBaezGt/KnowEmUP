@@ -5,13 +5,13 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
 
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap">
-    <link rel="stylesheet" href="assets/fonts/css/all.min.css">
-    <link rel="stylesheet" href="assets/css/animate.min.css">
-    <link rel="stylesheet" href="assets/css/login.css">
+    <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
+    <link rel="stylesheet" href="../css/login.css">
 
-    <link rel="icon" href="assets/img/logo.ico" type="image/x-icon">
+    <link rel="icon" href="../img/logo.ico" type="image/x-icon">
     <title>Calificar - KnowEmUP</title>
 </head>
 
@@ -40,7 +40,7 @@
 </header>
 
 <section class="h-200 gradient-form"
-         style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('assets/img/backs/gdlpatio.jpg'); background-size: cover; background-position: center center;">
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/backs/gdlpatio.jpg'); background-size: cover; background-position: center center;">
     <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-xl-10">
             <div class="card rounded-3 text-black">
@@ -48,17 +48,37 @@
                     <div class="col-lg-6" style="background-color: #4b4a44">
                         <div class="card-body p-md-5 mx-md-4">
                             <div class="text-center">
-                                <img src="assets/img/logo.png" class="img-responsive" width="300"
+                                <img src="../img/logo.png" class="img-responsive" width="300"
                                      height="150">
-                                <form method="post" action="sendcalif.php">
+                                <form method="post" action="../php/sendcalif.php">
                                     <div class="form-outline mb-4">
                                         <h4 style="color: white;">Califica a tus profesores</h4>
                                         <select name="profesor" id="profesor" class="form-control">
-                                            <option value="prof11">prof11</option>
-                                            <option value="prof12">prof12</option>
-                                            <option value="prof21">prof21</option>
-                                            <option value="prof22">prof22</option>
+                                            <option value="0">Selecciona un profesor</option>
+                                            <option value="Antonieta Martínez">Antonieta Martínez</option>
+                                            <option value="Daniel Contreras">Daniel Contreras</option>
+                                            <option value="David Escobar">David Escobar</option>
+                                            <option value="David Tovar">David Tovar</option>
+                                            <option value="Erendira García">Erendira García</option>
+                                            <option value="Felipe Zetina">Felipe Zetina</option>
+                                            <option value="Francisco Javier">Francisco Javier</option>
+                                            <option value="Félix Martínez">Félix Martínez</option>
+                                            <option value="Gerardo Bárcena">Gerardo Bárcena</option>
+                                            <option value="Giancarlo Xavier">Giancarlo Xavier</option>
+                                            <option value="Hector Garrido">Hector Garrido</option>
+                                            <option value="Ivonne Dominguez">Ivonne Dominguez</option>
+                                            <option value="Jorge Ramirez">Jorge Ramirez</option>
+                                            <option value="Karina Pérez">Karina Pérez</option>
+                                            <option value="Liliana Osnaya">Liliana Osnaya</option>
+                                            <option value="Mauricio Pardo">Mauricio Pardo</option>
+                                            <option value="Nelly Flores">Nelly Flores</option>
+                                            <option value="Oscar Amador">Oscar Amador</option>
+                                            <option value="Pável Real">Pável Real</option>
+                                            <option value="Raul Lima">Raul Lima</option>
+                                            <option value="Rodolfo Cobos">Rodolfo Cobos</option>
+                                            <option value="Vicky Carreras">Vicky Carreras</option>
                                         </select>
+
                                         <br>
                                         <input type="number" id="califAlumno" name="califAlumno" class="form-control"
                                                min="0" max="100" required placeholder="Tu Calificacion (0-100)"/>
@@ -91,8 +111,8 @@
 </section>
 
 
-<script src="assets/bootstrap/js/bootstrap.min.js"></script>
-<script src="assets/js/bs-init.js"></script>
-<script src="assets/js/agency.js"></script>
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/bs-init.js"></script>
+<script src="../js/agency.js"></script>
 </body>
 </html>
