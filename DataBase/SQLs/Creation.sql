@@ -23,10 +23,7 @@ CREATE TABLE IF NOT EXISTS `users`
 -- Crear tabla profesores
 CREATE TABLE IF NOT EXISTS `teachers`
 (
-    `teacherID` VARCHAR(7)      NOT NULL,
-    `fname`     varchar(50) NOT NULL,
-    `lname`     varchar(50) NOT NULL,
-    `email`     varchar(50) NOT NULL,
+    `teacherID` VARCHAR(250)      NOT NULL,
     PRIMARY KEY (`teacherID`)
 ) ENGINE = InnoDB
   DEFAULT CHARSET = utf8;
