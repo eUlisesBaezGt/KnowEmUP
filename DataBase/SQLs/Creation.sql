@@ -34,8 +34,8 @@ VALUES ('Daniel Contreras'),
         ('Nelly Flores'),
         ('Ivonne Dominguez'),
         ('Liliana Osnaya'),
-        ('Rodolfo Cobos'),('Mauricio Pardo'),('Jorge Ramirez'),('Héctor Garrido'),('Felipe Zetina'),('Sebas Montes'), ('Raúl Lima'),
- ('Francisco Javier'),('Gerardo Bárcena'),('Félix Martínez'),('Vicky Carreras'),('Giancarlo Xavier'),('Karina Pérez'),('David Escobar'),('Erendira García'),('Oscar Amador'),('Antonieta Martínez'),('Pável Real');
+        ('Rodolfo Cobos'),('Mauricio Pardo'),('Jorge Ramirez'),('Hector Garrido'),('Felipe Zetina'),('Sebas Montes'), ('Raul Lima'),
+        ('Francisco Javier'),('Gerardo Barcena'),('Felix Martinez'),('Vicky Carreras'),('Giancarlo Xavier'),('Karina Perez'),('David Escobar'),('Erendira Garcia'),('Oscar Amador'),('Antonieta Martinez'),('Pavel Real');
 
 
 -- Crear tabla de materias

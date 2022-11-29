@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM knowemup.teacher_grades WHERE teacherID = 'Antonieta Martínez'";
+$sql = "SELECT * FROM knowemup.teacher_grades where teacherID = 'Antonieta Martinez'";
 $result = $conn->query($sql);
 $counter = 0;
 $counter2 = 0;
