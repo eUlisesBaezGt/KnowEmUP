@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap">
+    <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
+
+    <style>
+        .algoritmos {
+            display: none;
+        }
+
+        .pavanzada {
+            display: none;
+        }
+
+        .poo {
+            display: none;
+        }
+
+        .webapps {
+            display: none;
+        }
+
+        .procesamiento {
+            display: none;
+        }
+    </style>
+
+    <script>
+        function handleSelect(account) {
+            switch (account) {
+                case "1":
+                    show(document.getElementById("ped"));
+                    hide(document.getElementById("algoritmos"));
+                    hide(document.getElementById("pavanzada"));
+                    hide(document.getElementById("poo"));
+                    hide(document.getElementById("webapps"));
+                    hide(document.getElementById("procesamiento"));
+                    break;
+                case "2":
+                    show(document.getElementById("algoritmos"));
+                    hide(document.getElementById("ped"));
+                    hide(document.getElementById("pavanzada"));
+                    hide(document.getElementById("poo"));
+                    hide(document.getElementById("webapps"));
+                    hide(document.getElementById("procesamiento"));
+                    break;
+                case "3":
+                    show(document.getElementById("pavanzada"));
+                    hide(document.getElementById("algoritmos"));
+                    hide(document.getElementById("ped"));
+                    hide(document.getElementById("poo"));
+                    hide(document.getElementById("webapps"));
+                    hide(document.getElementById("procesamiento"));
+                    break;
+                case "4":
+                    show(document.getElementById("poo"));
+                    hide(document.getElementById("algoritmos"));
+                    hide(document.getElementById("pavanzada"));
+                    hide(document.getElementById("ped"));
+                    hide(document.getElementById("webapps"));
+                    hide(document.getElementById("procesamiento"));
+                    break;
+                case "5":
+                    show(document.getElementById("webapps"));
+                    hide(document.getElementById("algoritmos"));
+                    hide(document.getElementById("pavanzada"));
+                    hide(document.getElementById("poo"));
+                    hide(document.getElementById("ped"));
+                    hide(document.getElementById("procesamiento"));
+                    break;
+                case "6":
+                    show(document.getElementById("procesamiento"));
+                    hide(document.getElementById("algoritmos"));
+                    hide(document.getElementById("pavanzada"));
+                    hide(document.getElementById("poo"));
+                    hide(document.getElementById("webapps"));
+                    hide(document.getElementById("ped"));
+                    break;
+            }
+        }
+
+        function hide(elements) {
+            elements = elements.length ? elements : [elements];
+            for (let index = 0; index < elements.length; index++) {
+                elements[index].style.display = 'none';
+            }
+        }
+
+        function show(elements, specifiedDisplay) {
+            elements = elements.length ? elements : [elements];
+            for (let index = 0; index < elements.length; index++) {
+                elements[index].style.display = specifiedDisplay || 'block';
+            }
+        }
+    </script>
+
+    <link rel="icon" href="../img/logo.ico" type="image/x-icon">
+    <title>PROGRAS - KnowEmUP</title>
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54"
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/backs/beyondarc2.jpg');">
+<header class="masthead"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../img/backs/patiobuho.jpeg');">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="https://kikinacademy.xyz/knowemup/knowemup">KnowEmUP</a>
+            <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto text-uppercase">
+                    <li class="nav-item"><a class="nav-link" href="https://kikinacademy.xyz/knowemup/knowemup#areas">BUSCAR
+                        CLASE</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"
+                                            href="https://kikinacademy.xyz/knowemup/knowemup#portfolio">TOPS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">LOG IN</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">SIGN UP</a></li>
+                    <li class="nav-item"><a class="nav-link" href="https://kikinacademy.xyz/knowemup/knowemup#team">ACERCA
+                        DE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<section class="bg-light" id="portfolio"
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('../img/backs/beyondarc2.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="text-uppercase section-heading" style="color:white">PROGRAMACIÓN</h2>
+
+                <label for="acctDropdown"></label><select name="acctDropdown" id="acctDropdown"
+                                                          onLoad="handleSelect(this.value)"
+                                                          onChange="handleSelect(this.value)">
+                <option value="1">PROGRAMACIÓN Y ESTRUCTURA DE DATOS</option>
+                <option value="2">ANÁLISIS Y DISEÑO DE ALGORITMOS</option>
+                <option value="3">PROGRAMACIÓN AVANZADA</option>
+                <option value="4">PROGRAMACIÓN ORIENTADA A OBJETOS</option>
+                <option value="5">DESARROLLO DE APLICACIONES WEB</option>
+                <option value="6">PROCESAMIENTO DE IMÁGENES</option>
+
+            </select>
+                <br><br>
+            </div>
+        </div>
+
+        <div id="ped">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/fja.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Francisco Javier Aguilar Juárez</h4>
+                        <p class="text-muted">Programación y Estructura de Datos, Algoritmos, POO, Mates de la
+                            Computación, Compiladores</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal7"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/gb.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Gerardo Bárcena Ruíz</h4>
+                        <p class="text-muted">POO, Estructura de Datos, Base de Datos Avanzadas</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal8"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/fm.webp">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Félix Martínez</h4>
+                        <p class="text-muted">Estructura de Datos, Inteligencia Artificial, Programación Avanzada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="algoritmos" class="algoritmos">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/fja.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Francisco Javier Aguilar Juárez</h4>
+                        <p class="text-muted">Programación y Estructura de Datos, Algoritmos, POO, Mates de la
+                            Computación, Compiladores</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal3"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/vc.jpeg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>María Victoria Carreras Cruz</h4>
+                        <p class="text-muted">Algoritmos, POO</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/gianc.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Giancarlo Xavier Benítez Villacreses</h4>
+                        <p class="text-muted">Algoritmos, POO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="pavanzada" class="pavanzada">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal2"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/kr.jpeg" style="position: relative;display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Karina Ruby Pérez Daniel Pérez Daniel</h4>
+                        <p class="text-muted">Programación Avanzada, Procesamiento de Imagenes</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal5"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/dec.webp">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>David Escobar Castillejos</h4>
+                        <p class="text-muted">ADA, Programación Avanzada, POO</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal8"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/fm.webp">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Félix Martínez</h4>
+                        <p class="text-muted">Estructura de Datos, Inteligencia Artificial, Programación Avanzada</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="poo" class="poo">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal3"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/vc.jpeg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>María Victoria Carreras Cruz</h4>
+                        <p class="text-muted">Algoritmos, POO</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal7"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/gb.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Gerardo Bárcena Ruíz</h4>
+                        <p class="text-muted">POO, Estructura de Datos, Base de Datos Avanzadas</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/gianc.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Giancarlo Xavier Benítez Villacreses</h4>
+                        <p class="text-muted">Algoritmos, POO</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="webapps" class="webapps">
+            <div class="row">
+
+                <div class="col-sm-12 col-md-12 portfolio-item"><a class="portfolio-link" href="#portfolioModal1"
+                                                                   data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/dct.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>David Casillas Tovar</h4>
+                        <p class="text-muted">Aplicaciones Web, Bases de Datos Avanzadas, Sistemas Operativos</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="procesamiento" class="procesamiento">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 portfolio-item"><a class="portfolio-link" href="#portfolioModal2"
+                                                                   data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/kr.jpeg" style="position: relative;display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Karina Ruby Pérez Daniel</h4>
+                        <p class="text-muted">Programación Avanzada, Procesamiento de Imagenes</p>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">David Casillas Tovar</h2>
+                            <p class="text-muted item-intro">CEO and Founder of Nyx.</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/dct.jpg">
+                            <p>De los mejores profes que vas a encontrar en las materias de Desarrollo Web, Sistemas
+                                Operativos y Ciberseguridad</p>
+                            <form action="../php/dct.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal2">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Karina Ruby Pérez Daniel</h2>
+                            <p class="text-muted item-intro">Ingenieria en Electronica y Comunicación</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/kr.jpeg">
+                            <p></p>
+                            <form action="../php/karina.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal3">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">María Victoria Carreras Cruz</h2>
+                            <p class="text-muted item-intro">Doctorado en Cibernética Matemática</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/vc.jpeg">
+                            <p></p>
+                            <form action="../php/vicky.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal4">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Giancarlo Xavier Benítez Villacreses</h2>
+                            <p class="text-muted item-intro">Ing. Tecnologías de la Información, Esp en Simuladores
+                                Gráficos</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/gianc.png">
+                            <p></p>
+                            <form action="../php/giancarlo.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal5">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">David Escobar Castillejos</h2>
+                            <p class="text-muted item-intro">Ing en Tecnologías Electrónicas, Esp Robótica Aplicada, Dr
+                                en Ciencias de Ingeniería</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/dec.webp">
+                            <p></p>
+                            <form action="../php/escob.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal6">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Francisco Javier Aguilar Juárez</h2>
+                            <p class="text-muted item-intro">Ciencias Computacionales</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/fja.png">
+                            <p>Uno de los profesores más pacientes que vas a encontrar en las materias de Progra, te
+                                enseña paso a paso para que nunca tengas dudas. </p>
+                            <form action="../php/pacojavi.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal7">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Gerardo Bárcena Ruíz</h2>
+                            <p class="text-muted item-intro">Ingeniería en Electrónica</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/gb.png">
+                            <p></p>
+                            <form action="../php/barcena.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal8">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Félix Martínez</h2>
+                            <p class="text-muted item-intro">Ingeniería en Física, Dr Computer Science</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/fm.webp">
+                            <p></p>
+                            <form action="../php/felix.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/bs-init.js"></script>
+<script src="../js/agency.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</body>
+</html>
