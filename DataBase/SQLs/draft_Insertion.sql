@@ -1,3 +1,5 @@
+USE KnowEmUP;
+
 -- Insertar datos
 INSERT INTO users (studentID, progress_id, username, fname, lname, email, password, faculty, carreer, semester, gender)
 VALUES ('0241823', '', '', 'Enrique Ulises', 'Baez Gomez Tagle', '0241823@up.edu.mx', '123456', 'Ingenieria',
