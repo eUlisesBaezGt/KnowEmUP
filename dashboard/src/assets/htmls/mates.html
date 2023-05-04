@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+
+    <link rel="stylesheet" href="../bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto+Condensed&amp;display=swap">
+    <link rel="stylesheet" href="../fonts/css/all.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
+
+    <style>
+        .alg_lineal {
+            display: none;
+        }
+
+        .calc_dif {
+            display: none;
+        }
+
+        .calc_intg {
+            display: none;
+        }
+
+        .calc_vect {
+            display: none;
+        }
+
+        .eq_dif {
+            display: none;
+        }
+    </style>
+
+    <script>
+        function handleSelect(account) {
+            switch (account) {
+                case "1":
+                    show(document.getElementById("alg"));
+                    hide(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("calc_dif"));
+                    hide(document.getElementById("calc_intg"));
+                    hide(document.getElementById("calc_vect"));
+                    hide(document.getElementById("eq_dif"));
+                    break;
+                case "2":
+                    show(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("alg"));
+                    hide(document.getElementById("calc_dif"));
+                    hide(document.getElementById("calc_intg"));
+                    hide(document.getElementById("calc_vect"));
+                    hide(document.getElementById("eq_dif"));
+                    break;
+                case "3":
+                    show(document.getElementById("calc_dif"));
+                    hide(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("alg"));
+                    hide(document.getElementById("calc_intg"));
+                    hide(document.getElementById("calc_vect"));
+                    hide(document.getElementById("eq_dif"));
+                    break;
+                case "4":
+                    show(document.getElementById("calc_intg"));
+                    hide(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("calc_dif"));
+                    hide(document.getElementById("alg"));
+                    hide(document.getElementById("calc_vect"));
+                    hide(document.getElementById("eq_dif"));
+                    break;
+                case "5":
+                    show(document.getElementById("calc_vect"));
+                    hide(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("calc_dif"));
+                    hide(document.getElementById("calc_intg"));
+                    hide(document.getElementById("alg"));
+                    hide(document.getElementById("eq_dif"));
+                    break;
+                case "6":
+                    show(document.getElementById("eq_dif"));
+                    hide(document.getElementById("alg_lineal"));
+                    hide(document.getElementById("calc_dif"));
+                    hide(document.getElementById("calc_intg"));
+                    hide(document.getElementById("calc_vect"));
+                    hide(document.getElementById("alg"));
+                    break;
+            }
+        }
+
+        function hide(elements) {
+            elements = elements.length ? elements : [elements];
+            for (let index = 0; index < elements.length; index++) {
+                elements[index].style.display = 'none';
+            }
+        }
+
+        function show(elements, specifiedDisplay) {
+            elements = elements.length ? elements : [elements];
+            for (let index = 0; index < elements.length; index++) {
+                elements[index].style.display = specifiedDisplay || 'block';
+            }
+        }
+    </script>
+
+    <link rel="icon" href="../img/logo.ico" type="image/x-icon">
+    <title>MATES - KnowEmUP</title>
+</head>
+
+<body id="page-top" data-bs-spy="scroll" data-bs-target="#mainNav" data-bs-offset="54"
+      style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('beyondarc2.jpg');">
+<header class="masthead"
+        style="background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('patiobuho.jpeg');">
+    <nav class="navbar navbar-dark navbar-expand-lg fixed-top bg-dark" id="mainNav">
+        <div class="container"><a class="navbar-brand" href="../../KnowEmUP.html">KnowEmUP</a>
+            <button data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive"
+                    aria-expanded="false" aria-label="Toggle navigation"><i class="fa fa-bars"></i></button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto text-uppercase">
+                    <li class="nav-item"><a class="nav-link" href="../../KnowEmUP.html#areas">BUSCAR
+                        CLASE</a>
+                    </li>
+                    <li class="nav-item"><a class="nav-link"
+                                            href="../../KnowEmUP.html#portfolio">TOPS</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.html">LOG IN</a></li>
+                    <li class="nav-item"><a class="nav-link" href="signup.html">SIGN UP</a></li>
+                    <li class="nav-item"><a class="nav-link" href="../../KnowEmUP.html#team">ACERCA
+                        DE</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+
+<section class="bg-light" id="portfolio"
+         style="background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.5)), url('beyondarc2.jpg');">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="text-uppercase section-heading" style="color:white">MATES</h2>
+
+                <label for="acctDropdown"></label><select name="acctDropdown" id="acctDropdown"
+                                                          onLoad="handleSelect(this.value)"
+                                                          onChange="handleSelect(this.value)">
+                <option value="1">ÁLGEBRA</option>
+                <option value="2">ÁLGEBRA LINEAL</option>
+                <option value="3">CÁLCULO DIFERENCIAL</option>
+                <option value="4">CÁLCULO INTEGRAL</option>
+                <option value="5">CÁLCULO VECTORIAL</option>
+                <option value="6">ECUACIONES DIFERENCIALES</option>
+
+            </select>
+                <br><br>
+            </div>
+        </div>
+
+        <div id="alg">
+            <div class="row">
+                <div class="row">
+                    <div class="col-sm-12 col-md-6 portfolio-item"><a class="portfolio-link" href="#portfolioModal1"
+                                                                      data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../img/portfolio/egr.jpg">
+                    </a>
+                        <div class="portfolio-caption">
+                            <h4>Eréndira García Ramírez</h4>
+                            <p class="text-muted">Álgebra, Cálculo Integral, Cálculo Diferencial, Estadística</p>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6 portfolio-item"><a class="portfolio-link" href="#portfolioModal2"
+                                                                      data-bs-toggle="modal">
+                        <div class="portfolio-hover">
+                            <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                        </div>
+                        <img class="img-fluid" src="../img/portfolio/oag.jpg">
+                    </a>
+                        <div class="portfolio-caption">
+                            <h4>Oscar Amador Garrido</h4>
+                            <p class="text-muted">Álgebra, Álgebra Lineal, Cálculo Diferencial</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="alg_lineal" class="alg_lineal">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal5"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/daco.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Daniel Adrián Contreras Olivas</h4>
+                        <p class="text-muted">Requisitos Matemáticos, Álgebra Lineal, Cálculo Vectorial, Probabilidad,
+                            Antropología</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal2"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/oag.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Oscar Amador Garrido</h4>
+                        <p class="text-muted">Álgebra, Álgebra Lineal, Cálculo Diferencial</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/rlb.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Raúl Lima Balderas</h4>
+                        <p class="text-muted">Cálculo Diferencial, Álgebra Lineal, Cálculo Vectorial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calc_dif" class="calc_dif">
+            <div class="row">
+                <div class="col-sm-12 col-md-6 portfolio-item"><a class="portfolio-link" href="#portfolioModal1"
+                                                                  data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/egr.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Eréndira García Ramírez</h4>
+                        <p class="text-muted">Álgebra, Cálculo Integral, Cálculo Diferencial, Estadística</p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 portfolio-item"><a class="portfolio-link" href="#portfolioModal2"
+                                                                  data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/oag.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Oscar Amador Garrido</h4>
+                        <p class="text-muted">Álgebra, Álgebra Lineal, Cálculo Diferencial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calc_intg" class="calc_intg">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal1"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/egr.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Eréndira García Ramírez</h4>
+                        <p class="text-muted">Álgebra, Cálculo Integral, Cálculo Diferencial, Estadística</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/atmv.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Antonieta Martínez Velasco</h4>
+                        <p class="text-muted">Cálculo Integral, Probabilidad, Cálculo Vectorial</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal3"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/smi.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Sebastián Montes Isunza</h4>
+                        <p class="text-muted">Cálculo Integral, Ecuaciones Diferenciales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="calc_vect" class="calc_vect">
+            <div class="row">
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal6"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/atmv.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Antonieta Martínez Velasco</h4>
+                        <p class="text-muted">Cálculo Integral, Probabilidad, Cálculo Vectorial</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal7"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/prp.png" style="position: relative;display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Pável Real Pérez</h4>
+                        <p class="text-muted">Cálculo Vectorial, Ecuaciones Diferenciales</p>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-4 portfolio-item"><a class="portfolio-link" href="#portfolioModal4"
+                                                                 data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/rlb.jpg">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Raúl Lima Balderas</h4>
+                        <p class="text-muted">Cálculo Diferencial, Álgebra Lineal, Cálculo Vectorial</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="eq_dif" class="eq_dif">
+            <div class="row">
+                <div class="col-sm-12 col-md-6  portfolio-item"><a class="portfolio-link" href="#portfolioModal7"
+                                                                   data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/prp.png" style="position: relative;display: block; margin-left: auto;
+  margin-right: auto;
+  width: 50%;">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Pável Real Pérez</h4>
+                        <p class="text-muted">Cálculo Vectorial, Ecuaciones Diferenciales</p>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6  portfolio-item"><a class="portfolio-link" href="#portfolioModal3"
+                                                                   data-bs-toggle="modal">
+                    <div class="portfolio-hover">
+                        <div class="portfolio-hover-content"><i class="fa fa-plus fa-3x"></i></div>
+                    </div>
+                    <img class="img-fluid" src="../img/portfolio/smi.png">
+                </a>
+                    <div class="portfolio-caption">
+                        <h4>Sebastián Montes Isunza</h4>
+                        <p class="text-muted">Cálculo Integral, Ecuaciones Diferenciales</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal3">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Sebastián Montes Isunza</h2>
+                            <p class="text-muted item-intro">Maestro en Derechos Humanos, Ingeniero Mecatrónico,
+                                Licenciado en Artes Visuales</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/smi.png">
+                            <p>Considerado uno de los profes más completos de Ingeniería, si puedes, entra a clase con
+                                él. </p>
+                            <form action="../php/sebas.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal1">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Eréndira García Ramírez</h2>
+                            <p class="text-muted item-intro">Ingeniería Electrónica</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/egr.jpg">
+                            <p></p>
+                            <form action="../php/ere.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal2">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Oscar Amador Garrido</h2>
+                            <p class="text-muted item-intro">Ingeniería Mecatrónica</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/oag.jpg">
+                            <p></p>
+                            <form action="../php/amador.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal4">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Raúl Lima Balderas</h2>
+                            <p class="text-muted item-intro">Ingeniería Química</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/rlb.jpg">
+                            <p></p>
+                            <form action="../php/lima.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal5">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Daniel Adrián Contreras Olivas</h2>
+                            <p class="text-muted item-intro">Ingeniería Matemática</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/daco.jpg">
+                            <p></p>
+                            <form action="../php/daco.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal6">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Antonieta Martínez Velasco</h2>
+                            <p class="text-muted item-intro">Ingeniería Química</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/atmv.jpg">
+                            <p></p>
+                            <form action="../php/amv.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade text-center portfolio-modal" role="dialog" tabindex="-1" id="portfolioModal7">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 mx-auto">
+                        <div class="modal-body">
+                            <h2 class="text-uppercase">Pável Real Pérez</h2>
+                            <p class="text-muted item-intro">Maestro en Ciencias, Filosofía, Matemáticas</p><img
+                                class="img-fluid d-block mx-auto" src="../img/portfolio/prp.png">
+                            <p></p>
+                            <form action="../php/pavel.php" method="post">
+                                <button class="btn btn-primary" type="submit">Ver más</button>
+                                <br><br>
+                            </form>
+                            <button class="btn btn-primary" type="button" data-bs-dismiss="modal"><i
+                                    class="fa fa-times"></i><span>&nbsp;Regresar</span></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../bootstrap/js/bootstrap.min.js"></script>
+<script src="../js/bs-init.js"></script>
+<script src="../js/agency.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+</body>
+</html>
