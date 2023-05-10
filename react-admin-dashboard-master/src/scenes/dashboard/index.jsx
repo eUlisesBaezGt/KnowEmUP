@@ -19,14 +19,14 @@ const Dashboard = () => {
 
   return (
     <Box m="20px">
-      {/* HEADER */}
       <Box display="flex" justifyContent="space-between" alignItems="center">
-        <Header title="DASHBOARD" subtitle="Welcome to your dashboard" />
+        {/* HEADER */}
+        <Header title="KnowEmUP" subtitle="Know more about your future teachers" />
 
         <Box>
           <Button
             sx={{
-              backgroundColor: colors.blueAccent[700],
+              backgroundColor: colors.redAccent[700],
               color: colors.grey[100],
               fontSize: "14px",
               fontWeight: "bold",
@@ -34,7 +34,7 @@ const Dashboard = () => {
             }}
           >
             <DownloadOutlinedIcon sx={{ mr: "10px" }} />
-            Download Reports
+            DOWNLOAD
           </Button>
         </Box>
       </Box>
@@ -55,10 +55,10 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="12,361"
-            subtitle="Emails Sent"
-            progress="0.75"
-            increase="+14%"
+            title="100"
+            subtitle="Users Online"
+            progress="0.90"
+            increase="+300%"
             icon={
               <EmailIcon
                 sx={{ color: colors.greenAccent[600], fontSize: "26px" }}
@@ -74,8 +74,8 @@ const Dashboard = () => {
           justifyContent="center"
         >
           <StatBox
-            title="431,225"
-            subtitle="Sales Obtained"
+            title="20"
+            subtitle="Teachers"
             progress="0.50"
             increase="+21%"
             icon={
