@@ -21,12 +21,13 @@ CREATE TABLE IF NOT EXISTS `users`
   DEFAULT CHARSET = utf8;
 
 -- Crear tabla profesores
-CREATE TABLE IF NOT EXISTS `teachers`
-(
-    `teacherID` VARCHAR(250)      NOT NULL,
-    PRIMARY KEY (`teacherID`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
+CREATE TABLE `teachers` (
+  `teacherID` varchar(250) NOT NULL,
+  `Subject1` varchar(45) DEFAULT NULL,
+  `Subject2` varchar(45) DEFAULT NULL,
+  `Subject3` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`teacherID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 INSERT INTO teachers (teacherID) 
 VALUES ('Daniel Contreras'),
