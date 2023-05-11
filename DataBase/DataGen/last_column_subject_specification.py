@@ -1,8 +1,5 @@
 # READ teacher_gradesComp_CSV and add a last column acoording to the teachedID to select a subject from the ones registered in DB
 
-import csv
-import os
-import sys
 import random
 import pandas as pd
 import mysql.connector
@@ -38,7 +35,24 @@ for teacher in teacherID:
 # READ CSV FILE located one folder up and in csv folder
 df = pd.read_csv('../CSVs/teacher_gradesComp.csv', sep=',', header=None)
 # print(df)
+for index, row in df.iterrows():
+    if index == 0:
+        continue
+    # row = row[0]
+    # print(row)
+    teacherID = row[0].split(';')[0]
+    # print(teacherID)
+    # print(teachersMap[teacherID])
+    subject = ""
+    while subject == "":
+        subject = random.choice(teachersMap[teacherID])
+    # print(subject)
+    # INSERT SUBJECT IN LAST COLUMN OF THAT ROW
+    df.at[index, 3] = subject
+    # print(df)
 
+# SAVE CSV FILE
+df.to_csv('../CSVs/teacher_gradesCompSubj.csv', index=False, header=False)
 
 db.commit()
 db.close()
