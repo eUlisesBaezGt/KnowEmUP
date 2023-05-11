@@ -45,3 +45,14 @@ WHERE grade_profesor = 100;
 
 SELECT COUNT(*) FROM users
 WHERE semester = '3';
+
+# SELECT teacherID IF 'FÍSICA' IN ONE OF THE SUBJECT FIELDS
+SELECT teacherID FROM teachers
+WHERE  Subject1 = 'FÍSICA' OR
+       Subject2 = 'FÍSICA' OR
+         Subject3 = 'FÍSICA';
+
+SELECT COUNT(*) as NumProfesores FROM teachers
+WHERE  Subject1 = 'FÍSICA' OR
+       Subject2 = 'FÍSICA' OR
+         Subject3 = 'FÍSICA'; # 3

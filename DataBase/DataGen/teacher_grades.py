@@ -1,4 +1,3 @@
-# CREATE A PYTHON SCRIPT WITH SQL CURSORS
 import mysql.connector
 
 db = mysql.connector.connect(
