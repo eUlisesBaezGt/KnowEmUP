@@ -29,7 +29,7 @@ CREATE TABLE `teachers` (
   PRIMARY KEY (`teacherID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-INSERT INTO teachers (teacherID) 
+/*INSERT INTO teachers (teacherID)
 VALUES ('Daniel Contreras'),
 		('David Tovar'),
         ('Nelly Flores'),
@@ -37,7 +37,7 @@ VALUES ('Daniel Contreras'),
         ('Liliana Osnaya'),
         ('Rodolfo Cobos'),('Mauricio Pardo'),('Jorge Ramirez'),('Hector Garrido'),('Felipe Zetina'),('Sebas Montes'), ('Raul Lima'),
         ('Francisco Javier'),('Gerardo Barcena'),('Felix Martinez'),('Vicky Carreras'),('Giancarlo Xavier'),('Karina Perez'),('David Escobar'),('Erendira Garcia'),('Oscar Amador'),('Antonieta Martinez'),('Pavel Real');
-
+*/
 
 -- Crear tabla de materias
 CREATE TABLE IF NOT EXISTS `subjects`

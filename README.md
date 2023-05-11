@@ -9,14 +9,15 @@ Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuvist
 - [x] Automatization for S insertion
     - [x] PgID
     - [x] Usnm
-- [x] Test Massive Queries
-- [ ] Change T fields? (add subject)
+- [x] Tested Massive Queries
+- [x] Changed T fields (add subject)
     - [ ] If needed, restruct massive insertion
 - [ ] All students available. GContacts?? Filter by engineering
 
 ### How to DB
 - Creations.sql
 - Student insertions.sql
+- import teachers.csv
 - import teacher_grades.csv
 - run teacher_grades.py
 
