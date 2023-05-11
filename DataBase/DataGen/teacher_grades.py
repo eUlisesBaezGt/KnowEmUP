@@ -6,20 +6,20 @@ db = mysql.connector.connect(
     passwd="root",
 )
 
-mycursor = db.cursor()
+cursor = db.cursor()
 
-mycursor.execute("USE KnowEmUP")
+cursor.execute("USE KnowEmUP")
 
 # SELECT * teacherID from teachers and store in a list
-mycursor.execute("SELECT teacherID FROM teachers")
-myresult = mycursor.fetchall()
+cursor.execute("SELECT teacherID FROM teachers")
+myresult = cursor.fetchall()
 teacherID = []
 for x in myresult:
     teacherID.append(x[0])
 
 # SELECT * studentID from students and store in a list
-mycursor.execute("SELECT studentID FROM users")
-myresult = mycursor.fetchall()
+cursor.execute("SELECT studentID FROM users")
+myresult = cursor.fetchall()
 studentID = []
 for x in myresult:
     studentID.append(x[0])
@@ -38,14 +38,14 @@ for x in myresult:
 #     # INSERT INTO GRADES TABLE
 #     sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor) VALUES (%s, %s, %s, %s)"
 #     val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher)
-#     mycursor.execute(sql, val)
+#     cursor.execute(sql, val)
 #
 #     db.commit()
 #     # print(Record inserted.")
 
 # COUNT THE NUMBER OF ROWS IN THE TABLE
-mycursor.execute("SELECT COUNT(*) FROM teacher_grades")
-myresult = mycursor.fetchall()
+cursor.execute("SELECT COUNT(*) FROM teacher_grades")
+myresult = cursor.fetchall()
 for x in myresult:
     print(x[0], "rows in the table")
 
@@ -64,20 +64,20 @@ while x[0] < 3000:
     # INSERT INTO GRADES TABLE
     sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor) VALUES (%s, %s, %s, %s)"
     val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher)
-    mycursor.execute(sql, val)
+    cursor.execute(sql, val)
 
     db.commit()
     # print(Record inserted.")
 
     # # COUNT THE NUMBER OF ROWS IN THE TABLE
-    # mycursor.execute("SELECT COUNT(*) FROM teacher_grades")
-    # myresult = mycursor.fetchall()
+    # cursor.execute("SELECT COUNT(*) FROM teacher_grades")
+    # myresult = cursor.fetchall()
     # for x in myresult:
     #     print(x[0], "rows in the table")
 
 # COUNT THE NUMBER OF ROWS IN THE TABLE
-mycursor.execute("SELECT COUNT(*) FROM teacher_grades")
-myresult = mycursor.fetchall()
+cursor.execute("SELECT COUNT(*) FROM teacher_grades")
+myresult = cursor.fetchall()
 for x in myresult:
     print("FINAL: ", x[0], "rows in the table")
 
