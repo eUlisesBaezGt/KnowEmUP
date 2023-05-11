@@ -72,18 +72,17 @@ CREATE TABLE IF NOT EXISTS `user_subjects`
   DEFAULT CHARSET = utf8;
 
 -- Crear una tabla que guarde las calificaciones de los estudiantes a cada maestro
-CREATE TABLE IF NOT EXISTS `teacher_grades`
-(
-    `teacherID` VARCHAR(250)     NOT NULL,
-    `studentID` varchar(7) NOT NULL,
-    `grade_alumno`     DOUBLE     NOT NULL,
-    `grade_profesor`     DOUBLE     NOT NULL,
-    FOREIGN KEY (`teacherID`) REFERENCES teachers (`teacherID`),
-    FOREIGN KEY (`studentID`) REFERENCES users (`studentID`)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8;
-
-
+CREATE TABLE `teacher_grades` (
+  `teacherID` varchar(250) NOT NULL DEFAULT 'EMPTY',
+  `studentID` varchar(7) NOT NULL DEFAULT 'EMPTY',
+  `grade_alumno` double NOT NULL DEFAULT '0',
+  `grade_profesor` double NOT NULL DEFAULT '0',
+  `subject` varchar(5) NOT NULL DEFAULT 'EMPTY',
+  KEY `teacher_grades_ibfk_1` (`teacherID`),
+  KEY `teacher_grades_ibfk_2` (`studentID`),
+  CONSTRAINT `teacher_grades_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `teachers` (`teacherID`),
+  CONSTRAINT `teacher_grades_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `users` (`studentID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 -- Crear una tabla que guarde las calificaciones de los estudiantes de cada materia
 CREATE TABLE IF NOT EXISTS `subject_grades`
 (

@@ -33,7 +33,7 @@ for teacher in teacherID:
 # READ teacher_gradesComp_CSV and add a last column acoording to the teachedID to select a subject from the ones registered in DB
 
 # READ CSV FILE located one folder up and in csv folder
-df = pd.read_csv('../CSVs/teacher_gradesComp.csv', sep=',', header=None)
+df = pd.read_csv('../CSVs/teacher_grades.csv', sep=',', header=None)
 # print(df)
 for index, row in df.iterrows():
     if index == 0:
@@ -47,12 +47,18 @@ for index, row in df.iterrows():
     while subject == "":
         subject = random.choice(teachersMap[teacherID])
     # print(subject)
-    # INSERT SUBJECT IN LAST COLUMN OF THAT ROW
-    df.at[index, 3] = subject
-    # print(df)
 
-# SAVE CSV FILE
-df.to_csv('../CSVs/teacher_gradesCompSubj.csv', index=False, header=False)
+    # SEPARATE THE ROW IN COLUMNS WITH ; TO ADD THEM INTO DB
+    row = row[0].split(';')
+    row.append(subject)
+    # Delete quite marks from the string
+    for i in range(len(row)):
+        row[i] = row[i].replace('"', '')
+
+    # ADD THE ROW TO THE DB
+    cursor.execute("INSERT INTO KnowEmUP.teacher_grades (teacherID, studentID, grade_alumno, grade_profesor, subject) "
+                   "VALUES (%s, %s, %s, %s, %s)", row)
+    VALUES = (row[0], row[1], row[2], row[3], row[4])
 
 db.commit()
 db.close()
