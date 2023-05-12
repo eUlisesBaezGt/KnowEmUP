@@ -1,4 +1,4 @@
-fetch('ggraphs.php')
+fetch('http://localhost/knowemup/test_front/ggraphs.php')
     .then(response => response.json())
     .then(data => {
         // Now you can use the data in your chart
@@ -7,7 +7,7 @@ fetch('ggraphs.php')
         data.addColumn('number', 'Quantity');
         data.addRows(data);
 
-        var piechart_options = {title:'¿De qué semestre son nuestros usuarios?', width:400, height:300};
+        var piechart_options = {title: '¿De qué semestre son nuestros usuarios?', width: 400, height: 300};
         var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
         piechart.draw(data, piechart_options);
 
