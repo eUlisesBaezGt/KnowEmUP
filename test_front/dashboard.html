@@ -1,20 +1,33 @@
 <html>
 <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
         function drawChart() {
-            // AJAX request
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonData = JSON.parse(xhr.responseText);
+
+                    console.log('JSON Data:', jsonData);
 
                     let data = new google.visualization.DataTable();
                     data.addColumn('string', 'Semester');
                     data.addColumn('number', 'Quantity');
-                    data.addRows(jsonData);
+
+                    for (let i = 0; i < jsonData.length; i++) {
+                        const row = jsonData[i];
+                        const count = parseInt(row.count);
+
+                        console.log('Row:', row);
+                        console.log('Parsed Count:', count);
+
+                        data.addRow([row.semester, count]);
+                    }
+
+                    console.log('Data Table:', data);
 
                     let piechart_options = {
                         title: '¿De qué semestre son nuestros usuarios?',
@@ -28,11 +41,12 @@
             xhr.open('GET', 'http://localhost/knowemup/test_front/index.php', true);
             xhr.send();
         }
+
     </script>
-    <script src="https://www.gstatic.com/charts/loader.js" type="text/javascript"></script>
-    <script src="sem.js"></script>
 </head>
 <body>
 <div id="piechart_div" style="border: 1px solid #ccc"></div>
 </body>
 </html>
+
+
