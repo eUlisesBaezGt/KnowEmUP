@@ -31,8 +31,8 @@
 
                     let piechart_options = {
                         title: '¿De qué semestre son nuestros usuarios?',
-                        width: 1000,
-                        height: 1000
+                        width: 100,
+                        height: 100
                     };
                     let piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
                     piechart.draw(data, piechart_options);
@@ -45,8 +45,7 @@
     </script>
 </head>
 <body>
-<div id="piechart_div" style="border: 1px solid #ccc"></div>
+<div id="piechart_div" style="border: 1px solid #ccc;"></div>
 </body>
 </html>
-
 
