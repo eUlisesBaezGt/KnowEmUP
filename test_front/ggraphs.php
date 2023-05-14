@@ -1,4 +1,3 @@
-
 <html>
 <head>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -59,9 +58,9 @@
 </body>
 </html>
 <script>
-    (function() {
+    (function () {
         var ws = new WebSocket('ws://' + window.location.host +
-            '/jb-server-page?reloadMode=RELOAD_ON_SAVE&'+
+            '/jb-server-page?reloadMode=RELOAD_ON_SAVE&' +
             'referrer=' + encodeURIComponent(window.location.pathname));
         ws.onmessage = function (msg) {
             if (msg.data === 'reload') {
@@ -77,15 +76,13 @@
                     var newHref = link.href.replace(/(&|\?)jbUpdateLinksId=\d+/, "$1jbUpdateLinksId=" + messageId);
                     if (newHref !== link.href) {
                         clonedLink.href = newHref;
-                    }
-                    else {
+                    } else {
                         var indexOfQuest = newHref.indexOf('?');
                         if (indexOfQuest >= 0) {
                             // to support ?foo#hash
                             clonedLink.href = newHref.substring(0, indexOfQuest + 1) + 'jbUpdateLinksId=' + messageId + '&' +
                                 newHref.substring(indexOfQuest + 1);
-                        }
-                        else {
+                        } else {
                             clonedLink.href += '?' + 'jbUpdateLinksId=' + messageId;
                         }
                     }

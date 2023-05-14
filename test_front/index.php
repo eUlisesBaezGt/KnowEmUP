@@ -20,19 +20,23 @@ $result = $conn->query($sql);
 // en una cadena JSON, y luego puedes imprimir esa cadena JSON en tu script de JavaScript. Aquí hay un ejemplo de
 // cómo podrías hacerlo:
 
-$data = [];
+// DATA WILL BE A DICTIONARY
+$data = array();
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
-        $data[] = $row;
+        $data['3ero'] = $row['tot3'];
     }
 } else {
     echo "0 results";
 }
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
+
 // Set Content-Type to application/json
-header('Content-Type: application/json');
+// header('Content-Type: application/json');
 
+// Print out JSON-encoded string representation of the PHP array
+// KEY IS SEMESTER NUMBER, VALUE IS NUMBER OF STUDENTS
 echo json_encode($data);
-
-$conn->close();
-?>
 
