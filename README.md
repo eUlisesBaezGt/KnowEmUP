@@ -11,7 +11,7 @@ Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuvist
     - [x] Usnm
 - [x] Tested Massive Queries
 - [x] Changed T fields (add subject)
-    - [ ] If needed, restruct massive insertion
+    - [x] If needed, restruct massive insertion
 - [ ] All students available. GContacts?? Filter by engineering
 
 ### How to DB
