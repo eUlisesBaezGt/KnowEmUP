@@ -1,5 +1,10 @@
 <html>
 <head>
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages': ['corechart']});
@@ -22,16 +27,51 @@
 
             var piechart_options = {
                 title: '¿De qué semestre son nuestros usuarios?',
-                width: 1000,
-                height: 1000
+                titleTextStyle: { color: '#FFF' },
+                legendTextStyle: { color: '#FFF' },
+                width: 300,
+                height: 240,
+                blur: 0.5,
+                backgroundColor: '#23426F',
             };
             var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
             piechart.draw(data, piechart_options);
         }
     </script>
+    <style>
+        h3 {
+            color: #fff;
+            background-color: #23426F;
+            width: 300px;
+            height: 80px;
+        }   
+    </style>
 </head>
 <body>
-<div id="piechart_div" style="border: 1px solid #ccc"></div>
+    <body style="background-color:#1D3557;"></body>
+    <h1 style="color: white; ">Data</h1>
+    <div class="container">
+        <div class="row">
+          <div class="col-sm-4">
+            <h3>Total de alumnos:</h3>
+            <h3>Total de profesores:</h3>
+            <h3>Total de Datos:</h3>
+          </div>
+          <div class="col-sm-4">
+            <div id="piechart_div" style="border: 10px solid #1D3557;"></div>
+          </div>
+          <div class="col-sm-4">
+            <div id="piechart_div2" style="border: 10px solid #1D3557;"></div>
+          </div>
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+      
+   
+    
+    
+
 </body>
 </html>
 <script>
