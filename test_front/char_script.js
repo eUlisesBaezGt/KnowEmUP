@@ -2,7 +2,7 @@ google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 
 function drawChart() {
-    fetch('http://localhost/knowemup/test_front/ggraphs.php')
+    fetch('http://localhost/knowemup/test_front/index.php')
         .then(response => response.json())
         .then(data => {
             var data_table = new google.visualization.DataTable();
