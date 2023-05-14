@@ -10,32 +10,41 @@
         google.charts.load('current', {'packages': ['corechart']});
         google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
-            var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Semester');
-            data.addColumn('number', 'Quantity');
-            data.addRows([
-                ['1st', 1],
-                ['2nd', 2],
-                ['3rd', 1],
-                ['4th', 4],
-                ['5th', 2],
-                ['6th', 4],
-                ['7th', 1],
-                ['8th', 1]
-            ]);
+       function drawChart() {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let jsonData = JSON.parse(xhr.responseText);
 
-            var piechart_options = {
-                title: '¿De qué semestre son nuestros usuarios?',
-                titleTextStyle: { color: '#FFF' },
-                legendTextStyle: { color: '#FFF' },
-                width: 300,
-                height: 240,
-                blur: 0.5,
-                backgroundColor: '#23426F',
+                    console.log('JSON Data:', jsonData);
+
+                    let data = new google.visualization.DataTable();
+                    data.addColumn('string', 'Semester');
+                    data.addColumn('number', 'Quantity');
+
+                    for (let i = 0; i < jsonData.length; i++) {
+                        const row = jsonData[i];
+                        const count = parseInt(row.count);
+
+                        console.log('Row:', row);
+                        console.log('Parsed Count:', count);
+
+                        data.addRow([row.semester, count]);
+                    }
+
+                    console.log('Data Table:', data);
+
+                    let piechart_options = {
+                        title: '¿De qué semestre son nuestros usuarios?',
+                        width: 100,
+                        height: 100
+                    };
+                    let piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
+                    piechart.draw(data, piechart_options);
+                }
             };
-            var piechart = new google.visualization.PieChart(document.getElementById('piechart_div'));
-            piechart.draw(data, piechart_options);
+            xhr.open('GET', 'http://localhost/knowemup/test_front/index.php', true);
+            xhr.send();
         }
     </script>
     <style>
