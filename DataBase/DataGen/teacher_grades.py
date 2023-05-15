@@ -1,4 +1,5 @@
 import mysql.connector
+import random
 
 db = mysql.connector.connect(
     host="localhost",
@@ -12,48 +13,20 @@ cursor.execute("USE KnowEmUP")
 
 # SELECT * teacherID from teachers and store in a list
 cursor.execute("SELECT teacherID FROM teachers")
-myresult = cursor.fetchall()
-teacherID = []
-for x in myresult:
-    teacherID.append(x[0])
+teacherID = [x[0] for x in cursor.fetchall()]
 
 # SELECT * studentID from students and store in a list
 cursor.execute("SELECT studentID FROM users")
-myresult = cursor.fetchall()
-studentID = []
-for x in myresult:
-    studentID.append(x[0])
-
-# for x in range(0, 500):
-#     # SELECT A RANDOM STUDENT AND TEACHER
-#     import random
-#
-#     randomTeacher = random.choice(teacherID)
-#     randomStudent = random.choice(studentID)
-#
-#     # SELECT A RANDOM GRADE FROM 60-100
-#     randomGradeStudent = random.randint(60, 100)
-#     randomGradeTeacher = random.randint(60, 100)
-#
-#     # INSERT INTO GRADES TABLE
-#     sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor) VALUES (%s, %s, %s, %s)"
-#     val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher)
-#     cursor.execute(sql, val)
-#
-#     db.commit()
-#     # print(Record inserted.")
+studentID = [x[0] for x in cursor.fetchall()]
 
 # COUNT THE NUMBER OF ROWS IN THE TABLE
 cursor.execute("SELECT COUNT(*) FROM teacher_grades")
-myresult = cursor.fetchall()
-for x in myresult:
-    print(x[0], "rows in the table")
+row_count = cursor.fetchone()[0]
+print(row_count, "rows in the table")
 
-# CONTINUE UNTIL THERE ARE 2500 ROWS IN THE TABLE
-while x[0] < 3000:
+# CONTINUE UNTIL THERE ARE 10000 ROWS IN THE TABLE
+while row_count < 10000:
     # SELECT A RANDOM STUDENT AND TEACHER
-    import random
-
     randomTeacher = random.choice(teacherID)
     randomStudent = random.choice(studentID)
 
@@ -61,29 +34,26 @@ while x[0] < 3000:
     randomGradeStudent = random.randint(60, 100)
     randomGradeTeacher = random.randint(60, 100)
 
+    # SELECT A RANDOM SUBJECT FROM THE SUBJECTS OF THE TEACHER
+    cursor.execute("SELECT id FROM subjects WHERE teacherID = %s", (randomTeacher,))
+    subject_ids = [x[0] for x in cursor.fetchall()]
+    randomSubject = random.choice(subject_ids)
+
     # INSERT INTO GRADES TABLE
-    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor) VALUES (%s, %s, %s, %s)"
-    val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher)
+    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor, subject) VALUES (%s, %s, %s, %s, %s)"
+    val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher, randomSubject)
     cursor.execute(sql, val)
 
     db.commit()
-    # print(Record inserted.")
 
-    # # COUNT THE NUMBER OF ROWS IN THE TABLE
-    # cursor.execute("SELECT COUNT(*) FROM teacher_grades")
-    # myresult = cursor.fetchall()
-    # for x in myresult:
-    #     print(x[0], "rows in the table")
+    # COUNT THE NUMBER OF ROWS IN THE TABLE
+    cursor.execute("SELECT COUNT(*) FROM teacher_grades")
+    row_count = cursor.fetchone()[0]
 
 # COUNT THE NUMBER OF ROWS IN THE TABLE
 cursor.execute("SELECT COUNT(*) FROM teacher_grades")
-myresult = cursor.fetchall()
-for x in myresult:
-    print("FINAL: ", x[0], "rows in the table")
+final_row_count = cursor.fetchone()[0]
+print("FINAL: ", final_row_count, "rows in the table")
 
 # CLOSE THE CONNECTION
 db.close()
-
-
-
-
