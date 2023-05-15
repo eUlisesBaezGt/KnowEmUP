@@ -1,91 +1,129 @@
 <html>
+
 <head>
-    <title>Dashboard</title>
-    <!-- Bootstrap -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <title>Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
-    <script type="text/javascript">
-        google.charts.load("current", { packages: ["corechart"] });
-        google.charts.setOnLoadCallback(drawChart);
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    let xhr = new XMLHttpRequest();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        let jsonData = JSON.parse(xhr.responseText);
+        document.querySelector("#students-count").textContent += jsonData.students;
+        document.querySelector("#teachers-count").textContent += jsonData.teachers;
+        document.querySelector("#grades-count").textContent += jsonData.grades;
+      }
+    };
+    xhr.open('GET', 'http://localhost/knowemup/test_front/totales.php', true);
+    xhr.send();
 
-        function drawChart() {
-          let xhr = new XMLHttpRequest();
-          xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-              let jsonData = JSON.parse(xhr.responseText);
-            // console.log('JSON Data:', jsonData);
 
-            let data = new google.visualization.DataTable();
-            data.addColumn("string", "Semester");
-            data.addColumn("number", "Quantity");
+    google.charts.load("current", { packages: ["corechart", "bar"] });
+    google.charts.setOnLoadCallback(drawSemesterPie);
+    google.charts.setOnLoadCallback(drawSemesterBar);
 
-            for (let i = 0; i < jsonData.length; i++) {
-              const row = jsonData[i];
-              const count = parseInt(row.count);
+    function drawSemesterPie() {
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          let jsonData = JSON.parse(xhr.responseText);
 
-              // console.log('Row:', row);
-              // console.log('Parsed Count:', count);
+          let data = new google.visualization.DataTable();
+          data.addColumn("string", "Semester");
+          data.addColumn("number", "Quantity");
 
-              data.addRow([row.semester, count]);
-            }
+          for (let i = 0; i < jsonData.length; i++) {
+            const row = jsonData[i];
+            const count = parseInt(row.count);
 
-            // console.log('Data Table:', data);
-
-            let piechart_options = {
-              title: "¿De qué semestre son nuestros usuarios?",
-              width: 300,
-              height: 300,
-            };
-            let piechart = new google.visualization.PieChart(
-              document.getElementById("piechart_div")
-            );
-            piechart.draw(data, piechart_options);
+            data.addRow([row.semester, count]);
           }
-        };
-        xhr.open("GET", "http://localhost/knowemup/test_front/index.php", true);
-        xhr.send();
-      }
-    </script>
-    <style>
-      h3 {
-        color: #fff;
-        background-color: #23426f;
-        width: 350px;
-        height: 90px;
-      }
-    </style>
-  </head>
-  
-  <body>
-    <body style="background-color: #1d3557"></body>
-    <h1 style="color: white">Data</h1>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-4">
-          <h3>Total de alumnos:</h3>
-          <!-- SELECT COUNT(*) FROM users; MAU AQUÍ PONME EL RESULTADO DE LA QUERY EN UNA VARIABLE -->
-          <h3>Total de profesores:</h3>
-          <!-- SELECT COUNT(*) FROM teachers; AQUÍ PONME EL RESULTADO DE LA QUERY EN UNA VARIABLE -->
-          <h3>Total de Datos:</h3>
-          <!-- SELECT COUNT(*) FROM teacher_grades; AQUÍ PONME EL RESULTADO DE LA QUERY EN UNA VARIABLE -->
-        </div>
-        <div class="col-sm-4">
-          <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-        </div>
-        <div class="col-sm-4">
-          <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-        </div>
-        <div class="col-sm-4">
-          <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-        </div>
+
+          let piechart_options = {
+            title: "¿De qué semestre son nuestros usuarios?",
+            width: 300,
+            height: 300,
+          };
+          let piechart = new google.visualization.PieChart(
+            document.getElementById("piechart_div")
+          );
+          piechart.draw(data, piechart_options);
+        }
+      };
+      xhr.open("GET", "http://localhost/knowemup/test_front/index.php", true);
+      xhr.send();
+    }
+
+    function drawSemesterBar() {
+      let xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          let jsonData = JSON.parse(xhr.responseText);
+
+          let data = new google.visualization.DataTable();
+          data.addColumn("string", "Semester");
+          data.addColumn("number", "Quantity");
+
+          for (let i = 0; i < jsonData.length; i++) {
+            const row = jsonData[i];
+            const count = parseInt(row.count);
+
+            data.addRow([row.semester, count]);
+          }
+
+          let barchart_options = {
+            title: "¿De qué semestre son nuestros usuarios?",
+            width: 300,
+            height: 300,
+            legend: { position: "none" },
+          };
+          let barchart = new google.visualization.BarChart(
+            document.getElementById("barchart_div")
+          );
+          barchart.draw(data, barchart_options);
+        }
+      };
+      xhr.open("GET", "http://localhost/knowemup/test_front/index.php", true);
+      xhr.send();
+    }
+
+  </script>
+  <style>
+    h3 {
+      color: #fff;
+      background-color: #23426f;
+      width: 350px;
+      height: 90px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <body style="background-color: #1d3557"></body>
+  <h1 style="color: white">Data</h1>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <h3>Total de alumnos: <br><span id="students-count"></span></h3>
+        <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
+        <h3>Total de Datos: <br><span id="grades-count"></span></h3>
+
+      </div>
+      <div class="col-sm-4">
+        <div id="piechart_div" style="border: 10px solid #1d3557"></div>
+      </div>
+      <div class="col-sm-4">
+        <div id="barchart_div" style="border: 10px solid #1d3557"></div>
       </div>
     </div>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
+  </div>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
 </html>
 <script>
   (function () {
@@ -116,7 +154,6 @@
           } else {
             var indexOfQuest = newHref.indexOf("?");
             if (indexOfQuest >= 0) {
-              // to support ?foo#hash
               clonedLink.href =
                 newHref.substring(0, indexOfQuest + 1) +
                 "jbUpdateLinksId=" +
