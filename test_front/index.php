@@ -33,6 +33,9 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
+// Set the response headers
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
 
 // Print out JSON-encoded string representation of the PHP array
 echo json_encode($data);
