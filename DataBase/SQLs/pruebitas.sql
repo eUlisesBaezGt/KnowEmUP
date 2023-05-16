@@ -1,1 +1,1 @@
-SELECT teacherID FROM teachers
+SELECT COUNT(*) FROM teacher_grades;
