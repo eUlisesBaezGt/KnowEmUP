@@ -26,6 +26,11 @@ if ($result->num_rows > 0) {
     $data['teachers'] = $result->fetch_assoc()['total'];
 }
 
+$result = $conn->query("SELECT COUNT(*) as total FROM subject_legend");
+if ($result->num_rows > 0) {
+    $data['subjects'] = $result->fetch_assoc()['total'];
+}
+
 $result = $conn->query("SELECT COUNT(*) as total FROM teacher_grades");
 if ($result->num_rows > 0) {
     $data['grades'] = $result->fetch_assoc()['total'];

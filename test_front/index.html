@@ -11,6 +11,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             loadProfessors();
             updateChart(); // Call the updateChart function to display the graph for the first professor by default
+            loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
         });
 
         let xhr = new XMLHttpRequest();
@@ -19,6 +20,7 @@
                 let jsonData = JSON.parse(xhr.responseText);
                 document.querySelector("#students-count").textContent += jsonData.students;
                 document.querySelector("#teachers-count").textContent += jsonData.teachers;
+                document.querySelector('#subjects-count').textContent += jsonData.subjects;
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
@@ -56,6 +58,26 @@
                 }
             };
             xhr.open("GET", "http://localhost/knowemup/test_front/professors.php");
+            xhr.send();
+        }
+
+        function loadSubjectLegend() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var ulElement = document.querySelector("#subject-legend");
+
+                    // Add each subject to the list
+                    for (var subjectCode in jsonData) {
+                        var subjectMeaning = jsonData[subjectCode];
+                        var li = document.createElement("li");
+                        li.textContent = subjectCode + ": " + subjectMeaning;
+                        ulElement.appendChild(li);
+                    }
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/test_front/subjects.php");
             xhr.send();
         }
 
@@ -163,8 +185,8 @@
             <div class="col-sm-4">
                 <h3>Total de alumnos: <br><span id="students-count"></span></h3>
                 <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
-                <h3>Total de Datos: <br><span id="grades-count"></span></h3>
-
+                <h3>Total de materias: <br><span id="subjects-count"></span></h3>
+                <h3>Total de calificacione: <br><span id="grades-count"></span></h3>
             </div>
             <div class="col-sm-4">
                 <div id="piechart_div" style="border: 10px solid #1d3557"></div>
@@ -172,9 +194,12 @@
             <div class="col-sm-4">
                 <div id="barchart_div" style="border: 10px solid #1d3557"></div>
             </div>
-            <!-- <div class="col-sm-4">
-                <div id="bubblechart_div" style="border: 10px solid #1d3557"></div>
-            </div> -->
+            <div class="col-sm-4">
+                Subject Legend:
+                <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
+                    <!-- List items will be filled dynamically using JavaScript -->
+                </ul>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">

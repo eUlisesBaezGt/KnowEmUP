@@ -43,3 +43,9 @@ CREATE TABLE `teacher_grades` (
   CONSTRAINT `teacher_grades_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `teachers` (`teacherID`),
   CONSTRAINT `teacher_grades_ibfk_2` FOREIGN KEY (`studentID`) REFERENCES `users` (`studentID`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+-- Crear una tabla que guarde el significado de cada una de las materias
+CREATE TABLE `subject_legend` (
+  `subject_code` VARCHAR(5),
+  `subject_meaning` VARCHAR(50),
+  FOREIGN KEY (`subject_code`) REFERENCES `subjects` (`id`)
+)

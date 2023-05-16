@@ -1,1 +1,1 @@
-SELECT COUNT(*) FROM teacher_grades;
+SELECT COUNT(*) as total FROM subject_legend
