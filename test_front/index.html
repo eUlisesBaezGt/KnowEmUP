@@ -1,174 +1,187 @@
 <html>
 
 <head>
-  <title>Dashboard</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <title>Dashboard</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
-  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-  <script type="text/javascript">
-    let xhr = new XMLHttpRequest();
-    xhr.onreadystatechange = function () {
-      if (xhr.readyState === 4 && xhr.status === 200) {
-        let jsonData = JSON.parse(xhr.responseText);
-        document.querySelector("#students-count").textContent += jsonData.students;
-        document.querySelector("#teachers-count").textContent += jsonData.teachers;
-        document.querySelector("#grades-count").textContent += jsonData.grades;
-      }
-    };
-    xhr.open('GET', 'http://localhost/knowemup/test_front/totales.php', true);
-    xhr.send();
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let jsonData = JSON.parse(xhr.responseText);
+                document.querySelector("#students-count").textContent += jsonData.students;
+                document.querySelector("#teachers-count").textContent += jsonData.teachers;
+                document.querySelector("#grades-count").textContent += jsonData.grades;
+            }
+        };
+        xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
+        xhr.send();
 
 
-    google.charts.load("current", { packages: ["corechart", "bar"] });
-    google.charts.setOnLoadCallback(drawSemesterPie);
-    google.charts.setOnLoadCallback(drawSemesterBar);
+        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.setOnLoadCallback(drawSemesterPie);
+        google.charts.setOnLoadCallback(drawSemesterBar);
 
-    function drawSemesterPie() {
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          let jsonData = JSON.parse(xhr.responseText);
 
-          let data = new google.visualization.DataTable();
-          data.addColumn("string", "Semester");
-          data.addColumn("number", "Quantity");
-
-          for (let i = 0; i < jsonData.length; i++) {
-            const row = jsonData[i];
-            const count = parseInt(row.count);
-
-            data.addRow([row.semester, count]);
-          }
-
-          let piechart_options = {
-            title: "¿De qué semestre son nuestros usuarios?",
-            width: 300,
-            height: 300,
-          };
-          let piechart = new google.visualization.PieChart(
-            document.getElementById("piechart_div")
-          );
-          piechart.draw(data, piechart_options);
+        function getData() {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php");
+                xhr.send();
+            });
         }
-      };
-      xhr.open("GET", "http://localhost/knowemup/test_front/index.php", true);
-      xhr.send();
-    }
 
-    function drawSemesterBar() {
-      let xhr = new XMLHttpRequest();
-      xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-          let jsonData = JSON.parse(xhr.responseText);
+        function drawSemesterPie() {
+            getData().then(jsonData => {
+                let data = new google.visualization.DataTable();
+                data.addColumn("string", "Semester");
+                data.addColumn("number", "Quantity");
 
-          let data = new google.visualization.DataTable();
-          data.addColumn("string", "Semester");
-          data.addColumn("number", "Quantity");
+                for (let i = 0; i < jsonData.length; i++) {
+                    const row = jsonData[i];
+                    const count = parseInt(row.count);
+                    data.addRow([row.semester, count]);
+                }
 
-          for (let i = 0; i < jsonData.length; i++) {
-            const row = jsonData[i];
-            const count = parseInt(row.count);
-
-            data.addRow([row.semester, count]);
-          }
-
-          let barchart_options = {
-            title: "¿De qué semestre son nuestros usuarios?",
-            width: 300,
-            height: 300,
-            legend: { position: "none" },
-          };
-          let barchart = new google.visualization.BarChart(
-            document.getElementById("barchart_div")
-          );
-          barchart.draw(data, barchart_options);
+                let piechart_options = {
+                    title: "¿De qué semestre son nuestros usuarios?",
+                    width: 300,
+                    height: 300,
+                };
+                let piechart = new google.visualization.PieChart(
+                    document.getElementById("piechart_div")
+                );
+                piechart.draw(data, piechart_options);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
         }
-      };
-      xhr.open("GET", "http://localhost/knowemup/test_front/index.php", true);
-      xhr.send();
-    }
 
-  </script>
-  <style>
-    h3 {
-      color: #fff;
-      background-color: #23426f;
-      width: 350px;
-      height: 90px;
-    }
-  </style>
+        function drawSemesterBar() {
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let jsonData = JSON.parse(xhr.responseText);
+
+                    let data = new google.visualization.DataTable();
+                    data.addColumn("string", "Semester");
+                    data.addColumn("number", "Quantity");
+
+                    for (let i = 0; i < jsonData.length; i++) {
+                        const row = jsonData[i];
+                        const count = parseInt(row.count);
+
+                        data.addRow([row.semester, count]);
+                    }
+
+                    let barchart_options = {
+                        title: "¿De qué semestre son nuestros usuarios?",
+                        width: 300,
+                        height: 300,
+                        legend: { position: "none" },
+                    };
+                    let barchart = new google.visualization.BarChart(
+                        document.getElementById("barchart_div")
+                    );
+                    barchart.draw(data, barchart_options);
+                }
+            };
+            xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php", true);
+            xhr.send();
+        }
+
+    </script>
+    <style>
+        h3 {
+            color: #fff;
+            background-color: #23426f;
+            width: 350px;
+            height: 90px;
+        }
+    </style>
 </head>
 
 <body>
 
-  <body style="background-color: #1d3557"></body>
-  <h1 style="color: white">Data</h1>
-  <div class="container">
-    <div class="row">
-      <div class="col-sm-4">
-        <h3>Total de alumnos: <br><span id="students-count"></span></h3>
-        <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
-        <h3>Total de Datos: <br><span id="grades-count"></span></h3>
+    <body style="background-color: #1d3557"></body>
+    <h1 style="color: white">Data</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Total de alumnos: <br><span id="students-count"></span></h3>
+                <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
+                <h3>Total de Datos: <br><span id="grades-count"></span></h3>
 
-      </div>
-      <div class="col-sm-4">
-        <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-      </div>
-      <div class="col-sm-4">
-        <div id="barchart_div" style="border: 10px solid #1d3557"></div>
-      </div>
+            </div>
+            <div class="col-sm-4">
+                <div id="piechart_div" style="border: 10px solid #1d3557"></div>
+            </div>
+            <div class="col-sm-4">
+                <div id="barchart_div" style="border: 10px solid #1d3557"></div>
+            </div>
+        </div>
     </div>
-  </div>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
 <script>
-  (function () {
-    var ws = new WebSocket(
-      "ws://" +
-      window.location.host +
-      "/jb-server-page?reloadMode=RELOAD_ON_SAVE&" +
-      "referrer=" +
-      encodeURIComponent(window.location.pathname)
-    );
-    ws.onmessage = function (msg) {
-      if (msg.data === "reload") {
-        window.location.reload();
-      }
-      if (msg.data.startsWith("update-css ")) {
-        var messageId = msg.data.substring(11);
-        var links = document.getElementsByTagName("link");
-        for (var i = 0; i < links.length; i++) {
-          var link = links[i];
-          if (link.rel !== "stylesheet") continue;
-          var clonedLink = link.cloneNode(true);
-          var newHref = link.href.replace(
-            /(&|\?)jbUpdateLinksId=\d+/,
-            "$1jbUpdateLinksId=" + messageId
-          );
-          if (newHref !== link.href) {
-            clonedLink.href = newHref;
-          } else {
-            var indexOfQuest = newHref.indexOf("?");
-            if (indexOfQuest >= 0) {
-              clonedLink.href =
-                newHref.substring(0, indexOfQuest + 1) +
-                "jbUpdateLinksId=" +
-                messageId +
-                "&" +
-                newHref.substring(indexOfQuest + 1);
-            } else {
-              clonedLink.href += "?" + "jbUpdateLinksId=" + messageId;
+    (function () {
+        var ws = new WebSocket(
+            "ws://" +
+            window.location.host +
+            "/jb-server-page?reloadMode=RELOAD_ON_SAVE&" +
+            "referrer=" +
+            encodeURIComponent(window.location.pathname)
+        );
+        ws.onmessage = function (msg) {
+            if (msg.data === "reload") {
+                window.location.reload();
             }
-          }
-          link.replaceWith(clonedLink);
-        }
-      }
-    };
-  })();
+            if (msg.data.startsWith("update-css ")) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== "stylesheet") continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(
+                        /(&|\?)jbUpdateLinksId=\d+/,
+                        "$1jbUpdateLinksId=" + messageId
+                    );
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    } else {
+                        var indexOfQuest = newHref.indexOf("?");
+                        if (indexOfQuest >= 0) {
+                            clonedLink.href =
+                                newHref.substring(0, indexOfQuest + 1) +
+                                "jbUpdateLinksId=" +
+                                messageId +
+                                "&" +
+                                newHref.substring(indexOfQuest + 1);
+                        } else {
+                            clonedLink.href += "?" + "jbUpdateLinksId=" + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
 </script>
 
 <!--    
