@@ -8,6 +8,9 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+        window.onload = function () {
+            loadProfessors(); // Load professors when the page loads
+        };
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -19,6 +22,60 @@
         };
         xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
         xhr.send();
+
+        function loadProfessors() {
+            // Make an AJAX request to get the list of professors
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let jsonData = JSON.parse(xhr.responseText);
+                    let selectElement = document.querySelector("#professor-dropdown");
+                    jsonData.forEach((professor) => {
+                        let option = document.createElement("option");
+                        option.value = professor.id; // Assuming the professor object has an 'id' field
+                        option.textContent = professor.name; // Assuming the professor object has a 'name' field
+                        selectElement.appendChild(option);
+                    });
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/test_front/professors.php"); // Replace with your actual URL
+            xhr.send();
+        }
+
+        function updateChart() {
+            let selectedProfessor = document.querySelector("#professor-dropdown").value;
+            // Make an AJAX request to get the data for the selected professor
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    let jsonData = JSON.parse(xhr.responseText);
+                    drawColumnChart(jsonData); // Call the drawColumnChart function with the received data
+                }
+            };
+            xhr.open("GET", `http://localhost/KnowEmUP/test_front/professor_data.php?professor=${selectedProfessor}`); // Replace with your actual URL
+            xhr.send();
+        }
+
+        function drawColumnChart(jsonData) {
+            let data = new google.visualization.DataTable();
+            data.addColumn("string", "Grade");
+            data.addColumn("number", "Count");
+
+            jsonData.forEach((row) => {
+                data.addRow([String(row.grade), parseFloat(row.count)]);
+            });
+
+            let columnchart_options = {
+                title: "Grades for selected professor",
+                hAxis: { title: "Grade" },
+                vAxis: { title: "Count" },
+            };
+
+            let columnchart = new google.visualization.ColumnChart(
+                document.getElementById("columnchart_div")
+            );
+            columnchart.draw(data, columnchart_options);
+        }
 
 
         google.charts.load("current", { packages: ["corechart", "bar"] });
@@ -184,9 +241,9 @@
             <!-- <div class="col-sm-4">
                 <div id="barchart_div" style="border: 10px solid #1d3557"></div>
             </div> -->
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <div id="bubblechart_div" style="border: 10px solid #1d3557"></div>
-            </div>
+            </div> -->
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
