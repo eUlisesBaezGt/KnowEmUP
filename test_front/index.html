@@ -26,52 +26,56 @@
         // google.charts.setOnLoadCallback(drawSemesterBar);
         google.charts.setOnLoadCallback(drawBubbleChart);
 
-        function getGradeData() {
-            return new Promise((resolve, reject) => {
-                let xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            let jsonData = JSON.parse(xhr.responseText);
-                            resolve(jsonData);
-                        } else {
-                            reject("Error: " + xhr.status);
-                        }
-                    }
-                };
-                xhr.open("GET", "http://localhost/knowemup/test_front/grades_data.php");
-                xhr.send();
-            });
-        }
+        // function getGradeData() {
+        //     return new Promise((resolve, reject) => {
+        //         let xhr = new XMLHttpRequest();
+        //         xhr.onreadystatechange = function () {
+        //             if (xhr.readyState === 4) {
+        //                 if (xhr.status === 200) {
+        //                     let jsonData = JSON.parse(xhr.responseText);
+        //                     resolve(jsonData);
+        //                 } else {
+        //                     reject("Error: " + xhr.status);
+        //                 }
+        //             }
+        //         };
+        //         xhr.open("GET", "http://localhost/knowemup/test_front/grades_data.php");
+        //         xhr.send();
+        //     });
+        // }
 
-        function drawBubbleChart() {
-            getGradeData()
-                .then((jsonData) => {
-                    let data = new google.visualization.DataTable();
-                    data.addColumn("string", "TeacherID");
-                    data.addColumn("number", "Grade");
-                    data.addColumn("number", "Count");
+        // function drawBubbleChart() {
+        //     getGradeData()
+        //         .then((jsonData) => {
+        //             let data = new google.visualization.DataTable();
+        //             data.addColumn("string", "TeacherID");
+        //             data.addColumn("number", "Grade");
+        //             data.addColumn("number", "Count");
 
-                    jsonData.forEach((row) => {
-                        data.addRow([String(row.teacherID), row.grade, row.count]);
-                    });
+        //             jsonData.forEach((row) => {
+        //                 data.addRow([String(row.teacherID), parseFloat(row.grade), parseFloat(row.count) * 10]); // Multiply by 10
+        //             });
 
-                    let bubblechart_options = {
-                        title: "Teacher grades and their frequency",
-                        hAxis: { title: "Grade" },
-                        vAxis: { title: "Teacher ID" },
-                        bubble: { textStyle: { fontSize: 11 } },
-                    };
+        //             console.log(JSON.stringify(data));
 
-                    let bubblechart = new google.visualization.BubbleChart(
-                        document.getElementById("bubblechart_div")
-                    );
-                    bubblechart.draw(data, bubblechart_options);
-                })
-                .catch((error) => {
-                    console.error("Error:", error);
-                });
-        }
+        //             let bubblechart_options = {
+        //                 title: "Teacher grades and their frequency",
+        //                 hAxis: { title: "Grade", minValue: 0, maxValue: 100 }, // assuming grades are between 0 and 100
+        //                 vAxis: { title: "Count", minValue: 0, maxValue: 100 }, // adjust this based on your teacher IDs
+        //                 bubble: { textStyle: { fontSize: 11 } },
+        //                 width: 600,
+        //                 height: 400,
+        //             };
+
+        //             let bubblechart = new google.visualization.BubbleChart(
+        //                 document.getElementById("bubblechart_div")
+        //             );
+        //             bubblechart.draw(data, bubblechart_options);
+        //         })
+        //         .catch((error) => {
+        //             console.error("Error:", error);
+        //         });
+        // }
 
 
         function getData() {
