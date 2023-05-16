@@ -1,0 +1,1 @@
+SELECT teacherID FROM teachers

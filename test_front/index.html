@@ -32,8 +32,8 @@
                     let selectElement = document.querySelector("#professor-dropdown");
                     jsonData.forEach((professor) => {
                         let option = document.createElement("option");
-                        option.value = professor.id; // Assuming the professor object has an 'id' field
-                        option.textContent = professor.name; // Assuming the professor object has a 'name' field
+                        option.value = professor.id;
+                        option.textContent = professor.id;
                         selectElement.appendChild(option);
                     });
                 }
@@ -49,7 +49,7 @@
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     let jsonData = JSON.parse(xhr.responseText);
-                    drawColumnChart(jsonData); // Call the drawColumnChart function with the received data
+                    drawColumnChart(jsonData);
                 }
             };
             xhr.open("GET", `http://localhost/KnowEmUP/test_front/professor_data.php?professor=${selectedProfessor}`); // Replace with your actual URL
@@ -249,6 +249,7 @@
                     <div class="col-sm-12">
                         <select id="professor-dropdown" onchange="updateChart()">
                             <!-- Options will be filled dynamically using JavaScript -->
+
                         </select>
                     </div>
                     <div class="col-sm-12">
