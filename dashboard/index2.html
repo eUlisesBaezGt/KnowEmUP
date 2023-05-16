@@ -98,6 +98,7 @@
             xhr.send();
         }
 
+
         function loadSubjectLegend() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -118,42 +119,18 @@
             xhr.send();
         }
 
-        function drawBarChart(jsonData) {
-            let data = new google.visualization.arrayToDataTable([
-                ['Teacher', 'Grade', { role: 'style' }],
-                ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), 'silver'])
-            ]);
-
-            let barchart_options = {
-                title: "Grades for selected subject",
-                hAxis: { title: "Teacher" },
-                vAxis: { title: "Grade" },
-                width: 400,
-                height: 400,
-            };
-
-            let barchart = new google.visualization.BarChart(
-                document.getElementById("barchart_div")
-            );
-            barchart.draw(data, barchart_options);
-        }
-
-
         function updateChart() {
             var selectedProfessor = document.querySelector("#professor-dropdown").value;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var jsonData = JSON.parse(xhr.responseText);
-                    drawbarchart(jsonData);
+                    drawColumnChart(jsonData);
                 }
             };
             xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
-
-        google.charts.load("current", { packages: ["corechart", "bar"] });
-        google.charts.setOnLoadCallback(drawSemesterPie);
 
         function drawColumnChart(jsonData) {
             let data = new google.visualization.DataTable();
@@ -170,6 +147,7 @@
                 hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
                 vAxis: { title: "Grade" },
                 width: 400,
+                height: 400,
             };
 
             let columnchart = new google.visualization.ColumnChart(
@@ -177,6 +155,39 @@
             );
             columnchart.draw(data, columnchart_options);
         }
+
+        function drawBarChart(jsonData) {
+            let data;
+
+            if (jsonData.length === 0) { // If no data for selected subject
+                data = new google.visualization.arrayToDataTable([
+                    ['Teacher', 'Grade', { role: 'style' }],
+                    ['No Data', 0, 'silver']
+                ]);
+            } else {
+                data = new google.visualization.arrayToDataTable([
+                    ['Teacher', 'Grade', { role: 'style' }],
+                    ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), 'silver'])
+                ]);
+            }
+
+            let barchart_options = {
+                title: "Grades for selected subject",
+                hAxis: { title: "Teacher" },
+                vAxis: { title: "Grade" },
+                width: 400,
+                height: 400,
+            };
+
+            let barchart = new google.visualization.BarChart(
+                document.getElementById("barchart_div")
+            );
+            barchart.draw(data, barchart_options);
+        }
+
+
+        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.setOnLoadCallback(drawSemesterPie);
 
         function getData() {
             return new Promise((resolve, reject) => {
@@ -249,9 +260,6 @@
                 <div id="piechart_div" style="border: 10px solid #1d3557"></div>
             </div>
             <div class="col-sm-4">
-                <div id="barchart_div" style="border: 10px solid #1d3557"></div>
-            </div>
-            <div class="col-sm-4">
                 Subject Legend:
                 <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
                     <!-- List items will be filled dynamically using JavaScript -->
@@ -260,13 +268,13 @@
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
-                        <select id="subject-dropdown">
+                        <select id="subject-dropdown" onchange="updateChart2()">
                             <!-- Options will be filled dynamically using JavaScript -->
                         </select>
                     </div>
                     <div class="col-sm-12">
                         <div id="barchart_div" style="border: 10px solid #1d3557">
-                            <img src="default_dropdown.png" width="400" height="400" />
+                            <img src="default_dropdown_subject.png" width="400" height="400" />
                         </div>
                     </div>
                 </div>
@@ -280,7 +288,7 @@
                     </div>
                     <div class="col-sm-12">
                         <div id="columnchart_div" style="border: 10px solid #1d3557">
-                            <img src="default_dropdown.png" width="400" height="400" />
+                            <img src="default_dropdown_proffesor.png" width="400" height="400" />
                         </div>
                     </div>
                 </div>
