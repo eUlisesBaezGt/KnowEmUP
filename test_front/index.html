@@ -57,17 +57,20 @@
 
         function drawColumnChart(jsonData) {
             let data = new google.visualization.DataTable();
-            data.addColumn("string", "Grade");
-            data.addColumn("number", "Count");
+            data.addColumn("string", "Count");
+            data.addColumn("number", "Grade");
+
 
             jsonData.forEach((row) => {
-                data.addRow([String(row.grade), parseFloat(row.count)]);
+                data.addRow([String(row.count), parseFloat(row.grade)]);
             });
 
             let columnchart_options = {
                 title: "Grades for selected professor",
-                hAxis: { title: "Grade" },
-                vAxis: { title: "Count" },
+                hAxis: { title: "Count" },
+                vAxis: { title: "Grade" },
+                width: 600,
+                height: 400,
             };
 
             let columnchart = new google.visualization.ColumnChart(
@@ -75,6 +78,7 @@
             );
             columnchart.draw(data, columnchart_options);
         }
+
 
 
         google.charts.load("current", { packages: ["corechart", "bar"] });
