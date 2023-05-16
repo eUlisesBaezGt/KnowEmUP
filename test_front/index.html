@@ -22,7 +22,7 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost:8888/knowemup/test_front/totals.php', true);
+        xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
         xhr.send();
 
         function loadProfessors() {
@@ -55,7 +55,7 @@
                     updateChart();
                 }
             };
-            xhr.open("GET", "http://localhost:8888/KnowEmUP/test_front/professors.php");
+            xhr.open("GET", "http://localhost/knowemup/test_front/professors.php");
             xhr.send();
         }
 
@@ -68,24 +68,23 @@
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost:8888/KnowEmUP/test_front/professor_data.php?professor=" + selectedProfessor);
+            xhr.open("GET", "http://localhost/knowemup/test_front/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
         function drawColumnChart(jsonData) {
             let data = new google.visualization.DataTable();
-            data.addColumn("string", "Subject"); // Change "Count" to "Subject"
+            data.addColumn("string", "Subject");
             data.addColumn("number", "Grade");
 
-            jsonData.forEach((professorData) => {
-                professorData.subjects.forEach((subject) => {
-                    data.addRow([String(subject.name), parseFloat(subject.grade)]); // Add a row for each subject
-                });
+
+            jsonData.forEach((row) => {
+                data.addRow([String(row.subject), parseFloat(row.grade)]);
             });
 
             let columnchart_options = {
                 title: "Grades for selected professor",
-                hAxis: { title: "Subject" },
+                hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
                 vAxis: { title: "Grade" },
                 width: 400,
                 height: 400,
@@ -113,7 +112,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost:8888/KnowEmUP/test_front/semesters.php");
+                xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php");
                 xhr.send();
             });
         }
