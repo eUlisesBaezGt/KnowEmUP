@@ -1,3 +1,4 @@
+TRUNCATE TABLE subjects;
 INSERT INTO subjects
 VALUES ('CV', 'Antonieta Martinez', 3),
     ('CI', 'Antonieta Martinez', 2),
@@ -49,4 +50,5 @@ VALUES ('CV', 'Antonieta Martinez', 3),
     ('ED', 'Sebas Montes', 2),
     ('ADA', 'Vicky Carreras', 1),
     ('POO', 'Vicky Carreras', 2),
-    ('PED', 'Vicky Carreras', 3);
+    ('PED', 'Vicky Carreras', 3),
+    ('CV', 'Felipe Zetina', 3);
