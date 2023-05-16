@@ -3,6 +3,7 @@ import random
 
 db = mysql.connector.connect(
     host="localhost",
+    port=8889,
     user="root",
     passwd="root",
 )

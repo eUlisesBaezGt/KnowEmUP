@@ -1,6 +1,6 @@
 <!-- THIS FILE OBTAINS THE AVERAGE TEACHER_GRADE AND STUDENT GRADE FOR EACH SUBJECT OF EVERY PROFESSOR -->
 <?php
-$servername = "127.0.0.1:3306";
+$servername = "127.0.0.1:8889";
 $username = "root";
 $password = "root";
 $dbname = "KnowEmUP";

@@ -5,7 +5,7 @@ USE KnowEmUP;
 -- Crear tabla de materias
 CREATE TABLE IF NOT EXISTS `subjects` (
   `id` varchar(5) NOT NULL,
-  `teacherID` VARCHAR(25),
+  `teacherID` VARCHAR(250),
   `semester` INT(1) NOT NULL,
   PRIMARY KEY (`id`, `teacherID`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;

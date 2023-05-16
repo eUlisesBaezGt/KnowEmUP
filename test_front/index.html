@@ -17,7 +17,7 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
+        xhr.open('GET', 'http://localhost:8888/knowemup/test_front/totals.php', true);
         xhr.send();
 
 
@@ -39,7 +39,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php");
+                xhr.open("GET", "http://localhost:8886/KnowEmUP/test_front/semesters.php");
                 xhr.send();
             });
         }
@@ -99,7 +99,7 @@
                     barchart.draw(data, barchart_options);
                 }
             };
-            xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php", true);
+            xhr.open("GET", "http://localhost:8886/KnowEmUP/test_front/semesters.php", true);
             xhr.send();
         }
 
