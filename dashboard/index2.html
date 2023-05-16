@@ -1,0 +1,343 @@
+<html>
+
+<head>
+    <title>KnowEmUp</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+        document.addEventListener("DOMContentLoaded", function () {
+            loadProfessors();
+            updateChart(); // Call the updateChart function to display the graph for the first professor by default
+            loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
+            loadSubjects();
+        });
+
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let jsonData = JSON.parse(xhr.responseText);
+                document.querySelector("#students-count").textContent += jsonData.students;
+                document.querySelector("#teachers-count").textContent += jsonData.teachers;
+                document.querySelector('#subjects-count').textContent += jsonData.subjects;
+                document.querySelector("#grades-count").textContent += jsonData.grades;
+            }
+        };
+        xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
+        xhr.send();
+
+        function loadSubjects() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var selectElement = document.querySelector("#subject-dropdown");
+
+                    // Add subjects to the dropdown
+                    jsonData.forEach(function (subject) {
+                        var option = document.createElement("option");
+                        option.value = subject;
+                        option.textContent = subject;
+                        selectElement.appendChild(option);
+                    });
+
+                    // Trigger the chart update when the subjects are loaded
+                    updateChart2();
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subjects.php");
+            xhr.send();
+        }
+
+        function updateChart2() {
+            var selectedSubject = document.querySelector("#subject-dropdown").value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    drawBarChart(jsonData);
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_data.php?subject=" + selectedSubject);
+            xhr.send();
+        }
+
+        // Assign the onchange event after defining the function
+        document.querySelector("#subject-dropdown").onchange = updateChart2;
+
+        function drawBarChart(jsonData) {
+            let data = new google.visualization.DataTable();
+            data.addColumn("string", "Teacher");
+            data.addColumn("number", "Grade");
+
+            jsonData.forEach((row) => {
+                data.addRow([row.teacher, parseFloat(row.grade)]);
+            });
+
+            let barchart_options = {
+                title: "Grades for selected subject",
+                hAxis: { title: "Grade" },
+                vAxis: { title: "Teacher" },
+                width: 400,
+                height: 400,
+            };
+
+            let barchart = new google.visualization.BarChart(
+                document.getElementById("barchart_div")
+            );
+            barchart.draw(data, barchart_options);
+        }
+
+
+        function loadProfessors() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var selectElement = document.querySelector("#professor-dropdown");
+
+                    // Add the first professor as the default selected option
+                    if (jsonData.length > 0) {
+                        var firstProfessor = jsonData[0];
+                        var option = document.createElement("option");
+                        option.value = firstProfessor;
+                        option.textContent = firstProfessor;
+                        option.selected = true; // Set the option as selected
+                        selectElement.appendChild(option);
+                    }
+
+                    // Add the remaining professors
+                    for (var i = 1; i < jsonData.length; i++) {
+                        var professor = jsonData[i];
+                        var option = document.createElement("option");
+                        option.value = professor;
+                        option.textContent = professor;
+                        selectElement.appendChild(option);
+                    }
+
+                    // Trigger the chart update when the professors are loaded
+                    updateChart();
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
+            xhr.send();
+        }
+
+        function loadSubjectLegend() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var ulElement = document.querySelector("#subject-legend");
+
+                    // Add each subject to the list
+                    for (var subjectCode in jsonData) {
+                        var subjectMeaning = jsonData[subjectCode];
+                        var li = document.createElement("li");
+                        li.textContent = subjectCode + ": " + subjectMeaning;
+                        ulElement.appendChild(li);
+                    }
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_legend.php");
+            xhr.send();
+        }
+
+        function updateChart() {
+            var selectedProfessor = document.querySelector("#professor-dropdown").value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    drawColumnChart(jsonData);
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
+            xhr.send();
+        }
+
+        function drawColumnChart(jsonData) {
+            let data = new google.visualization.DataTable();
+            data.addColumn("string", "Subject");
+            data.addColumn("number", "Grade");
+
+
+            jsonData.forEach((row) => {
+                data.addRow([String(row.subject), parseFloat(row.grade)]);
+            });
+
+            let columnchart_options = {
+                title: "Grades for selected professor",
+                hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
+                vAxis: { title: "Grade" },
+                width: 400,
+                height: 400,
+            };
+
+            let columnchart = new google.visualization.ColumnChart(
+                document.getElementById("columnchart_div")
+            );
+            columnchart.draw(data, columnchart_options);
+        }
+
+        google.charts.load("current", { packages: ["corechart", "barchart"] });
+        google.charts.setOnLoadCallback(drawSemesterPie);
+
+        function getData() {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php");
+                xhr.send();
+            });
+        }
+
+        function drawSemesterPie() {
+            getData().then(jsonData => {
+                let data = new google.visualization.DataTable();
+                data.addColumn("string", "Semester");
+                data.addColumn("number", "Quantity");
+
+                for (let i = 0; i < jsonData.length; i++) {
+                    const row = jsonData[i];
+                    const count = parseInt(row.count);
+                    data.addRow([row.semester, count]);
+                }
+
+                let piechart_options = {
+                    title: "¿De qué semestre son nuestros usuarios?",
+                    width: 300,
+                    height: 300,
+                };
+                let piechart = new google.visualization.PieChart(
+                    document.getElementById("piechart_div")
+                );
+                piechart.draw(data, piechart_options);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+    </script>
+    <style>
+        h3 {
+            color: #fff;
+            background-color: #23426f;
+            width: 350px;
+            height: 90px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <body style="background-color: #1d3557"></body>
+    <h1 style="color: white">Data</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-4">
+                <h3>Total de alumnos: <br><span id="students-count"></span></h3>
+                <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
+                <h3>Total de materias: <br><span id="subjects-count"></span></h3>
+                <h3>Total de calificacione: <br><span id="grades-count"></span></h3>
+            </div>
+            <div class="col-sm-4">
+                <div id="piechart_div" style="border: 10px solid #1d3557"></div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select id="subject-dropdown">
+                            <!-- Options will be filled dynamically using JavaScript -->
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="barchart_div" style="border: 10px solid #1d3557">
+                            <img src="" width="400" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                Subject Legend:
+                <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
+                    <!-- List items will be filled dynamically using JavaScript -->
+                </ul>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select id="professor-dropdown" onchange="updateChart()">
+                            <!-- Options will be filled dynamically using JavaScript -->
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="columnchart_div" style="border: 10px solid #1d3557">
+                            <img src="default_dropdown.png" width="400" height="400" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+<script>
+    (function () {
+        var ws = new WebSocket(
+            "ws://" +
+            window.location.host +
+            "/jb-server-page?reloadMode=RELOAD_ON_SAVE&" +
+            "referrer=" +
+            encodeURIComponent(window.location.pathname)
+        );
+        ws.onmessage = function (msg) {
+            if (msg.data === "reload") {
+                window.location.reload();
+            }
+            if (msg.data.startsWith("update-css ")) {
+                var messageId = msg.data.substring(11);
+                var links = document.getElementsByTagName("link");
+                for (var i = 0; i < links.length; i++) {
+                    var link = links[i];
+                    if (link.rel !== "stylesheet") continue;
+                    var clonedLink = link.cloneNode(true);
+                    var newHref = link.href.replace(
+                        /(&|\?)jbUpdateLinksId=\d+/,
+                        "$1jbUpdateLinksId=" + messageId
+                    );
+                    if (newHref !== link.href) {
+                        clonedLink.href = newHref;
+                    } else {
+                        var indexOfQuest = newHref.indexOf("?");
+                        if (indexOfQuest >= 0) {
+                            clonedLink.href =
+                                newHref.substring(0, indexOfQuest + 1) +
+                                "jbUpdateLinksId=" +
+                                messageId +
+                                "&" +
+                                newHref.substring(indexOfQuest + 1);
+                        } else {
+                            clonedLink.href += "?" + "jbUpdateLinksId=" + messageId;
+                        }
+                    }
+                    link.replaceWith(clonedLink);
+                }
+            }
+        };
+    })();
+</script>

@@ -24,7 +24,7 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
+        xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
 
         function loadProfessors() {
@@ -57,7 +57,7 @@
                     updateChart();
                 }
             };
-            xhr.open("GET", "http://localhost/knowemup/test_front/professors.php");
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
             xhr.send();
         }
 
@@ -77,7 +77,7 @@
                     }
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/test_front/subjects.php");
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_legend.php");
             xhr.send();
         }
 
@@ -90,7 +90,7 @@
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost/knowemup/test_front/professor_data.php?professor=" + selectedProfessor);
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
@@ -134,7 +134,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/knowemup/test_front/semesters.php");
+                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php");
                 xhr.send();
             });
         }
@@ -199,6 +199,20 @@
                 <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
                     <!-- List items will be filled dynamically using JavaScript -->
                 </ul>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <select id="subject-dropdown">
+                            <!-- Options will be filled dynamically using JavaScript -->
+                        </select>
+                    </div>
+                    <div class="col-sm-12">
+                        <div id="barchart_div" style="border: 10px solid #1d3557">
+                            <img src="" width="400" height="400" />
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="container">
                 <div class="row">
@@ -288,7 +302,7 @@
         //                 }
         //             }
         //         };
-        //         xhr.open("GET", "http://localhost/knowemup/test_front/grades_data.php");
+        //         xhr.open("GET", "http://localhost/KnowEmUP/dashboard/grades_data.php");
         //         xhr.send();
         //     });
         // }
@@ -355,7 +369,7 @@
             //             barchart.draw(data, barchart_options);
             //         }
             //     };
-            //     xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php", true);
+            //     xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php", true);
             //     xhr.send();
             // }
             // function drawSemesterBar() {
@@ -387,6 +401,6 @@
                 //             barchart.draw(data, barchart_options);
                 //         }
                 //     };
-                //     xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php", true);
+                //     xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php", true);
                 //     xhr.send();
                 // } -->
