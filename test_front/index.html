@@ -8,9 +8,10 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        window.onload = function () {
-            loadProfessors(); // Load professors when the page loads
-        };
+        document.addEventListener("DOMContentLoaded", function () {
+            loadProfessors();
+        });
+
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -24,35 +25,33 @@
         xhr.send();
 
         function loadProfessors() {
-            // Make an AJAX request to get the list of professors
-            let xhr = new XMLHttpRequest();
+            var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let jsonData = JSON.parse(xhr.responseText);
-                    let selectElement = document.querySelector("#professor-dropdown");
-                    jsonData.forEach((professor) => {
-                        let option = document.createElement("option");
-                        option.value = professor.id;
-                        option.textContent = professor.id;
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var selectElement = document.querySelector("#professor-dropdown");
+                    jsonData.forEach(function (professor) {
+                        var option = document.createElement("option");
+                        option.value = professor;
+                        option.textContent = professor;
                         selectElement.appendChild(option);
                     });
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/test_front/professors.php"); // Replace with your actual URL
+            xhr.open("GET", "http://localhost/KnowEmUP/test_front/professors.php");
             xhr.send();
         }
 
         function updateChart() {
-            let selectedProfessor = document.querySelector("#professor-dropdown").value;
-            // Make an AJAX request to get the data for the selected professor
-            let xhr = new XMLHttpRequest();
+            var selectedProfessor = document.querySelector("#professor-dropdown").value;
+            var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    let jsonData = JSON.parse(xhr.responseText);
+                    var jsonData = JSON.parse(xhr.responseText);
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", `http://localhost/KnowEmUP/test_front/professor_data.php?professor=${selectedProfessor}`); // Replace with your actual URL
+            xhr.open("GET", "http://localhost/KnowEmUP/test_front/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
