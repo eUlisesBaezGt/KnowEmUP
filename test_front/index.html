@@ -1,7 +1,7 @@
 <html>
 
 <head>
-    <title>Dashboard</title>
+    <title>KnowEmUp</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
@@ -23,7 +23,7 @@
 
         google.charts.load("current", { packages: ["corechart", "bar"] });
         google.charts.setOnLoadCallback(drawSemesterPie);
-        google.charts.setOnLoadCallback(drawSemesterBar);
+        // google.charts.setOnLoadCallback(drawSemesterBar);
         google.charts.setOnLoadCallback(drawBubbleChart);
 
         function getGradeData() {
@@ -118,38 +118,38 @@
             });
         }
 
-        function drawSemesterBar() {
-            let xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    let jsonData = JSON.parse(xhr.responseText);
+        // function drawSemesterBar() {
+        //     let xhr = new XMLHttpRequest();
+        //     xhr.onreadystatechange = function () {
+        //         if (xhr.readyState === 4 && xhr.status === 200) {
+        //             let jsonData = JSON.parse(xhr.responseText);
 
-                    let data = new google.visualization.DataTable();
-                    data.addColumn("string", "Semester");
-                    data.addColumn("number", "Quantity");
+        //             let data = new google.visualization.DataTable();
+        //             data.addColumn("string", "Semester");
+        //             data.addColumn("number", "Quantity");
 
-                    for (let i = 0; i < jsonData.length; i++) {
-                        const row = jsonData[i];
-                        const count = parseInt(row.count);
+        //             for (let i = 0; i < jsonData.length; i++) {
+        //                 const row = jsonData[i];
+        //                 const count = parseInt(row.count);
 
-                        data.addRow([row.semester, count]);
-                    }
+        //                 data.addRow([row.semester, count]);
+        //             }
 
-                    let barchart_options = {
-                        title: "¿De qué semestre son nuestros usuarios?",
-                        width: 300,
-                        height: 300,
-                        legend: { position: "none" },
-                    };
-                    let barchart = new google.visualization.BarChart(
-                        document.getElementById("barchart_div")
-                    );
-                    barchart.draw(data, barchart_options);
-                }
-            };
-            xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php", true);
-            xhr.send();
-        }
+        //             let barchart_options = {
+        //                 title: "¿De qué semestre son nuestros usuarios?",
+        //                 width: 300,
+        //                 height: 300,
+        //                 legend: { position: "none" },
+        //             };
+        //             let barchart = new google.visualization.BarChart(
+        //                 document.getElementById("barchart_div")
+        //             );
+        //             barchart.draw(data, barchart_options);
+        //         }
+        //     };
+        //     xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php", true);
+        //     xhr.send();
+        // }
 
     </script>
     <style>
