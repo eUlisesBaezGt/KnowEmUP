@@ -47,5 +47,6 @@ CREATE TABLE `teacher_grades` (
 CREATE TABLE `subject_legend` (
   `subject_code` VARCHAR(5),
   `subject_meaning` VARCHAR(50),
+  PRIMARY KEY (`subject_code`,`subject_meaning`),
   FOREIGN KEY (`subject_code`) REFERENCES `subjects` (`id`)
 )

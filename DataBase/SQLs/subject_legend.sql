@@ -1,3 +1,4 @@
+TRUNCATE TABLE subject_legend;
 INSERT INTO subject_legend
 VALUES ('ADA', 'Analisis y Diseño de Algoritmos'),
     ('AL', 'Algebra Lineal'),
@@ -6,7 +7,6 @@ VALUES ('ADA', 'Analisis y Diseño de Algoritmos'),
     ('CD', 'Calculo Diferencial'),
     ('CI', 'Calculo Integral'),
     ('CS', 'Ciberseguridad'),
-    ('CV', 'Calculo Vectorial'),
     ('CV', 'Calculo Vectorial'),
     ('DAM', 'Desarrollo de Aplicaciones Moviles'),
     ('DAW', 'Desarrollo de Aplicaciones Web'),
