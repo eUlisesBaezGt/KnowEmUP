@@ -16,6 +16,7 @@ $sql = "SELECT DISTINCT Subject1 AS Subject FROM teachers WHERE Subject1 IS NOT 
 $result = $conn->query($sql);
 
 $subjects = array();
+$subjects[] = "Select a subject";
 
 if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {

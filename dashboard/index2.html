@@ -28,6 +28,40 @@
         xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
 
+        function loadProfessors() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var selectElement = document.querySelector("#professor-dropdown");
+
+                    // Add the first professor as the default selected option
+                    if (jsonData.length > 0) {
+                        var firstProfessor = jsonData[0];
+                        var option = document.createElement("option");
+                        option.value = firstProfessor;
+                        option.textContent = firstProfessor;
+                        option.selected = true; // Set the option as selected
+                        selectElement.appendChild(option);
+                    }
+
+                    // Add the remaining professors
+                    for (var i = 1; i < jsonData.length; i++) {
+                        var professor = jsonData[i];
+                        var option = document.createElement("option");
+                        option.value = professor;
+                        option.textContent = professor;
+                        selectElement.appendChild(option);
+                    }
+
+                    // Trigger the chart update when the professors are loaded
+                    updateChart();
+                }
+            };
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
+            xhr.send();
+        }
+
         function loadSubjects() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -64,67 +98,6 @@
             xhr.send();
         }
 
-        // Assign the onchange event after defining the function
-        document.querySelector("#subject-dropdown").onchange = updateChart2;
-
-        function drawBarChart(jsonData) {
-            let data = new google.visualization.DataTable();
-            data.addColumn("string", "Teacher");
-            data.addColumn("number", "Grade");
-
-            jsonData.forEach((row) => {
-                data.addRow([row.teacher, parseFloat(row.grade)]);
-            });
-
-            let barchart_options = {
-                title: "Grades for selected subject",
-                hAxis: { title: "Grade" },
-                vAxis: { title: "Teacher" },
-                width: 400,
-                height: 400,
-            };
-
-            let barchart = new google.visualization.BarChart(
-                document.getElementById("barchart_div")
-            );
-            barchart.draw(data, barchart_options);
-        }
-
-
-        function loadProfessors() {
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var selectElement = document.querySelector("#professor-dropdown");
-
-                    // Add the first professor as the default selected option
-                    if (jsonData.length > 0) {
-                        var firstProfessor = jsonData[0];
-                        var option = document.createElement("option");
-                        option.value = firstProfessor;
-                        option.textContent = firstProfessor;
-                        option.selected = true; // Set the option as selected
-                        selectElement.appendChild(option);
-                    }
-
-                    // Add the remaining professors
-                    for (var i = 1; i < jsonData.length; i++) {
-                        var professor = jsonData[i];
-                        var option = document.createElement("option");
-                        option.value = professor;
-                        option.textContent = professor;
-                        selectElement.appendChild(option);
-                    }
-
-                    // Trigger the chart update when the professors are loaded
-                    updateChart();
-                }
-            };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
-            xhr.send();
-        }
-
         function loadSubjectLegend() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -145,18 +118,42 @@
             xhr.send();
         }
 
+        function drawBarChart(jsonData) {
+            let data = new google.visualization.arrayToDataTable([
+                ['Teacher', 'Grade', { role: 'style' }],
+                ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), 'silver'])
+            ]);
+
+            let barchart_options = {
+                title: "Grades for selected subject",
+                hAxis: { title: "Teacher" },
+                vAxis: { title: "Grade" },
+                width: 400,
+                height: 400,
+            };
+
+            let barchart = new google.visualization.BarChart(
+                document.getElementById("barchart_div")
+            );
+            barchart.draw(data, barchart_options);
+        }
+
+
         function updateChart() {
             var selectedProfessor = document.querySelector("#professor-dropdown").value;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var jsonData = JSON.parse(xhr.responseText);
-                    drawColumnChart(jsonData);
+                    drawbarchart(jsonData);
                 }
             };
             xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
+
+        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.setOnLoadCallback(drawSemesterPie);
 
         function drawColumnChart(jsonData) {
             let data = new google.visualization.DataTable();
@@ -173,7 +170,6 @@
                 hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
                 vAxis: { title: "Grade" },
                 width: 400,
-                height: 400,
             };
 
             let columnchart = new google.visualization.ColumnChart(
@@ -181,9 +177,6 @@
             );
             columnchart.draw(data, columnchart_options);
         }
-
-        google.charts.load("current", { packages: ["corechart", "barchart"] });
-        google.charts.setOnLoadCallback(drawSemesterPie);
 
         function getData() {
             return new Promise((resolve, reject) => {
@@ -255,6 +248,15 @@
             <div class="col-sm-4">
                 <div id="piechart_div" style="border: 10px solid #1d3557"></div>
             </div>
+            <div class="col-sm-4">
+                <div id="barchart_div" style="border: 10px solid #1d3557"></div>
+            </div>
+            <div class="col-sm-4">
+                Subject Legend:
+                <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
+                    <!-- List items will be filled dynamically using JavaScript -->
+                </ul>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
@@ -264,16 +266,10 @@
                     </div>
                     <div class="col-sm-12">
                         <div id="barchart_div" style="border: 10px solid #1d3557">
-                            <img src="" width="400" height="400" />
+                            <img src="default_dropdown.png" width="400" height="400" />
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-sm-4">
-                Subject Legend:
-                <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
-                    <!-- List items will be filled dynamically using JavaScript -->
-                </ul>
             </div>
             <div class="container">
                 <div class="row">
