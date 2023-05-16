@@ -15,9 +15,12 @@ if ($conn->connect_error) {
 $sql = "SELECT teacherID FROM teachers";
 $result = $conn->query($sql);
 
+$teacherID = array();
+// Add default option to the start of the array
+$teacherID[] = "Select a teacher";
+
 if ($result->num_rows > 0) {
     // output data of each row
-    $teacherID = array();
     while($row = $result->fetch_assoc()) {
         $teacherID[] = $row["teacherID"];
     }
