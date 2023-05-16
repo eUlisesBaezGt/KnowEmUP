@@ -17,13 +17,61 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost:8888/knowemup/test_front/totals.php', true);
+        xhr.open('GET', 'http://localhost/knowemup/test_front/totals.php', true);
         xhr.send();
 
 
         google.charts.load("current", { packages: ["corechart", "bar"] });
         google.charts.setOnLoadCallback(drawSemesterPie);
         google.charts.setOnLoadCallback(drawSemesterBar);
+        google.charts.setOnLoadCallback(drawBubbleChart);
+
+        function getGradeData() {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject("Error: " + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost/knowemup/test_front/grades_data.php");
+                xhr.send();
+            });
+        }
+
+        function drawBubbleChart() {
+            getGradeData()
+                .then((jsonData) => {
+                    let data = new google.visualization.DataTable();
+                    data.addColumn("string", "TeacherID");
+                    data.addColumn("number", "Grade");
+                    data.addColumn("number", "Count");
+
+                    jsonData.forEach((row) => {
+                        data.addRow([String(row.teacherID), row.grade, row.count]);
+                    });
+
+                    let bubblechart_options = {
+                        title: "Teacher grades and their frequency",
+                        hAxis: { title: "Grade" },
+                        vAxis: { title: "Teacher ID" },
+                        bubble: { textStyle: { fontSize: 11 } },
+                    };
+
+                    let bubblechart = new google.visualization.BubbleChart(
+                        document.getElementById("bubblechart_div")
+                    );
+                    bubblechart.draw(data, bubblechart_options);
+                })
+                .catch((error) => {
+                    console.error("Error:", error);
+                });
+        }
 
 
         function getData() {
@@ -39,7 +87,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost:8886/KnowEmUP/test_front/semesters.php");
+                xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php");
                 xhr.send();
             });
         }
@@ -99,7 +147,7 @@
                     barchart.draw(data, barchart_options);
                 }
             };
-            xhr.open("GET", "http://localhost:8886/KnowEmUP/test_front/semesters.php", true);
+            xhr.open("GET", "http://localhost/KnowEmUP/test_front/semesters.php", true);
             xhr.send();
         }
 
@@ -129,9 +177,13 @@
             <div class="col-sm-4">
                 <div id="piechart_div" style="border: 10px solid #1d3557"></div>
             </div>
-            <div class="col-sm-4">
+            <!-- <div class="col-sm-4">
                 <div id="barchart_div" style="border: 10px solid #1d3557"></div>
+            </div> -->
+            <div class="col-sm-4">
+                <div id="bubblechart_div" style="border: 10px solid #1d3557"></div>
             </div>
+
         </div>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
