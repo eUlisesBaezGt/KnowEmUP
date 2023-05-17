@@ -1,4 +1,3 @@
-TRUNCATE TABLE subjects;
 INSERT INTO subjects
 VALUES ('CV', 'Antonieta Martinez', 3),
     ('CI', 'Antonieta Martinez', 2),

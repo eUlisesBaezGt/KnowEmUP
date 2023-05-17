@@ -1,4 +1,3 @@
-TRUNCATE TABLE subject_legend;
 INSERT INTO subject_legend
 VALUES ('ADA', 'Analisis y Diseño de Algoritmos'),
     ('AL', 'Algebra Lineal'),
