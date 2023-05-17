@@ -25,7 +25,7 @@ for ($semester = 1; $semester <= 8; $semester++) {
             $data[] = array('semester' => $semester . '°', 'count' => $row['total']);
         }
     } else {
-        $data[] = array('semester' => $semester . 'ero', 'count' => 0);
+        $data[] = array('semester' => $semester . '°', 'count' => 0);
     }
 }
 

@@ -235,6 +235,7 @@
 
         google.charts.load("current", { packages: ["corechart"] });
         google.charts.setOnLoadCallback(drawCareerDonut);
+        google.charts.setOnLoadCallback(drawSemSubjDonut);
 
         function getDataCareer() {
             return new Promise((resolve, reject) => {
@@ -273,12 +274,60 @@
                     height: 500,
                     backgroundColor: '#23426f',
                     legendTextStyle: { color: '#FFF' },
-                    titleTextStyle: { color: '#FFF' },
-                    colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2']
+                    titleTextStyle: { color: '#FFF' }
                 };
 
                 let donutChart = new google.visualization.PieChart(
                     document.getElementById("donutchart_div")
+                );
+                donutChart.draw(data, donut_options);
+            }).catch(error => {
+                console.error('Error:', error);
+            });
+        }
+
+        function getSemSubj() {
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            let jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semestersubject.php");
+                xhr.send();
+            });
+        }
+
+        function drawSemSubjDonut() {
+            getSemSubj().then(jsonData => {
+                let data = new google.visualization.DataTable();
+                data.addColumn("string", "Semester");
+                data.addColumn("number", "Quantity");
+
+                for (let i = 0; i < jsonData.length; i++) {
+                    const row = jsonData[i];
+                    const count = parseInt(row.count);
+                    data.addRow([row.semester, count]);
+                }
+
+                let donut_options = {
+                    title: 'Distribution of Subjects by Semesters',
+                    pieHole: 0.4,
+                    width: 900,
+                    height: 500,
+                    backgroundColor: '#23426f',
+                    legendTextStyle: { color: '#FFF' },
+                    titleTextStyle: { color: '#FFF' }
+                };
+
+                let donutChart = new google.visualization.PieChart(
+                    document.getElementById("donutchart2_div")
                 );
                 donutChart.draw(data, donut_options);
             }).catch(error => {
@@ -355,9 +404,9 @@
         </div>
     </div>
 
-    <div id="donutchart_div" style="width: 900px; height: 500px; border: 10px solid #1d3557">
-    </div>
+    <div id="donutchart_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
 
+    <div id="donutchart2_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
 
 
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>

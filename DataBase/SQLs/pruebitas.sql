@@ -16,4 +16,4 @@
 --         AND Subject3 != ''
 -- ) as Subquery;
 
-SELECT * FROM users;
+SELECT COUNT(*) as total FROM subjects WHERE semester = '1';
