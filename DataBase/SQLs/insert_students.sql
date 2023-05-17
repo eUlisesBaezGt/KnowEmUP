@@ -116,7 +116,7 @@ VALUES(
     '0246726@up.edu.mx',
     'Alejandro0246726',
     'ING',
-    'Ingenieria en Innovacion y Diseño',
+    'Ingenieria en Innovacion y Diseno',
     '1'
   ),
   (
