@@ -22,7 +22,7 @@ for ($semester = 1; $semester <= 8; $semester++) {
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Each element in data is a dictionary with 'semester' and 'count' keys
-            $data[] = array('semester' => $semester . 'ero', 'count' => $row['total']);
+            $data[] = array('semester' => $semester . '°', 'count' => $row['total']);
         }
     } else {
         $data[] = array('semester' => $semester . 'ero', 'count' => 0);
