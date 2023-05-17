@@ -20,7 +20,7 @@ VALUES(
     '0246757@up.edu.mx',
     'Kenji0246757',
     'ING',
-    'Ingeniería en Inteligencia de Datos y Ciberseguridad',
+    'Ingenieria en Inteligencia de Datos y Ciberseguridad',
     '3'
   ),
   (
@@ -32,7 +32,7 @@ VALUES(
     '0241823@up.edu.mx',
     'Enrique0241823',
     'ING',
-    'Ingeniería en Inteligencia de Datos y Ciberseguridad',
+    'Ingenieria en Inteligencia de Datos y Ciberseguridad',
     '6'
   ),
   (
@@ -44,7 +44,7 @@ VALUES(
     '0249220@up.edu.mx',
     'Mauricio0249220',
     'ING',
-    'Ingeniería en Inteligencia de Datos y Ciberseguridad',
+    'Ingenieria en Inteligencia de Datos y Ciberseguridad',
     '5'
   ),
   (
@@ -56,7 +56,7 @@ VALUES(
     '0244643@up.edu.mx',
     'Sara0244643',
     'ING',
-    'Ingeniería en Inteligencia de Datos y Ciberseguridad',
+    'Ingenieria en Inteligencia de Datos y Ciberseguridad',
     '5'
   ),
   (
@@ -68,7 +68,7 @@ VALUES(
     '0247877@up.edu.mx',
     'Angel0247877',
     'ING',
-    'Ingeniería en Inteligencia de Datos y Ciberseguridad',
+    'Ingenieria en Inteligencia de Datos y Ciberseguridad',
     '3'
   ),
   (
@@ -80,7 +80,7 @@ VALUES(
     '0243250@up.edu.mx',
     'Daniela0243250',
     'ING',
-    'Ingeniería Mecánica',
+    'Ingenieria Mecánica',
     '3'
   ),
   (
@@ -92,7 +92,7 @@ VALUES(
     '0246717@up.edu.mx',
     'Andoreni0246717',
     'ING',
-    'Ingeniería Mecatrónica',
+    'Ingenieria Mecatrónica',
     '3'
   ),
   (
@@ -104,7 +104,7 @@ VALUES(
     '0243377@up.edu.mx',
     'Diego0243377',
     'ING',
-    'Ingeniería Mecatrónica',
+    'Ingenieria Mecatrónica',
     '4'
   ),
   (
@@ -116,7 +116,7 @@ VALUES(
     '0246726@up.edu.mx',
     'Alejandro0246726',
     'ING',
-    'Ingeniería en Innovación y Diseño',
+    'Ingenieria en Innovación y Diseño',
     '1'
   ),
   (
@@ -128,18 +128,6 @@ VALUES(
     '0245541@up.edu.mx',
     'Diego0245541',
     'ING',
-    'Ingeniería Mecánica',
+    'Ingenieria Mecánica',
     '3'
-  ),
-    (
-        '0246727',
-        'Prog_0246727',
-        'jose7',
-        'Jose',
-        'Mondragon',
-        '0246727@up.edu.edu.mx',
-        'Jose0246727',
-        'ING',
-        'Ingeniería en Innovación y Diseño',
-        '1'
-    );
+  );
