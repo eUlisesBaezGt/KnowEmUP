@@ -130,4 +130,16 @@ VALUES(
     'ING',
     'Ingeniería Mecánica',
     '3'
-  );
+  ),
+    (
+        '0246727',
+        'Prog_0246727',
+        'jose7',
+        'Jose',
+        'Mondragon',
+        '0246727@up.edu.edu.mx',
+        'Jose0246727',
+        'ING',
+        'Ingeniería en Innovación y Diseño',
+        '1'
+    );
