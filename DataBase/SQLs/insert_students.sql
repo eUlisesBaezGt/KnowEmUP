@@ -80,7 +80,7 @@ VALUES(
     '0243250@up.edu.mx',
     'Daniela0243250',
     'ING',
-    'Ingenieria Mecánica',
+    'Ingenieria Mecanica',
     '3'
   ),
   (
@@ -92,7 +92,7 @@ VALUES(
     '0246717@up.edu.mx',
     'Andoreni0246717',
     'ING',
-    'Ingenieria Mecatrónica',
+    'Ingenieria Mecatronica',
     '3'
   ),
   (
@@ -104,7 +104,7 @@ VALUES(
     '0243377@up.edu.mx',
     'Diego0243377',
     'ING',
-    'Ingenieria Mecatrónica',
+    'Ingenieria Mecatronica',
     '4'
   ),
   (
@@ -116,7 +116,7 @@ VALUES(
     '0246726@up.edu.mx',
     'Alejandro0246726',
     'ING',
-    'Ingenieria en Innovación y Diseño',
+    'Ingenieria en Innovacion y Diseño',
     '1'
   ),
   (
@@ -128,6 +128,6 @@ VALUES(
     '0245541@up.edu.mx',
     'Diego0245541',
     'ING',
-    'Ingenieria Mecánica',
+    'Ingenieria Mecanica',
     '3'
   );
