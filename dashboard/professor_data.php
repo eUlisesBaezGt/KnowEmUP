@@ -1,7 +1,7 @@
 <?php
 $selectedProfessor = $_GET['professor'];
 
-$servername = "localhost:8889";
+$servername = "127.0.0.1:3306";
 $username = "root";
 $password = "root";
 $dbname = "KnowEmUP";

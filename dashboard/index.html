@@ -24,8 +24,61 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost:8886/KnowEmUP/dashboard/totals.php', true);
+        xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
+
+        function drawColumnChart(jsonData) {
+            let data = new google.visualization.DataTable();
+            data.addColumn("string", "Subject");
+            data.addColumn("number", "Grade");
+
+
+            jsonData.forEach((row) => {
+                data.addRow([String(row.subject), parseFloat(row.grade)]);
+            });
+
+            let columnchart_options = {
+                title: "Grades for selected professor",
+                hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
+                vAxis: { title: "Grade" },
+                width: 400,
+                height: 400,
+            };
+
+            let columnchart = new google.visualization.ColumnChart(
+                document.getElementById("columnchart_div")
+            );
+            columnchart.draw(data, columnchart_options);
+        }
+
+        function drawBarChart(jsonData) {
+            let data;
+
+            if (jsonData.length === 0) { // If no data for selected subject
+                data = new google.visualization.arrayToDataTable([
+                    ['Teacher', 'Grade', { role: 'style' }],
+                    ['No Data', 0, 'silver']
+                ]);
+            } else {
+                data = new google.visualization.arrayToDataTable([
+                    ['Teacher', 'Grade', { role: 'style' }],
+                    ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), 'silver'])
+                ]);
+            }
+
+            let barchart_options = {
+                title: "Grades for selected subject",
+                hAxis: { title: "Teacher" },
+                vAxis: { title: "Grade" },
+                width: 400,
+                height: 400,
+            };
+
+            let barchart = new google.visualization.BarChart(
+                document.getElementById("barchart_div")
+            );
+            barchart.draw(data, barchart_options);
+        }
 
         function loadProfessors() {
             var xhr = new XMLHttpRequest();
@@ -57,7 +110,7 @@
                     updateChart();
                 }
             };
-            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/professors.php");
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
             xhr.send();
         }
 
@@ -77,7 +130,7 @@
                     }
                 }
             };
-            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/subject_legend.php");
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_legend.php");
             xhr.send();
         }
 
@@ -90,7 +143,7 @@
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
+            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
@@ -137,7 +190,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php");
+                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php");
                 xhr.send();
             });
         }
@@ -186,11 +239,11 @@
 <body>
 
     <body style="background-color: #000000"></body>
-    
+
     <div>
         <div class="row">
             <!--Barra -->
-            <div class="col-sm-3" style="width:20%;background-color: #232424; color: #fff "> 
+            <div class="col-sm-3" style="width:20%;background-color: #232424; color: #fff ">
                 <h2 style="color: #23426f; "> -</h2>
                 <h2 style="text-align: center; color:white">Universidad Panamericana</h2>
                 <img src="logo.png" alt="logo" style="width:300px;height:300px; align-content: center;">
@@ -198,15 +251,19 @@
                 <p style="text-align: center">Bases de Datos Avanzadas</p>
                 <p style="text-align: center"> Proyecto Final</p>
                 <p style="text-align: center"> <br> Tecnología usada: </p>
-                <div style="text-decoration: none;padding:50px;text-align:left; font-size: 25px; font-family:'Courier New', Courier, monospace;">
-                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de alumnos:<span id="students-count"></span></a>
+                <div
+                    style="text-decoration: none;padding:50px;text-align:left; font-size: 25px; font-family:'Courier New', Courier, monospace;">
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de
+                        alumnos:<span id="students-count"></span></a>
                     <p> </p>
-                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de profesores:<span id="teachers-count"></span></a>
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de
+                        profesores:<span id="teachers-count"></span></a>
                     <p> </p>
-                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de Datos: <span id="grades-count"></span></a>
-                
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de
+                        Datos: <span id="grades-count"></span></a>
+
                 </div>
-            </div> 
+            </div>
             <!--Graficas-->
             <div class="col-sm-6" style="text-align: center; align-content: center;">
                 <!-- <h1 style="color: white">Data</h1> -->
@@ -220,16 +277,16 @@
                 <select id="professor-dropdown" onchange="updateChart()">
                     <!-- Options will be filled dynamically using JavaScript -->
                 </select>
-                <div id="columnchart_div" style="border: 10px solid ##000000">
-                    <img src="default_dropdown.png" width="400" height="400" />
+                <div id="columnchart_div" style="border: 10px solid #000000">
+                    <img src="default_dropdown_proffesor.png" width="400" height="400" />
                 </div>
 
             </div>
-            
+
 
             <!-- Dropdowns -->
             <div class="col-sm-3" style="background-color: #232424; color:#fff">
-                <h1 >Materias</h1>
+                <h1>Materias</h1>
                 <!-- Subject Legend: -->
                 <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
                     <!-- List items will be filled dynamically using JavaScript -->
@@ -254,15 +311,15 @@
         <div class="container">
             <div class="row">
                 <div class="col-sm-12">
-                    
+
                 </div>
                 <div class="col-sm-12">
-                    
+
                 </div>
             </div>
         </div>
     </div>
-    
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
@@ -312,127 +369,3 @@
         };
     })();
 </script>
-
-<!--    
-        E63946
-        F1FAEE
-        A8DADC
-        457B9D
-        1D3557
-    -->
-
-<!-- // function getGradeData() {
-        //     return new Promise((resolve, reject) => {
-        //         let xhr = new XMLHttpRequest();
-        //         xhr.onreadystatechange = function () {
-        //             if (xhr.readyState === 4) {
-        //                 if (xhr.status === 200) {
-        //                     let jsonData = JSON.parse(xhr.responseText);
-        //                     resolve(jsonData);
-        //                 } else {
-        //                     reject("Error: " + xhr.status);
-        //                 }
-        //             }
-        //         };
-        //         xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/grades_data.php");
-        //         xhr.send();
-        //     });
-        // }
-
-        // function drawBubbleChart() {
-        //     getGradeData()
-        //         .then((jsonData) => {
-        //             let data = new google.visualization.DataTable();
-        //             data.addColumn("string", "TeacherID");
-        //             data.addColumn("number", "Grade");
-        //             data.addColumn("number", "Count");
-
-        //             jsonData.forEach((row) => {
-        //                 data.addRow([String(row.teacherID), parseFloat(row.grade), parseFloat(row.count) * 10]); // Multiply by 10
-        //             });
-
-        //             console.log(JSON.stringify(data));
-
-        //             let bubblechart_options = {
-        //                 title: "Teacher grades and their frequency",
-        //                 hAxis: { title: "Grade", minValue: 0, maxValue: 100 }, // assuming grades are between 0 and 100
-        //                 vAxis: { title: "Count", minValue: 0, maxValue: 100 }, // adjust this based on your teacher IDs
-        //                 bubble: { textStyle: { fontSize: 11 } },
-        //                 width: 600,
-        //                 height: 400,
-        //             };
-
-        //             let bubblechart = new google.visualization.BubbleChart(
-        //                 document.getElementById("bubblechart_div")
-        //             );
-        //             bubblechart.draw(data, bubblechart_options);
-        //         })
-        //         .catch((error) => {
-        //             console.error("Error:", error);
-        //         });
-        // }
-
-        // function drawSemesterBar() {
-            //     let xhr = new XMLHttpRequest();
-            //     xhr.onreadystatechange = function () {
-            //         if (xhr.readyState === 4 && xhr.status === 200) {
-            //             let jsonData = JSON.parse(xhr.responseText);
-    
-            //             let data = new google.visualization.DataTable();
-            //             data.addColumn("string", "Semester");
-            //             data.addColumn("number", "Quantity");
-    
-            //             for (let i = 0; i < jsonData.length; i++) {
-            //                 const row = jsonData[i];
-            //                 const count = parseInt(row.count);
-    
-            //                 data.addRow([row.semester, count]);
-            //             }
-    
-            //             let barchart_options = {
-            //                 title: "¿De qué semestre son nuestros usuarios?",
-            //                 width: 300,
-            //                 height: 300,
-            //                 legend: { position: "none" },
-            //             };
-            //             let barchart = new google.visualization.BarChart(
-            //                 document.getElementById("barchart_div")
-            //             );
-            //             barchart.draw(data, barchart_options);
-            //         }
-            //     };
-            //     xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php", true);
-            //     xhr.send();
-            // }
-            // function drawSemesterBar() {
-                //     let xhr = new XMLHttpRequest();
-                //     xhr.onreadystatechange = function () {
-                //         if (xhr.readyState === 4 && xhr.status === 200) {
-                //             let jsonData = JSON.parse(xhr.responseText);
-        
-                //             let data = new google.visualization.DataTable();
-                //             data.addColumn("string", "Semester");
-                //             data.addColumn("number", "Quantity");
-        
-                //             for (let i = 0; i < jsonData.length; i++) {
-                //                 const row = jsonData[i];
-                //                 const count = parseInt(row.count);
-        
-                //                 data.addRow([row.semester, count]);
-                //             }
-        
-                //             let barchart_options = {
-                //                 title: "¿De qué semestre son nuestros usuarios?",
-                //                 width: 300,
-                //                 height: 300,
-                //                 legend: { position: "none" },
-                //             };
-                //             let barchart = new google.visualization.BarChart(
-                //                 document.getElementById("barchart_div")
-                //             );
-                //             barchart.draw(data, barchart_options);
-                //         }
-                //     };
-                //     xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php", true);
-                //     xhr.send();
-                // } -->
