@@ -24,7 +24,7 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
+        xhr.open('GET', 'http://localhost:8886/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
 
         function loadProfessors() {
@@ -57,7 +57,7 @@
                     updateChart();
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
+            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/professors.php");
             xhr.send();
         }
 
@@ -77,7 +77,7 @@
                     }
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_legend.php");
+            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/subject_legend.php");
             xhr.send();
         }
 
@@ -90,7 +90,7 @@
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
+            xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
@@ -110,6 +110,9 @@
                 vAxis: { title: "Grade" },
                 width: 400,
                 height: 400,
+                // backgroundColor: '#23426f',
+                // legendTextStyle: { color: '#FFF' },
+                // titleTextStyle: { color: '#FFF' },
             };
 
             let columnchart = new google.visualization.ColumnChart(
@@ -134,7 +137,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php");
+                xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php");
                 xhr.send();
             });
         }
@@ -153,8 +156,12 @@
 
                 let piechart_options = {
                     title: "¿De qué semestre son nuestros usuarios?",
-                    width: 300,
-                    height: 300,
+                    width: 400,
+                    height: 400,
+                    backgroundColor: '#23426f',
+                    legendTextStyle: { color: '#FFF' },
+                    titleTextStyle: { color: '#FFF' },
+                    colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2']
                 };
                 let piechart = new google.visualization.PieChart(
                     document.getElementById("piechart_div")
@@ -178,59 +185,84 @@
 
 <body>
 
-    <body style="background-color: #1d3557"></body>
-    <h1 style="color: white">Data</h1>
-    <div class="container">
+    <body style="background-color: #000000"></body>
+    
+    <div>
         <div class="row">
-            <div class="col-sm-4">
-                <h3>Total de alumnos: <br><span id="students-count"></span></h3>
-                <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
-                <h3>Total de materias: <br><span id="subjects-count"></span></h3>
-                <h3>Total de calificacione: <br><span id="grades-count"></span></h3>
+            <!--Barra -->
+            <div class="col-sm-3" style="width:20%;background-color: #232424; color: #fff "> 
+                <h2 style="color: #23426f; "> -</h2>
+                <h2 style="text-align: center; color:white">Universidad Panamericana</h2>
+                <img src="logo.png" alt="logo" style="width:300px;height:300px; align-content: center;">
+                <p style="text-align: center"><br>Facultad de Ingeniería</p>
+                <p style="text-align: center">Bases de Datos Avanzadas</p>
+                <p style="text-align: center"> Proyecto Final</p>
+                <p style="text-align: center"> <br> Tecnología usada: </p>
+                <div style="text-decoration: none;padding:50px;text-align:left; font-size: 25px; font-family:'Courier New', Courier, monospace;">
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de alumnos:<span id="students-count"></span></a>
+                    <p> </p>
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de profesores:<span id="teachers-count"></span></a>
+                    <p> </p>
+                    <a style="background-color:#23426f; display:table-cell; color: white;" href="display.html">Total de Datos: <span id="grades-count"></span></a>
+                
+                </div>
+            </div> 
+            <!--Graficas-->
+            <div class="col-sm-6" style="text-align: center; align-content: center;">
+                <!-- <h1 style="color: white">Data</h1> -->
+                <h1 style="color: white; text-align: center;"> <br> &emsp; &emsp; &emsp; Data</h1>
+
+                <p> </p>
+                <!--#1d3557-->
+                <div id="piechart_div" style="border: 10px solid #000000"></div>
+                <div id="barchart_div" style="border: 10px solid #000000"></div>
+
+                <select id="professor-dropdown" onchange="updateChart()">
+                    <!-- Options will be filled dynamically using JavaScript -->
+                </select>
+                <div id="columnchart_div" style="border: 10px solid ##000000">
+                    <img src="default_dropdown.png" width="400" height="400" />
+                </div>
+
             </div>
-            <div class="col-sm-4">
-                <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-            </div>
-            <div class="col-sm-4">
-                <div id="barchart_div" style="border: 10px solid #1d3557"></div>
-            </div>
-            <div class="col-sm-4">
-                Subject Legend:
+            
+
+            <!-- Dropdowns -->
+            <div class="col-sm-3" style="background-color: #232424; color:#fff">
+                <h1 >Materias</h1>
+                <!-- Subject Legend: -->
                 <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
                     <!-- List items will be filled dynamically using JavaScript -->
                 </ul>
             </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <select id="subject-dropdown">
-                            <!-- Options will be filled dynamically using JavaScript -->
-                        </select>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="barchart_div" style="border: 10px solid #1d3557">
-                            <img src="" width="400" height="400" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <select id="professor-dropdown" onchange="updateChart()">
-                            <!-- Options will be filled dynamically using JavaScript -->
-                        </select>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="columnchart_div" style="border: 10px solid #1d3557">
-                            <img src="default_dropdown.png" width="400" height="400" />
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="subject-dropdown">
+                        <!-- Options will be filled dynamically using JavaScript -->
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <div id="barchart_div" style="border: 10px solid #1d3557">
+                        <img src="" width="400" height="400" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    
+                </div>
+                <div class="col-sm-12">
+                    
+                </div>
+            </div>
+        </div>
     </div>
+    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
@@ -302,7 +334,7 @@
         //                 }
         //             }
         //         };
-        //         xhr.open("GET", "http://localhost/KnowEmUP/dashboard/grades_data.php");
+        //         xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/grades_data.php");
         //         xhr.send();
         //     });
         // }
@@ -369,7 +401,7 @@
             //             barchart.draw(data, barchart_options);
             //         }
             //     };
-            //     xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php", true);
+            //     xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php", true);
             //     xhr.send();
             // }
             // function drawSemesterBar() {
@@ -401,6 +433,6 @@
                 //             barchart.draw(data, barchart_options);
                 //         }
                 //     };
-                //     xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php", true);
+                //     xhr.open("GET", "http://localhost:8886/KnowEmUP/dashboard/semesters.php", true);
                 //     xhr.send();
                 // } -->

@@ -1,7 +1,7 @@
 <?php
 $selectedSubject = $_GET['subject'];
 
-$servername = "localhost:3306";
+$servername = "localhost:8889";
 $username = "root";
 $password = "root";
 $dbname = "KnowEmUP";
