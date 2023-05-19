@@ -13,9 +13,34 @@
             updateChart(); // Call the updateChart function to display the graph for the first professor by default
             loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
             loadSubjects();
-            updateChart2();
             updateLineChart();
         });
+
+        function updateLineChart() {
+            getYearsGrade().then(function (jsonData) {
+                drawLineChart(jsonData);
+            }).catch(function (error) {
+                console.error('Error:', error);
+            });
+        }
+
+        function getYearsGrade() {
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/years.php");
+                xhr.send();
+            });
+        }
 
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -134,15 +159,6 @@
             xhr.send();
         }
 
-        function updateLineChart() {
-            getYearsGrade().then(function (jsonData) {
-                drawLineChart(jsonData);
-            }).catch(function (error) {
-                console.error('Error:', error);
-            });
-        }
-
-
         function drawColumnChart(jsonData) {
             let data = new google.visualization.DataTable();
             data.addColumn("string", "Subject");
@@ -201,24 +217,6 @@
         google.charts.setOnLoadCallback(drawSemesterPie);
         google.charts.setOnLoadCallback(drawLineChart);
 
-        function getYearsGrade() {
-            return new Promise((resolve, reject) => {
-                let xhr = new XMLHttpRequest();
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === 4) {
-                        if (xhr.status === 200) {
-                            let jsonData = JSON.parse(xhr.responseText);
-                            resolve(jsonData);
-                        } else {
-                            reject('Error: ' + xhr.status);
-                        }
-                    }
-                };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/years.php");
-                xhr.send();
-            });
-        }
-
         function drawLineChart(jsonData) {
             let data;
 
@@ -240,11 +238,11 @@
                 vAxis: {
                     title: 'Grades',
                     viewWindow: {
-                        min: 19800,
-                        max: 20200
+                        min: 19500,
+                        max: 22000
                     },
                 },
-                width: 1200,
+                width: 800,
                 height: 500,
                 backgroundColor: 'white',
                 legendTextStyle: { color: 'black' },
@@ -403,6 +401,7 @@
             });
         }
 
+
     </script>
     <style>
         h3 {
@@ -435,6 +434,10 @@
                     <!-- List items will be filled dynamically using JavaScript -->
                 </ul>
             </div>
+            <div class="col-sm-4">
+                LINE CHART
+                <div id="linechart_div" style="border: 10px solid #1d3557"></div>
+            </div>
             <div class="container">
                 <div class="row">
                     <div class="col-sm-12">
@@ -463,9 +466,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4">
-                <div id="linechart_div" style="border: 10px solid #1d3557"></div>
-            </div>
+
         </div>
     </div>
 
