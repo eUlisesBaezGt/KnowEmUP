@@ -13,6 +13,7 @@
             updateChart(); // Call the updateChart function to display the graph for the first professor by default
             loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
             loadSubjects();
+            loadTop3Proff();
         });
 
         google.charts.load("current", { packages: ["corechart", "bar"] });
@@ -147,6 +148,26 @@
                 }
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_legend.php");
+            xhr.send();
+        }
+
+        function loadTop3Proff() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var ulElement = document.querySelector("#top3proff_div");
+
+                    // Add each teacher to the list with their average grade
+                    for (var i = 0; i < jsonData.length; i++) {
+                        var teacher = jsonData[i];
+                        var li = document.createElement("li");
+                        li.textContent = teacher.teacherID + ": " + teacher.average_grade;
+                        ulElement.appendChild(li);
+                    }
+                }
+            };
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/top3proff.php");
             xhr.send();
         }
 
@@ -467,6 +488,8 @@
 
         </div>
     </div>
+
+    <div id="top3proff_div" style="width: 900px; height: 500px; border: 10px solid #1d3557">Top 3 profesores</div>
 
     <div id="donutchart_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
 
