@@ -13,8 +13,12 @@
             updateChart(); // Call the updateChart function to display the graph for the first professor by default
             loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
             loadSubjects();
-            updateLineChart();
         });
+
+        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.setOnLoadCallback(drawSemesterPie);
+        google.charts.setOnLoadCallback(updateLineChart);
+        google.charts.setOnLoadCallback(drawBarChart);
 
         function updateLineChart() {
             getYearsGrade().then(function (jsonData) {
@@ -212,22 +216,17 @@
             barchart.draw(data, barchart_options);
         }
 
-
-        google.charts.load("current", { packages: ["corechart", "bar"] });
-        google.charts.setOnLoadCallback(drawSemesterPie);
-        google.charts.setOnLoadCallback(drawLineChart);
-
         function drawLineChart(jsonData) {
             let data;
 
             if (jsonData.length === 0) {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Grade'],
+                    ['Year', 'Count'],
                     ['No Data', 0]
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Grade'],
+                    ['Year', 'Count'],
                     ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
                 ]);
             }
@@ -236,11 +235,11 @@
                 title: 'Grades per year',
                 hAxis: { title: 'Year' },
                 vAxis: {
-                    title: 'Grades',
-                    viewWindow: {
-                        min: 19500,
-                        max: 22000
-                    },
+                    title: 'Count',
+                    // viewWindow: {
+                    //     min: 19500,
+                    //     max: 22000
+                    // },
                 },
                 width: 800,
                 height: 500,
@@ -435,7 +434,6 @@
                 </ul>
             </div>
             <div class="col-sm-4">
-                LINE CHART
                 <div id="linechart_div" style="border: 10px solid #1d3557"></div>
             </div>
             <div class="container">
