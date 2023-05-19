@@ -29,6 +29,7 @@ CREATE TABLE `teachers` (
   `Subject1` varchar(45) DEFAULT 'NO',
   `Subject2` varchar(45) DEFAULT 'NO',
   `Subject3` varchar(45) DEFAULT 'NO',
+  `year` int(10) unsigned NOT NULL DEFAULT '0',
   PRIMARY KEY (`teacherID`)
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 -- Crear una tabla que guarde las calificaciones de los estudiantes a cada maestro
@@ -38,6 +39,7 @@ CREATE TABLE `teacher_grades` (
   `grade_alumno` double NOT NULL DEFAULT '0',
   `grade_profesor` double NOT NULL DEFAULT '0',
   `subject` varchar(5) NOT NULL DEFAULT 'EMPTY',
+  `year` int(4) NOT NULL DEFAULT 0,
   KEY `teacher_grades_ibfk_1` (`teacherID`),
   KEY `teacher_grades_ibfk_2` (`studentID`),
   CONSTRAINT `teacher_grades_ibfk_1` FOREIGN KEY (`teacherID`) REFERENCES `teachers` (`teacherID`),

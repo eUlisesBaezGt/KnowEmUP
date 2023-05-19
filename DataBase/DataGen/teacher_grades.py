@@ -27,6 +27,9 @@ cursor.execute("SELECT COUNT(*) FROM teacher_grades")
 row_count = cursor.fetchone()[0]
 print(row_count, "rows in the table")
 
+
+years = [2019, 2020, 2021, 2022, 2023] 
+
 # CONTINUE UNTIL THERE ARE 100,000 ROWS IN THE TABLE
 while row_count < 100000:
     # SELECT A RANDOM STUDENT AND TEACHER
@@ -45,9 +48,11 @@ while row_count < 100000:
     randomSubject = random.choice(subjectID)
     # print("Subject: ", randomSubject)
 
+    randomYear = random.choice(years)
+
     # INSERT INTO GRADES TABLE
-    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor, subject) VALUES (%s, %s, %s, %s, %s)"
-    val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher, randomSubject)
+    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor, subject, year) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher, randomSubject, randomYear)
     cursor.execute(sql, val)
 
     db.commit()
