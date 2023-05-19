@@ -29,7 +29,7 @@ carreras = ["Ingenieria en Inteligencia de Datos y Ciberseguridad", "Ingenieria 
             'Ingenieria en Innovacion y Diseno', "Ingenieria Industrial", "Matematicas Aplicadas"]
 
 # CONTINUE UNTIL THERE ARE 1,250 ROWS IN THE TABLE
-while row_count < 6250:
+while row_count < 7350:
     # SELECT A RANDOM STUDENT ID, it is conformed by 7 digits starting with 0
     id = "0"
     for i in range(6):
