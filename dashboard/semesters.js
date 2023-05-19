@@ -1,4 +1,4 @@
-fetch('http://localhost:8888/knowemup/test_front/index.php')
+fetch('http://localhost:8888/knowemup/dashboard/semesters.php')
     .then(response => {
         if (!response.ok) {
             throw new Error("HTTP error " + response.status);

@@ -41,7 +41,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/years.php");
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/years.php");
                 xhr.send();
             });
         }
@@ -56,7 +56,7 @@
                 document.querySelector("#grades-count").textContent += jsonData.grades;
             }
         };
-        xhr.open('GET', 'http://localhost/KnowEmUP/dashboard/totals.php', true);
+        xhr.open('GET', 'http://localhost:8888/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
 
         function loadProfessors() {
@@ -89,7 +89,7 @@
                     updateChart();
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professors.php");
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/professors.php");
             xhr.send();
         }
 
@@ -112,7 +112,7 @@
                     updateChart2();
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subjects.php");
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subjects.php");
             xhr.send();
         }
 
@@ -125,7 +125,7 @@
                     drawBarChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_data.php?subject=" + selectedSubject);
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_data.php?subject=" + selectedSubject);
             xhr.send();
         }
 
@@ -146,7 +146,7 @@
                     }
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/subject_legend.php");
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_legend.php");
             xhr.send();
         }
 
@@ -159,7 +159,7 @@
                     drawColumnChart(jsonData);
                 }
             };
-            xhr.open("GET", "http://localhost/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/professor_data.php?professor=" + selectedProfessor);
             xhr.send();
         }
 
@@ -267,7 +267,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semesters.php");
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/semesters.php");
                 xhr.send();
             });
         }
@@ -315,7 +315,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/career.php");
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/career.php");
                 xhr.send();
             });
         }
@@ -364,7 +364,7 @@
                         }
                     }
                 };
-                xhr.open("GET", "http://localhost/KnowEmUP/dashboard/semestersubject.php");
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/semestersubject.php");
                 xhr.send();
             });
         }
