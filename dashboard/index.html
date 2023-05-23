@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>KnowEmUP</title>
     <link rel="stylesheet" href="style2.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -23,6 +26,65 @@
         google.charts.setOnLoadCallback(drawSemesterPie);
         google.charts.setOnLoadCallback(updateLineChart);
         google.charts.setOnLoadCallback(drawBarChart);
+        google.charts.setOnLoadCallback(drawColumnChart);
+        google.charts.setOnLoadCallback(updateBubble);
+
+        function drawBubbleChart(jsonData) {
+            let data;
+
+            if (jsonData.length === 0) { // If no data for selected subject
+                data = google.visualization.arrayToDataTable([
+                    ['ID', 'Año', 'Calificación Promedio', 'Cantidad Calificaciones'],
+                    ['0', 0, 0, 0],
+                ]);
+            } else {
+                data = google.visualization.arrayToDataTable([
+                    ['ID', 'Año', 'Calificación Promedio', 'Cantidad Calificaciones'],
+                    ...jsonData.map((row, i) => [`${row.teacherID}-${row.subject}`, Number(row.year), Number(row.avg_grade), Number(row.grade_count)])
+                ]);
+            }
+
+            var options = {
+                title: 'Profesor y materia vista general',
+                hAxis: { title: 'Año' },
+                vAxis: { title: 'Calificación Promedio' },
+                bubble: { textStyle: { fontSize: 11 } },
+                width: 1200,
+                height: 1000,
+                /*ENABLE SCROLLBAR*/
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
+            chart.draw(data, options);
+        }
+
+
+        function updateBubble() {
+            getBubble().then(function (jsonData) {
+                drawBubbleChart(jsonData);
+            }).catch(function (error) {
+                console.error('Error:', error);
+            });
+        }
+
+        function getBubble() {
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/bubble.php");
+                xhr.send();
+            });
+        }
+
 
         function updateLineChart() {
             getYearsGrade().then(function (jsonData) {
@@ -31,6 +93,7 @@
                 console.error('Error:', error);
             });
         }
+
         function getYearsGrade() {
             return new Promise(function (resolve, reject) {
                 var xhr = new XMLHttpRequest();
@@ -48,6 +111,7 @@
                 xhr.send();
             });
         }
+
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4 && xhr.status === 200) {
@@ -60,6 +124,7 @@
         };
         xhr.open('GET', 'http://localhost:8888/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
+
         function loadProfessors2() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -93,6 +158,7 @@
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/professors.php");
             xhr.send();
         }
+
         function loadProfessors() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -143,7 +209,7 @@
                     });
 
                     // Trigger the chart update when the subjects are loaded
-                    updateChart2();
+                    updateSubject();
                 }
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subjects.php");
@@ -151,19 +217,6 @@
         }
 
         function updateSubject() {
-            var selectedSubject = document.querySelector("#subject-dropdown").value;
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function () {
-                if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    drawBarChart(jsonData);
-                }
-            };
-            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_data.php?subject=" + selectedSubject);
-            xhr.send();
-        }
-
-        function updateChart2() {
             var selectedSubject = document.querySelector("#subject-dropdown").value;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -190,6 +243,7 @@
             xhr.send();
         }
 
+
         function loadSubjectLegend() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -209,6 +263,7 @@
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_legend.php");
             xhr.send();
         }
+
         function loadTop3Proff() {
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -228,6 +283,7 @@
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/top3proff.php");
             xhr.send();
         }
+
         function updateChart() {
             var selectedProfessor = document.querySelector("#professor-dropdown").value;
             var xhr = new XMLHttpRequest();
@@ -257,20 +313,20 @@
 
             //GRAFICA 3
             let columnchart_options = {
-                title: "Grades for selected professor",
+                title: "Calificaciones para el profesor seleccionado",
                 titleTextStyle: { color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true },
-                hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
-                vAxis: { title: "Grade" },
-                legendTextStyle: { color: '#0000'},
+                hAxis: { title: "Materia" },
+                vAxis: { title: "Calificación" },
+                legendTextStyle: { color: '#0000' },
                 chartArea: {
                     backgroundColor: {
-                    fill: 'transparent',
+                        fill: 'transparent',
                     },
                 },
                 backgroundColor: {
-                fill: 'transparent',
+                    fill: 'transparent',
                 },
-                width: 400,
+                width: 450,
                 height: 400,
                 colors: ['#008080', '#6082B6'],
             };
@@ -280,7 +336,7 @@
             );
             columnchart.draw(data, columnchart_options);
         }
-        //Grafica 6
+
         function drawLineChart2(jsonData) {
             let data;
             if (jsonData.length === 0) {
@@ -295,7 +351,7 @@
                 ]);
             }
             let linechart_options = {
-                title: 'Calificaciones de profesor por año',
+                title: 'Evolución de las evaluaciones del profesor en el tiempo',
                 hAxis: { title: 'Año' },
                 vAxis: {
                     title: 'Calificación',
@@ -304,8 +360,8 @@
                     //     max: 22000
                     // },
                 },
-                width: 800,
-                height: 500,
+                width: 900,
+                height: 600,
                 backgroundColor: 'transparent',
                 legendTextStyle: { color: 'black' },
                 titleTextStyle: { color: 'black' }
@@ -315,26 +371,27 @@
             );
             linechart.draw(data, linechart_options);
         }
+
         function drawLineChart(jsonData) {
             let data;
 
             if (jsonData.length === 0) {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Count'],
-                    ['No Data', 0]
+                    ['Año', 'Cantidad'],
+                    ['Sin datos', 0]
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Count'],
+                    ['Año', 'Cantidad'],
                     ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
                 ]);
             }
 
             let linechart_options = {
-                title: 'Grades per year',
-                hAxis: { title: 'Year' },
+                title: 'Cantidad de calificaciones por año',
+                hAxis: { title: 'Año' },
                 vAxis: {
-                    title: 'Count',
+                    title: 'Cantidad',
                     // viewWindow: {
                     //     min: 19500,
                     //     max: 22000
@@ -349,38 +406,38 @@
             let linechart = new google.visualization.LineChart(
                 document.getElementById('linechart_div')
             );
-            console.log(jsonData);
             linechart.draw(data, linechart_options);
         }
+
         function drawBarChart(jsonData) {
             let data;
 
-            if (jsonData.length === 0) { // If no data for selected subject
+            if (jsonData.length === 0) { // If Sin datos for selected subject
                 data = new google.visualization.arrayToDataTable([
-                    ['Teacher', 'Grade', { role: 'style' }],
-                    ['No Data', 0, '#A7C7E7'],
+                    ['Profesor', 'Calificación', { role: 'style' }],
+                    ['Sin datos', 0, '#A7C7E7'],
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Teacher', 'Grade', { role: 'style' }],
+                    ['Profesor', 'Calificación', { role: 'style' }],
                     ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), '#A7C7E7'])
                 ]);
             }
             //GRAFICA 2
             let barchart_options = {
-                title: "Grades for selected subject",
+                title: "Calificaciones para la materia seleccionada",
                 titleTextStyle: { color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true },
-                hAxis: { title: "Teacher" },
-                vAxis: { title: "Grade" },
-                width: 400,
+                hAxis: { title: "Calificación" },
+                vAxis: { title: "Profesor" },
+                width: 450,
                 height: 400,
-                legendTextStyle: { color: '#0000'},
+                legendTextStyle: { color: '#0000' },
                 is3D: true,
                 backgroundColor: {
-                fill: 'TRANSPARENT',
-                fillOpacity: 0.8
+                    fill: 'TRANSPARENT',
+                    fillOpacity: 0.8
                 },
-                
+
             };
 
             let barchart = new google.visualization.BarChart(
@@ -410,6 +467,7 @@
                 xhr.send();
             });
         }
+
         //GRAFICA 1
         function drawSemesterPie() {
             getData().then(jsonData => {
@@ -425,12 +483,18 @@
 
                 let piechart_options = {
                     title: "De que semestre son \nnuestros usuarios?",
-                    titleTextStyle: { color: '#0000', fontName: "Roboto", fontSize: "200px", bold: true, textAlign: 'center' },
+                    titleTextStyle: {
+                        color: '#0000',
+                        fontName: "Roboto",
+                        fontSize: "200px",
+                        bold: true,
+                        textAlign: 'center'
+                    },
                     width: 800,
                     height: 800,
                     alignItems: 'center',
                     backgroundColor: 'transparent',
-                    legendTextStyle: { color: '#0000'},
+                    legendTextStyle: { color: '#0000' },
                     colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2', '#6082B6'],
                     is3D: true,
                     // slices: {  
@@ -470,6 +534,7 @@
                 xhr.send();
             });
         }
+
         //GRAFICA 4
         function drawCareerDonut() {
             getDataCareer().then(jsonData => {
@@ -484,7 +549,7 @@
                 }
 
                 let donut_options = {
-                    title: 'Distribution of Careers',
+                    title: 'Distribución de carreras de los alumnos',
                     pieHole: 0.4,
                     width: 900,
                     height: 500,
@@ -520,6 +585,7 @@
                 xhr.send();
             });
         }
+
         //GRAFICA 5
         function drawSemSubjDonut() {
             getSemSubj().then(jsonData => {
@@ -534,7 +600,8 @@
                 }
 
                 let donut_options = {
-                    title: 'Distribution of Subjects by Semesters',
+                    title: 'Porcentaje de materias de cada semestre',
+                    title: 'Porcentaje de materias de cada semestre',
                     pieHole: 0.4,
                     width: 900,
                     height: 500,
@@ -558,71 +625,64 @@
 </head>
 
 <body>
-    
-   <br><br><br><br><br>
-   <div class="container square">
+
+    <br><br><br><br><br>
+    <div class="container square">
         <div class="row">
             <div class="col-sm-12 center">
-                <h2>   Evaluación de profesores</h2>
+                <h2> Evaluación de profesores</h2>
             </div>
             <div class="col-sm-1 center">
                 <br><br><br>
-                
-                <!-- <a href="https://www.w3schools.com">&#9829;</a><br><br>
-                <a href="https://www.w3schools.com">&#9829;</a> -->
-                
             </div>
             <div class="col-sm-3 center">
                 <br><br><br><br><br><br>
-                <h5 class="square2" >Total de alumnos: <span
-                    id="students-count"></span></h5>
+                <h5 class="square2">Total de alumnos: <span id="students-count"></span></h5>
                 <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square3">Total de profesores: <span
-                    id="teachers-count"></span></h5>
+                <h5 class="square3">Total de profesores: <span id="teachers-count"></span></h5>
                 <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square5">Total de Materias: <span
-                    id="subjects-count"></span></h5>
+                <h5 class="square5">Total de Materias: <span id="subjects-count"></span></h5>
                 <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square4">Calificaciones: <span
-                    id="grades-count"></span></h5>
+                <h5 class="square4">Calificaciones: <span id="grades-count"></span></h5>
 
-                <label for="menu" onmouseover="toggleMenu3()" onmouseout= "toggle2Menu4()" class="square2" style="margin-left: 13px; margin-top: 40px; background-color: #008080; color:white; padding: 10px; padding-left: 40px; padding-right: 40px; text-align: center;"> <h5>Top 3 teachers</h5> </label>
+                <label for="menu" onmouseover="toggleMenu3()" onmouseout="toggle2Menu4()" class="square2"
+                    style="margin-left: 13px; margin-top: 40px; background-color: #008080; color:white; padding: 10px; padding-left: 40px; padding-right: 40px; text-align: center;">
+                    <h5>Top 3 teachers</h5>
+                </label>
                 <div id="menu-text2" class="menu-text" style="color:black; margin-left: 20px;">
                     <div id="top3proff_div" style="text-align: center;">Top 3 profesores</div>
                 </div>
             </div>
             <div class="col-sm-7 center">
-                    
+
                 <div id="piechart_div"></div>
-                
+
             </div>
 
 
         </div>
-   </div>
-   <br>
-   <div class="container">
+    </div>
+    <br>
+    <div class="container">
         <div class="row">
             <div class="col-sm-5.5 center-block square">
-                
-                <label for="menu" onmouseover="toggleMenu()" onmouseout= "toggle2Menu()" class="square2" style="margin-left: 50px; margin-top: 50px; background-color: #000080; color:white; padding:5px;"> Subjects </label>
+                <label for="menu" onmouseover="toggleMenu()" onmouseout="toggle2Menu()" class="square2"
+                    style="margin-left: 50px; margin-top: 50px; background-color: #000080; color:white; padding:5px;">
+                    Subjects </label>
                 <div id="menu-text" class="menu-text" style="color:black; margin-left: 20px;">
                     <br>
                     <div class="square2" style="color:black">
-                        <ul id="subject-legend"> 
+                        <ul id="subject-legend">
                         </ul>
                     </div>
                 </div>
-              
-                <select id="subject-dropdown" onchange="updateChart2()" style="margin-left:80px"></select>
 
-                <!-- <div id="piechart_div" style="border: 10px solid #0000"></div> -->
-                
+                <select id="subject-dropdown" onchange="updateSubject()">
                 </select>
                 <div id="barchart_div" style="border: 10px solid #0000">
-                    <img src="default_dropdown_subject.png" width="400" height="400" />
-                </div>   
-                
+                    <img src="default_dropdown_subjects.png" width="400" height="400" />
+                </div>
+
             </div>
             <div class="col-sm-0.8">
                 <p style="color:transparent">.........</p>
@@ -634,8 +694,8 @@
                     <img src="default_dropdown_proffesor.png" width="400" height="400" />
                 </div>
             </div>
-            
-            
+
+
         </div>
         <br><br>
         <div class="square center-block">
@@ -652,35 +712,42 @@
             <div id="linechart_div"></div>
         </div>
         <br><br>
-        <br><br>
         <div class="col-sm-12 center-block square">
             <select id="professor-dropdown2" onchange="updateTeacherYear()">
             </select>
             <div id="yearchart_div" style="border: 10px solid #0000">
-                <img src="default_dropdown_teachyears.png" width="400" height="400" />
+                <img src="default_dropdown_teachyears.png" width="900" height="600" />
             </div>
         </div>
+        <br>
+        <div class="col-sm-12 center-block" style="margin-left: -50px;">
+            <div id="bubble_chart_div"></div>
+        </div>
+        <br>
+        <br>
+        <p>.</p>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    </body>
+</body>
+
 </html>
 <script>
     function toggleMenu() {
         var menuText = document.getElementById("menu-text");
         menuText.style.display = "block";
-        
+
     }
     function toggle2Menu() {
         var menuText = document.getElementById("menu-text");
-        menuText.style.display = "none";  
+        menuText.style.display = "none";
     }
     function toggleMenu3() {
         var menuText = document.getElementById("menu-text2");
         menuText.style.display = "block";
-        
+
     }
     function toggle2Menu4() {
         var menuText = document.getElementById("menu-text2");
-        menuText.style.display = "none";  
+        menuText.style.display = "none";
     }
     (function () {
         var ws = new WebSocket(
