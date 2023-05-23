@@ -17,7 +17,7 @@ $result = $conn->query($sql);
 
 $teacherID = array();
 // Add default option to the start of the array
-$teacherID[] = "Select a teacher";
+$teacherID[] = "Selecciona un profesor";
 
 if ($result->num_rows > 0) {
     // output data of each row
