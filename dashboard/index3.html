@@ -13,6 +13,7 @@
     <script type="text/javascript">
         document.addEventListener("DOMContentLoaded", function () {
             loadProfessors();
+            loadProfessors2();
             updateChart(); // Call the updateChart function to display the graph for the first professor by default
             loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
             loadSubjects();
@@ -59,6 +60,40 @@
         };
         xhr.open('GET', 'http://localhost:8888/KnowEmUP/dashboard/totals.php', true);
         xhr.send();
+
+        function loadProfessors2() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    var selectElement = document.querySelector("#professor-dropdown2");
+
+                    // Add the first professor as the default selected option
+                    if (jsonData.length > 0) {
+                        var firstProfessor = jsonData[0];
+                        var option = document.createElement("option");
+                        option.value = firstProfessor;
+                        option.textContent = firstProfessor;
+                        option.selected = true; // Set the option as selected
+                        selectElement.appendChild(option);
+                    }
+
+                    // Add the remaining professors
+                    for (var i = 1; i < jsonData.length; i++) {
+                        var professor = jsonData[i];
+                        var option = document.createElement("option");
+                        option.value = professor;
+                        option.textContent = professor;
+                        selectElement.appendChild(option);
+                    }
+
+                    // Trigger the chart update when the professors are loaded
+                    updateChart();
+                }
+            };
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/professors.php");
+            xhr.send();
+        }
 
         function loadProfessors() {
             var xhr = new XMLHttpRequest();
@@ -110,14 +145,14 @@
                     });
 
                     // Trigger the chart update when the subjects are loaded
-                    updateChart2();
+                    updateSubject();
                 }
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subjects.php");
             xhr.send();
         }
 
-        function updateChart2() {
+        function updateSubject() {
             var selectedSubject = document.querySelector("#subject-dropdown").value;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -128,6 +163,21 @@
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subject_data.php?subject=" + selectedSubject);
             xhr.send();
+        }
+
+        function updateTeacherYear() {
+            var selectedTeacher = document.querySelector("#professor-dropdown2").value;
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    var jsonData = JSON.parse(xhr.responseText);
+                    drawLineChart2(jsonData);
+                }
+            };
+            xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/teacher_year.php?teacher=" + selectedTeacher);
+            xhr.send();
+            console.log(selectedTeacher);
+            console.log(jsonData);
         }
 
 
@@ -221,17 +271,53 @@
             );
             columnchart.draw(data, columnchart_options);
         }
+        function drawLineChart2(jsonData) {
+            let data;
+            if (jsonData.length === 0) {
+                data = new google.visualization.arrayToDataTable([
+                    ['Año', 'Calificación'],
+                    ['Sin datos', 0]
+                ]);
+            } else {
+                data = new google.visualization.arrayToDataTable([
+                    ['Año', 'Calificación'],
+                    ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
+                ]);
+            }
+            let linechart_options = {
+                title: 'Calificaciones de profesor por año',
+                hAxis: { title: 'Año' },
+                vAxis: {
+                    title: 'Calificación',
+                    // viewWindow: {
+                    //     min: 19500,
+                    //     max: 22000
+                    // },
+                },
+                width: 800,
+                height: 500,
+                backgroundColor: 'transparent',
+                legendTextStyle: { color: 'black' },
+                titleTextStyle: { color: 'black' }
+            };
+            let linechart = new google.visualization.LineChart(
+                document.getElementById('yearchart_div')
+            );
+            console.log(jsonData);
+            linechart.draw(data, linechart_options);
+        }
+
         function drawLineChart(jsonData) {
             let data;
 
             if (jsonData.length === 0) {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Count'],
+                    ['Año', 'Cantidad'],
                     ['Sin datos', 0]
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Year', 'Count'],
+                    ['Año', 'Cantidad'],
                     ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
                 ]);
             }
@@ -511,7 +597,7 @@
         <div class="row">
             <div class="col-sm-5.5 center-block square">
                 <div id="piechart_div" style="border: 10px solid #0000"></div>
-                <select id="subject-dropdown" onchange="updateChart2()">
+                <select id="subject-dropdown" onchange="updateSubject()">
                 </select>
                 <div id="barchart_div" style="border: 10px solid #0000">
                     <img src="default_dropdown_subjects.png" width="400" height="400" />
@@ -546,6 +632,13 @@
         </div>
         <br><br>
         <br><br>
+        <div class="col-sm-5.5 center-block square">
+            <select id="professor-dropdown2" onchange="updateTeacherYear()">
+            </select>
+            <div id="yearchart_div" style="border: 10px solid #0000">
+                <img src="default_dropdown_subjects.png" width="400" height="400" />
+            </div>
+        </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
