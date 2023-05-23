@@ -585,11 +585,15 @@
                 <p style="color:white; font-size: 1px;">.</p>
                 <h5 class="square4">Calificaciones: <span
                     id="grades-count"></span></h5>
+
+                <label for="menu" onmouseover="toggleMenu3()" onmouseout= "toggle2Menu4()" class="square2" style="margin-left: 13px; margin-top: 40px; background-color: #008080; color:white; padding: 10px; padding-left: 40px; padding-right: 40px; text-align: center;"> <h5>Top 3 teachers</h5> </label>
+                <div id="menu-text2" class="menu-text" style="color:black; margin-left: 20px;">
+                    <div id="top3proff_div" style="text-align: center;">Top 3 profesores</div>
+                </div>
             </div>
             <div class="col-sm-7 center">
                     
                 <div id="piechart_div"></div>
-                <div id="top3proff_div" style="text-align: center;">Top 3 profesores</div>
                 
             </div>
 
@@ -601,8 +605,9 @@
         <div class="row">
             <div class="col-sm-5.5 center-block square">
                 
-                <label for="menu" onmouseover="toggleMenu()" onmouseout= "toggle2Menu()" class="square2" style="margin-left: 50px; margin-top: 50px; background-color: rgba(70,252,126,1); color:gray; padding:5px; opacity: 0.5;"> Subjects </label>
+                <label for="menu" onmouseover="toggleMenu()" onmouseout= "toggle2Menu()" class="square2" style="margin-left: 50px; margin-top: 50px; background-color: #000080; color:white; padding:5px;"> Subjects </label>
                 <div id="menu-text" class="menu-text" style="color:black; margin-left: 20px;">
+                    <br>
                     <div class="square2" style="color:black">
                         <ul id="subject-legend"> 
                         </ul>
@@ -623,7 +628,7 @@
                 <p style="color:transparent">.........</p>
             </div>
             <div class="col-sm-5.5 center-block square" style="margin-right: -15px;">
-                <br>
+                <br><br>
                 <select id="professor-dropdown" onchange="updateChart()" class="center-block"></select>
                 <div id="columnchart_div" style="border: 10px solid #0000">
                     <img src="default_dropdown_proffesor.png" width="400" height="400" />
@@ -666,9 +671,16 @@
     }
     function toggle2Menu() {
         var menuText = document.getElementById("menu-text");
-        menuText.style.display = "none";
-       
+        menuText.style.display = "none";  
+    }
+    function toggleMenu3() {
+        var menuText = document.getElementById("menu-text2");
+        menuText.style.display = "block";
         
+    }
+    function toggle2Menu4() {
+        var menuText = document.getElementById("menu-text2");
+        menuText.style.display = "none";  
     }
     (function () {
         var ws = new WebSocket(
