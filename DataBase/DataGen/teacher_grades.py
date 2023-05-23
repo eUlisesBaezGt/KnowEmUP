@@ -3,7 +3,7 @@ import random
 
 db = mysql.connector.connect(
     host="localhost",
-    port=3306,
+    port=8889,
     user="root",
     passwd="root",
 )
@@ -11,8 +11,6 @@ db = mysql.connector.connect(
 cursor = db.cursor()
 
 cursor.execute("USE KnowEmUP")
-
-cursor.execute("TRUNCATE TABLE teacher_grades")
 
 # SELECT * teacherID from teachers and store in a list
 cursor.execute("SELECT teacherID FROM teachers")
@@ -31,7 +29,7 @@ print(row_count, "rows in the table")
 years = [2019, 2020, 2021, 2022, 2023] 
 
 # CONTINUE UNTIL THERE ARE 100,000 ROWS IN THE TABLE
-while row_count < 132590:
+while row_count < 192567:
     # SELECT A RANDOM STUDENT AND TEACHER
     randomTeacher = random.choice(teacherID)
     randomStudent = random.choice(studentID)
