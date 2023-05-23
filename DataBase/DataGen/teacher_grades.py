@@ -36,9 +36,7 @@ while row_count < 192567:
     # print("Teacher: ", randomTeacher, "Student: ", randomStudent)
 
     # SELECT A RANDOM GRADE FROM 60-100
-    randomGradeStudent = random.randint(60, 100)
-    randomGradeTeacher = random.randint(60, 100)
-    # print("Grade Student: ", randomGradeStudent, "Grade Teacher: ", randomGradeTeacher)
+    randomGrade = random.randint(60, 100)
 
     # SELECT A RANDOM SUBJECT FROM THE SUBJECTS OF THE TEACHER
     cursor.execute("SELECT id FROM subjects WHERE teacherID = %s", (randomTeacher,))
@@ -49,8 +47,8 @@ while row_count < 192567:
     randomYear = random.choice(years)
 
     # INSERT INTO GRADES TABLE
-    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade_alumno, grade_profesor, subject, year) VALUES (%s, %s, %s, %s, %s, %s)"
-    val = (randomTeacher, randomStudent, randomGradeStudent, randomGradeTeacher, randomSubject, randomYear)
+    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade, subject, year) VALUES (%s, %s, %s, %s, %s, %s)"
+    val = (randomTeacher, randomStudent, randomGrade, randomSubject, randomYear)
     cursor.execute(sql, val)
 
     db.commit()
