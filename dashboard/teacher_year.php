@@ -1,5 +1,5 @@
 <?php
-$selectedProfessor = $_GET['professor'];
+$selectedProfessor = $_GET['teacher'];
 
 $servername = "localhost:8889";
 $username = "root";
@@ -13,20 +13,33 @@ $conn = new mysqli($servername, $username, $password, $dbname);
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
-$avg_grades = array();
+$data = array();
 
-// Get the average grade for year (no matter the subject) for each year year in list years = [2019, 2020, 2021, 2022, 2023]
-for ($year = 2019; $year <= 2023; $year++)  {
-    $sql = "SELECT AVG(grade) AS avg_grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND year = '$year'";
+$years = [2019, 2020, 2021, 2022, 2023];
+
+foreach($years as $year){
+    $sql = "SELECT AVG(grade) AS avg_grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND year = $year";
     $result = $conn->query($sql);
-    $row = $result->fetch_assoc();
-    $avg_grade = $row['avg_grade'];
-    $avg_grades[] = $avg_grade;
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $data[] = array(
+                'year' => $year,
+                'avg_grade' => $row['avg_grade']
+            );
+        }
+    }
 }
 
+ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
-echo json_encode($avg_grades);
+// Set the response headers
+header('Content-Type: application/json');
+header('Access-Control-Allow-Origin: *');
+
+echo json_encode($data);
 
 $conn->close();
 ?>
-

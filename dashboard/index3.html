@@ -20,6 +20,7 @@
             loadSubjectLegend(); // Call the loadSubjectLegend function to display the subject legend
             loadSubjects();
             loadTop3Proff();
+            updateTeacherYear();
         });
         google.charts.load("current", { packages: ["corechart", "bar"] });
         google.charts.setOnLoadCallback(drawSemesterPie);
@@ -173,14 +174,13 @@
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
+                    console.log(xhr.responseText);
                     var jsonData = JSON.parse(xhr.responseText);
                     drawLineChart2(jsonData);
                 }
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/teacher_year.php?teacher=" + selectedTeacher);
             xhr.send();
-            console.log(selectedTeacher);
-            console.log(jsonData);
         }
 
 
@@ -284,10 +284,9 @@
             } else {
                 data = new google.visualization.arrayToDataTable([
                     ['Año', 'Calificación'],
-                    ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
+                    ...jsonData.map((row) => [String(row.year), row.avg_grade !== null ? parseFloat(row.avg_grade) : 0])
                 ]);
             }
-            console.log(jsonData);
             let linechart_options = {
                 title: 'Calificaciones de profesor por año',
                 hAxis: { title: 'Año' },
@@ -307,7 +306,6 @@
             let linechart = new google.visualization.LineChart(
                 document.getElementById('yearchart_div')
             );
-            console.log(jsonData);
             linechart.draw(data, linechart_options);
         }
 
@@ -345,7 +343,6 @@
             let linechart = new google.visualization.LineChart(
                 document.getElementById('linechart_div')
             );
-            console.log(jsonData);
             linechart.draw(data, linechart_options);
         }
         function drawBarChart(jsonData) {

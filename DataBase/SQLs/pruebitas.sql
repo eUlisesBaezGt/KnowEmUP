@@ -16,4 +16,4 @@
 --         AND Subject3 != ''
 -- ) as Subquery;
 
-SELECT COUNT(*) as total FROM subjects WHERE semester = '1';
+SELECT AVG(grade) AS avg_grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND year = '$year'"
