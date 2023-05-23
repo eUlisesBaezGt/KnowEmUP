@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT teacherID, AVG(grade_profesor) as average_grade, COUNT(*) as count FROM teacher_grades GROUP BY teacherID";
+$sql = "SELECT teacherID, AVG(grade) as average_grade, COUNT(*) as count FROM teacher_grades GROUP BY teacherID";
 $result = $conn->query($sql);
 
 $data = array();

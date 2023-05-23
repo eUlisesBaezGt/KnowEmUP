@@ -29,7 +29,7 @@ print(row_count, "rows in the table")
 years = [2019, 2020, 2021, 2022, 2023] 
 
 # CONTINUE UNTIL THERE ARE 100,000 ROWS IN THE TABLE
-while row_count < 192567:
+while row_count < 100: ##192567
     # SELECT A RANDOM STUDENT AND TEACHER
     randomTeacher = random.choice(teacherID)
     randomStudent = random.choice(studentID)
@@ -47,7 +47,7 @@ while row_count < 192567:
     randomYear = random.choice(years)
 
     # INSERT INTO GRADES TABLE
-    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade, subject, year) VALUES (%s, %s, %s, %s, %s, %s)"
+    sql = "INSERT INTO teacher_grades (teacherID, studentID, grade, subject, year) VALUES (%s, %s, %s, %s, %s)"
     val = (randomTeacher, randomStudent, randomGrade, randomSubject, randomYear)
     cursor.execute(sql, val)
 

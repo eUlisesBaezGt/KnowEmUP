@@ -28,7 +28,7 @@ if ($resultSubjects->num_rows > 0) {
 $data = array();
 
 foreach ($subjects as $subject) {
-    $sql = "SELECT COUNT(*) AS count, AVG(grade_profesor) as grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND subject = '$subject'";
+    $sql = "SELECT COUNT(*) AS count, AVG(grade) as grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND subject = '$subject'";
     $result = $conn->query($sql);
 
     if ($result->num_rows > 0) {

@@ -12,7 +12,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT tg.teacherID, AVG(tg.grade_profesor) as promedio
+$sql = "SELECT tg.teacherID, AVG(tg.grade) as promedio
         FROM teacher_grades tg
         GROUP BY tg.teacherID
         ORDER BY promedio DESC

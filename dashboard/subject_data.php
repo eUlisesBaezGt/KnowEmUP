@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT t.`teacherID`, AVG(g.grade_profesor) as avg_grade 
+$sql = "SELECT t.`teacherID`, AVG(g.grade) as avg_grade 
         FROM teachers t 
         JOIN teacher_grades g ON t.`teacherID` = g.teacherID 
         WHERE t.Subject1 = '$selectedSubject' OR t.Subject2 = '$selectedSubject' OR t.Subject3 = '$selectedSubject' 
