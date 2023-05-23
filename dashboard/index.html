@@ -41,11 +41,22 @@
 
             var options = {
                 title: 'Profesor y materia vista general',
+                titleTextStyle: {color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true},
                 hAxis: {title: 'Año'},
                 vAxis: {title: 'Calificación Promedio'},
+                legendTextStyle: {color: '#0000'},
                 bubble: {textStyle: {fontSize: 11}},
                 width: 1200,
                 height: 1000,
+                chartArea: {
+                    backgroundColor: {
+                    fill: 'transparent',
+                    },
+                },
+                backgroundColor: {
+                fill: 'transparent',
+                },
+                colors: ['#008080', '#6082B6'],
                 /*ENABLE SCROLLBAR*/
             };
 
