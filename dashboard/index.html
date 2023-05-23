@@ -24,6 +24,61 @@
         google.charts.setOnLoadCallback(updateLineChart);
         google.charts.setOnLoadCallback(drawBarChart);
 
+        function drawBubbleChart(jsonData) {
+            let data;
+
+            if (jsonData.length === 0) { // If no data for selected subject
+                data = google.visualization.arrayToDataTable([
+                    ['ID', 'Año', 'Calificación Promedio', 'Cantidad Calificaciones'],
+                    ['0', 0, 0, 0],
+                ]);
+            } else {
+                data = google.visualization.arrayToDataTable([
+                    ['ID', 'Año', 'Calificación Promedio', 'Cantidad Calificaciones'],
+                    ...jsonData.map((row, i) => [`${row.teacherID}-${row.subject}`, Number(row.year), Number(row.avg_grade), Number(row.grade_count)])
+                ]);
+            }
+
+            var options = {
+                title: 'Profesor y materia vista general',
+                hAxis: {title: 'Año'},
+                vAxis: {title: 'Calificación Promedio'},
+                bubble: {textStyle: {fontSize: 11}},
+                width: 1200,
+                height: 1000,
+                /*ENABLE SCROLLBAR*/
+            };
+
+            var chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
+            chart.draw(data, options);
+        }
+
+
+        function updateBubble() {
+            getBubble().then(function (jsonData) {
+                drawBubbleChart(jsonData);
+            }).catch(function (error) {
+                console.error('Error:', error);
+            });
+        }
+
+        function getBubble() {
+            return new Promise(function (resolve, reject) {
+                var xhr = new XMLHttpRequest();
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4) {
+                        if (xhr.status === 200) {
+                            var jsonData = JSON.parse(xhr.responseText);
+                            resolve(jsonData);
+                        } else {
+                            reject('Error: ' + xhr.status);
+                        }
+                    }
+                };
+                xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/bubble.php");
+                xhr.send();
+            });
+        }
         function updateLineChart() {
             getYearsGrade().then(function (jsonData) {
                 drawLineChart(jsonData);
@@ -652,13 +707,16 @@
             <div id="linechart_div"></div>
         </div>
         <br><br>
-        <br><br>
         <div class="col-sm-12 center-block square">
             <select id="professor-dropdown2" onchange="updateTeacherYear()">
             </select>
             <div id="yearchart_div" style="border: 10px solid #0000">
                 <img src="default_dropdown_teachyears.png" width="400" height="400" />
             </div>
+        </div>
+        <br><br>
+        <div class="col-sm-12 center-block square">
+            <div id="bubble_chart_div" style="width: 900px; height: 500px;"></div>
         </div>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     </body>
