@@ -2,9 +2,9 @@
 
 <head>
     <title>KnowEmUp</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -16,7 +16,7 @@
             loadTop3Proff();
         });
 
-        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.load("current", {packages: ["corechart", "bar"]});
         google.charts.setOnLoadCallback(drawSemesterPie);
         google.charts.setOnLoadCallback(updateLineChart);
         google.charts.setOnLoadCallback(drawBarChart);
@@ -46,6 +46,20 @@
                 xhr.send();
             });
         }
+
+        function getYearsGrade() {
+            return fetch("http://localhost:8888/KnowEmUP/dashboard/teacher_year.php")
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Failed to fetch data');
+                    }
+                    return response.json();
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
+        }
+
 
         let xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function () {
@@ -110,14 +124,14 @@
                     });
 
                     // Trigger the chart update when the subjects are loaded
-                    updateChart2();
+                    updateBarChart();
                 }
             };
             xhr.open("GET", "http://localhost:8888/KnowEmUP/dashboard/subjects.php");
             xhr.send();
         }
 
-        function updateChart2() {
+        function updateBarChart() {
             var selectedSubject = document.querySelector("#subject-dropdown").value;
             var xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
@@ -196,8 +210,8 @@
 
             let columnchart_options = {
                 title: "Grades for selected professor",
-                hAxis: { title: "Subject" }, // Replace "Count" with "Subject"
-                vAxis: { title: "Grade" },
+                hAxis: {title: "Subject"}, // Replace "Count" with "Subject"
+                vAxis: {title: "Grade"},
                 width: 400,
                 height: 400,
             };
@@ -213,20 +227,20 @@
 
             if (jsonData.length === 0) { // If no data for selected subject
                 data = new google.visualization.arrayToDataTable([
-                    ['Teacher', 'Grade', { role: 'style' }],
+                    ['Teacher', 'Grade', {role: 'style'}],
                     ['No Data', 0, 'silver']
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Teacher', 'Grade', { role: 'style' }],
+                    ['Teacher', 'Grade', {role: 'style'}],
                     ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), 'silver'])
                 ]);
             }
 
             let barchart_options = {
                 title: "Grades for selected subject",
-                hAxis: { title: "Teacher" },
-                vAxis: { title: "Grade" },
+                hAxis: {title: "Teacher"},
+                vAxis: {title: "Grade"},
                 width: 400,
                 height: 400,
             };
@@ -254,7 +268,7 @@
 
             let linechart_options = {
                 title: 'Grades per year',
-                hAxis: { title: 'Year' },
+                hAxis: {title: 'Year'},
                 vAxis: {
                     title: 'Count',
                     // viewWindow: {
@@ -265,8 +279,46 @@
                 width: 800,
                 height: 500,
                 backgroundColor: 'white',
-                legendTextStyle: { color: 'black' },
-                titleTextStyle: { color: 'black' }
+                legendTextStyle: {color: 'black'},
+                titleTextStyle: {color: 'black'}
+            };
+            let linechart = new google.visualization.LineChart(
+                document.getElementById('linechart_div')
+            );
+            console.log(jsonData);
+            linechart.draw(data, linechart_options);
+        }
+
+        function drawLineChart2(jsonData) {
+            let data;
+
+            if (jsonData.length === 0) {
+                data = new google.visualization.arrayToDataTable([
+                    ['Year', 'Count'],
+                    ['No Data', 0]
+                ]);
+            } else {
+                data = new google.visualization.arrayToDataTable([
+                    ['Year', 'Count'],
+                    ...jsonData.map((row) => [String(row.year), parseFloat(row.count)])
+                ]);
+            }
+
+            let linechart_options = {
+                title: 'Grades per year',
+                hAxis: {title: 'Year'},
+                vAxis: {
+                    title: 'Count',
+                    // viewWindow: {
+                    //     min: 19500,
+                    //     max: 22000
+                    // },
+                },
+                width: 800,
+                height: 500,
+                backgroundColor: 'white',
+                legendTextStyle: {color: 'black'},
+                titleTextStyle: {color: 'black'}
             };
             let linechart = new google.visualization.LineChart(
                 document.getElementById('linechart_div')
@@ -319,7 +371,7 @@
             });
         }
 
-        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.load("current", {packages: ["corechart"]});
         google.charts.setOnLoadCallback(drawCareerDonut);
         google.charts.setOnLoadCallback(drawSemSubjDonut);
 
@@ -359,8 +411,8 @@
                     width: 900,
                     height: 500,
                     backgroundColor: '#23426f',
-                    legendTextStyle: { color: '#FFF' },
-                    titleTextStyle: { color: '#FFF' }
+                    legendTextStyle: {color: '#FFF'},
+                    titleTextStyle: {color: '#FFF'}
                 };
 
                 let donutChart = new google.visualization.PieChart(
@@ -408,8 +460,8 @@
                     width: 900,
                     height: 500,
                     backgroundColor: '#23426f',
-                    legendTextStyle: { color: '#FFF' },
-                    titleTextStyle: { color: '#FFF' }
+                    legendTextStyle: {color: '#FFF'},
+                    titleTextStyle: {color: '#FFF'}
                 };
 
                 let donutChart = new google.visualization.PieChart(
@@ -430,87 +482,87 @@
             width: 350px;
             height: 90px;
         }
-        .menu-text {
-            display: none;
-        }
- 
     </style>
 </head>
 
 <body>
 
-    <body style="background-color: #1d3557"></body>
-    <h1 style="color: white">Data</h1>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
-                <h3>Total de alumnos: <br><span id="students-count"></span></h3>
-                <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
-                <h3>Total de materias: <br><span id="subjects-count"></span></h3>
-                <h3>Total de calificacione: <br><span id="grades-count"></span></h3>
-            </div>
-            <div class="col-sm-4">
-                <div id="piechart_div" style="border: 10px solid #1d3557"></div>
-            </div>
-            <div class="col-sm-4">
-                Subject Legend:
-                <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
-                    <!-- List items will be filled dynamically using JavaScript -->
-                </ul>
-            </div>
-            <div class="col-sm-4">
-                <div id="linechart_div" style="border: 10px solid #1d3557"></div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <select id="subject-dropdown" onchange="updateChart2()">
-                            <!-- Options will be filled dynamically using JavaScript -->
-                        </select>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="barchart_div" style="border: 10px solid #1d3557">
-                            <img src="default_dropdown_subject.png" width="400" height="400" />
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container">
-                <div class="row">
-                    <div class="col-sm-12">
-                        <select id="professor-dropdown" onchange="updateChart()">
-                            <!-- Options will be filled dynamically using JavaScript -->
-                        </select>
-                    </div>
-                    <div class="col-sm-12">
-                        <div id="columnchart_div" style="border: 10px solid #1d3557">
-                            <img src="default_dropdown_proffesor.png" width="400" height="400" />
-                        </div>
-                    
-                    <label for="menu" onclick="toggleMenu()">=</label>
-                    <div id="menu-text" class="menu-text" style="color:white">
-                        <ul>
-                        <li>Link 1</li>
-                        <li>Link 2</li>
-                        <li>Link 3</li>
-                        <li>Link 4</li>
-                        </ul>
-                    </div>
-                    </div>
-                </div>
-            </div>
-
+<h1 style="color: white">Data</h1>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-4">
+            <h3>Total de alumnos: <br><span id="students-count"></span></h3>
+            <h3>Total de profesores: <br><span id="teachers-count"></span></h3>
+            <h3>Total de materias: <br><span id="subjects-count"></span></h3>
+            <h3>Total de calificacione: <br><span id="grades-count"></span></h3>
         </div>
+        <div class="col-sm-4">
+            <div id="piechart_div" style="border: 10px solid #1d3557"></div>
+        </div>
+        <div class="col-sm-4">
+            Subject Legend:
+            <ul id="subject-legend"> <!-- MOVER A LA DERECHA PORFA -->
+                <!-- List items will be filled dynamically using JavaScript -->
+            </ul>
+        </div>
+        <div class="col-sm-4">
+            <div id="linechart_div" style="border: 10px solid #1d3557"></div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="subject-dropdown" onchange="updateBarChart()">
+                        <!-- Options will be filled dynamically using JavaScript -->
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <div id="barchart_div" style="border: 10px solid #1d3557">
+                        <img src="default_dropdown_subject.png" width="400" height="400"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="professor-dropdown" onchange="updateChart()">
+                        <!-- Options will be filled dynamically using JavaScript -->
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <div id="columnchart_div" style="border: 10px solid #1d3557">
+                        <img src="default_dropdown_proffesor.png" width="400" height="400"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <select id="professor-dropdown2" onchange="updateChart()">
+                        <!-- Options will be filled dynamically using JavaScript -->
+                    </select>
+                </div>
+                <div class="col-sm-12">
+                    <div id="columnchart2_div" style="border: 10px solid #1d3557">
+                        <img src="default_dropdown_proffesor.png" width="400" height="400"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+</div>
 
-    <div id="top3proff_div" style="width: 900px; height: 500px; border: 10px solid #1d3557">Top 3 profesores</div>
+<div id="top3proff_div" style="width: 900px; height: 500px; border: 10px solid #1d3557">Top 3 profesores</div>
 
-    <div id="donutchart_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
+<div id="donutchart_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
 
-    <div id="donutchart2_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
+<div id="donutchart2_div" style="width: 900px; height: 500px; border: 10px solid #1d3557"></div>
 
 
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 
 </html>
@@ -518,11 +570,12 @@
     function toggleMenu() {
         var menuText = document.getElementById("menu-text");
         if (menuText.style.display === "none") {
-        menuText.style.display = "block";
+            menuText.style.display = "block";
         } else {
-        menuText.style.display = "none";
+            menuText.style.display = "none";
         }
     }
+
     (function () {
         var ws = new WebSocket(
             "ws://" +
@@ -566,5 +619,5 @@
             }
         };
     })();
-    
+
 </script>

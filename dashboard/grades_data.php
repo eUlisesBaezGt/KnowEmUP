@@ -1,5 +1,5 @@
 <?php
-$servername = "localhost:8889";
+/*$servername = "localhost:8889";
 $username = "root";
 $password = "root";
 $dbname = "KnowEmUP";
@@ -27,4 +27,4 @@ if ($result->num_rows > 0) {
 echo json_encode($data);
 
 $conn->close();
-?>
+*/?>

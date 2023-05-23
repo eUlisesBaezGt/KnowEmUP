@@ -36,8 +36,7 @@ CREATE TABLE `teachers` (
 CREATE TABLE `teacher_grades` (
   `teacherID` varchar(250) NOT NULL DEFAULT 'EMPTY',
   `studentID` varchar(7) NOT NULL DEFAULT 'EMPTY',
-  `grade_alumno` double NOT NULL DEFAULT '0',
-  `grade_profesor` double NOT NULL DEFAULT '0',
+  `grade` double NOT NULL DEFAULT '0',
   `subject` varchar(5) NOT NULL DEFAULT 'EMPTY',
   `year` int(4) NOT NULL DEFAULT 0,
   KEY `teacher_grades_ibfk_1` (`teacherID`),
