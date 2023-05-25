@@ -1,7 +1,3 @@
-<!-- Pendiente reordenar algunos elementos y limpiar código
-De igual manera checar archivos para mandar
--->
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,11 +5,11 @@ De igual manera checar archivos para mandar
     <meta charset="UTF-8">
     <title>KnowEmUP</title>
     <link rel="stylesheet" href="style2.css">
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen" />
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
+    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"/>
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -26,7 +22,7 @@ De igual manera checar archivos para mandar
             loadTop3Proff();
             updateTeacherYear();
         });
-        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.load("current", {packages: ["corechart", "bar"]});
         google.charts.setOnLoadCallback(drawSemesterPie);
         google.charts.setOnLoadCallback(updateLineChart);
         google.charts.setOnLoadCallback(drawBarChart);
@@ -48,17 +44,17 @@ De igual manera checar archivos para mandar
                 ]);
             }
 
-            var options = {
+            const options = {
                 title: 'Profesor y materia vista general',
-                hAxis: { title: 'Año' },
-                vAxis: { title: 'Calificación Promedio' },
-                bubble: { textStyle: { fontSize: 11 } },
+                hAxis: {title: 'Año'},
+                vAxis: {title: 'Calificación Promedio'},
+                bubble: {textStyle: {fontSize: 11}},
                 width: 1200,
                 height: 1000,
                 /*ENABLE SCROLLBAR*/
             };
 
-            var chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
+            const chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
             chart.draw(data, options);
         }
 
@@ -73,7 +69,7 @@ De igual manera checar archivos para mandar
 
         function getBubble() {
             return new Promise(function (resolve, reject) {
-                var xhr = new XMLHttpRequest();
+                const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
@@ -105,7 +101,7 @@ De igual manera checar archivos para mandar
                 ]);
             }
 
-            var options = {
+            const options = {
                 title: 'Profesor y materia vista general',
                 titleTextStyle: {color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true},
                 hAxis: {title: 'Año'},
@@ -116,17 +112,16 @@ De igual manera checar archivos para mandar
                 height: 1000,
                 chartArea: {
                     backgroundColor: {
-                    fill: 'transparent',
+                        fill: 'transparent',
                     },
                 },
                 backgroundColor: {
-                fill: 'transparent',
+                    fill: 'transparent',
                 },
                 colors: ['#008080', '#6082B6'],
-                /*ENABLE SCROLLBAR*/
             };
 
-            var chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
+            const chart = new google.visualization.BubbleChart(document.getElementById('bubble_chart_div'));
             chart.draw(data, options);
         }
 
@@ -141,7 +136,7 @@ De igual manera checar archivos para mandar
 
         function getBubble() {
             return new Promise(function (resolve, reject) {
-                var xhr = new XMLHttpRequest();
+                const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
@@ -156,6 +151,7 @@ De igual manera checar archivos para mandar
                 xhr.send();
             });
         }
+
         function updateLineChart() {
             getYearsGrade().then(function (jsonData) {
                 drawLineChart(jsonData);
@@ -166,7 +162,7 @@ De igual manera checar archivos para mandar
 
         function getYearsGrade() {
             return new Promise(function (resolve, reject) {
-                var xhr = new XMLHttpRequest();
+                const xhr = new XMLHttpRequest();
                 xhr.onreadystatechange = function () {
                     if (xhr.readyState === 4) {
                         if (xhr.status === 200) {
@@ -196,16 +192,17 @@ De igual manera checar archivos para mandar
         xhr.send();
 
         function loadProfessors2() {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
+                let option;
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var selectElement = document.querySelector("#professor-dropdown2");
+                    const jsonData = JSON.parse(xhr.responseText);
+                    const selectElement = document.querySelector("#professor-dropdown2");
 
                     // Add the first professor as the default selected option
                     if (jsonData.length > 0) {
-                        var firstProfessor = jsonData[0];
-                        var option = document.createElement("option");
+                        const firstProfessor = jsonData[0];
+                        option = document.createElement("option");
                         option.value = firstProfessor;
                         option.textContent = firstProfessor;
                         option.selected = true; // Set the option as selected
@@ -213,9 +210,9 @@ De igual manera checar archivos para mandar
                     }
 
                     // Add the remaining professors
-                    for (var i = 1; i < jsonData.length; i++) {
-                        var professor = jsonData[i];
-                        var option = document.createElement("option");
+                    for (let i = 1; i < jsonData.length; i++) {
+                        const professor = jsonData[i];
+                        option = document.createElement("option");
                         option.value = professor;
                         option.textContent = professor;
                         selectElement.appendChild(option);
@@ -230,16 +227,17 @@ De igual manera checar archivos para mandar
         }
 
         function loadProfessors() {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
+                let option;
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var selectElement = document.querySelector("#professor-dropdown");
+                    const jsonData = JSON.parse(xhr.responseText);
+                    const selectElement = document.querySelector("#professor-dropdown");
 
                     // Add the first professor as the default selected option
                     if (jsonData.length > 0) {
-                        var firstProfessor = jsonData[0];
-                        var option = document.createElement("option");
+                        const firstProfessor = jsonData[0];
+                        option = document.createElement("option");
                         option.value = firstProfessor;
                         option.textContent = firstProfessor;
                         option.selected = true; // Set the option as selected
@@ -247,9 +245,9 @@ De igual manera checar archivos para mandar
                     }
 
                     // Add the remaining professors
-                    for (var i = 1; i < jsonData.length; i++) {
-                        var professor = jsonData[i];
-                        var option = document.createElement("option");
+                    for (let i = 1; i < jsonData.length; i++) {
+                        const professor = jsonData[i];
+                        option = document.createElement("option");
                         option.value = professor;
                         option.textContent = professor;
                         selectElement.appendChild(option);
@@ -264,11 +262,11 @@ De igual manera checar archivos para mandar
         }
 
         function loadSubjects() {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var selectElement = document.querySelector("#subject-dropdown");
+                    const jsonData = JSON.parse(xhr.responseText);
+                    const selectElement = document.querySelector("#subject-dropdown");
 
                     // Add subjects to the dropdown
                     jsonData.forEach(function (subject) {
@@ -287,8 +285,8 @@ De igual manera checar archivos para mandar
         }
 
         function updateSubject() {
-            var selectedSubject = document.querySelector("#subject-dropdown").value;
-            var xhr = new XMLHttpRequest();
+            const selectedSubject = document.querySelector("#subject-dropdown").value;
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var jsonData = JSON.parse(xhr.responseText);
@@ -300,8 +298,8 @@ De igual manera checar archivos para mandar
         }
 
         function updateTeacherYear() {
-            var selectedTeacher = document.querySelector("#professor-dropdown2").value;
-            var xhr = new XMLHttpRequest();
+            const selectedTeacher = document.querySelector("#professor-dropdown2").value;
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     console.log(xhr.responseText);
@@ -315,16 +313,16 @@ De igual manera checar archivos para mandar
 
 
         function loadSubjectLegend() {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var ulElement = document.querySelector("#subject-legend");
+                    const jsonData = JSON.parse(xhr.responseText);
+                    const ulElement = document.querySelector("#subject-legend");
 
                     // Add each subject to the list
-                    for (var subjectCode in jsonData) {
-                        var subjectMeaning = jsonData[subjectCode];
-                        var li = document.createElement("li");
+                    for (const subjectCode in jsonData) {
+                        const subjectMeaning = jsonData[subjectCode];
+                        const li = document.createElement("li");
                         li.textContent = subjectCode + ": " + subjectMeaning;
                         ulElement.appendChild(li);
                     }
@@ -335,16 +333,16 @@ De igual manera checar archivos para mandar
         }
 
         function loadTop3Proff() {
-            var xhr = new XMLHttpRequest();
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
-                    var jsonData = JSON.parse(xhr.responseText);
-                    var ulElement = document.querySelector("#top3proff_div");
+                    const jsonData = JSON.parse(xhr.responseText);
+                    const ulElement = document.querySelector("#top3proff_div");
 
                     // Add each teacher to the list with their average grade
-                    for (var i = 0; i < jsonData.length; i++) {
-                        var teacher = jsonData[i];
-                        var li = document.createElement("li");
+                    for (let i = 0; i < jsonData.length; i++) {
+                        const teacher = jsonData[i];
+                        const li = document.createElement("li");
                         li.textContent = teacher.teacherID + ": " + teacher.average_grade;
                         ulElement.appendChild(li);
                     }
@@ -355,8 +353,8 @@ De igual manera checar archivos para mandar
         }
 
         function updateChart() {
-            var selectedProfessor = document.querySelector("#professor-dropdown").value;
-            var xhr = new XMLHttpRequest();
+            const selectedProfessor = document.querySelector("#professor-dropdown").value;
+            const xhr = new XMLHttpRequest();
             xhr.onreadystatechange = function () {
                 if (xhr.readyState === 4 && xhr.status === 200) {
                     var jsonData = JSON.parse(xhr.responseText);
@@ -381,13 +379,13 @@ De igual manera checar archivos para mandar
                 });
             }
 
-            //GRAFICA 3
+            // GRAFICA 3
             let columnchart_options = {
                 title: "Calificaciones para el profesor seleccionado",
-                titleTextStyle: { color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true },
-                hAxis: { title: "Materia" },
-                vAxis: { title: "Calificación" },
-                legendTextStyle: { color: '#0000' },
+                titleTextStyle: {color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true},
+                hAxis: {title: "Materia"},
+                vAxis: {title: "Calificación"},
+                legendTextStyle: {color: '#0000'},
                 chartArea: {
                     backgroundColor: {
                         fill: 'transparent',
@@ -422,7 +420,7 @@ De igual manera checar archivos para mandar
             }
             let linechart_options = {
                 title: 'Evolución de las evaluaciones del profesor en el tiempo',
-                hAxis: { title: 'Año' },
+                hAxis: {title: 'Año'},
                 vAxis: {
                     title: 'Calificación',
                     // viewWindow: {
@@ -433,8 +431,8 @@ De igual manera checar archivos para mandar
                 width: 900,
                 height: 600,
                 backgroundColor: 'transparent',
-                legendTextStyle: { color: 'black' },
-                titleTextStyle: { color: 'black' }
+                legendTextStyle: {color: 'black'},
+                titleTextStyle: {color: 'black'}
             };
             let linechart = new google.visualization.LineChart(
                 document.getElementById('yearchart_div')
@@ -459,19 +457,15 @@ De igual manera checar archivos para mandar
 
             let linechart_options = {
                 title: 'Cantidad de calificaciones por año',
-                hAxis: { title: 'Año' },
+                hAxis: {title: 'Año'},
                 vAxis: {
                     title: 'Cantidad',
-                    // viewWindow: {
-                    //     min: 19500,
-                    //     max: 22000
-                    // },
                 },
                 width: 800,
                 height: 500,
                 backgroundColor: 'transparent',
-                legendTextStyle: { color: 'black' },
-                titleTextStyle: { color: 'black' }
+                legendTextStyle: {color: 'black'},
+                titleTextStyle: {color: 'black'}
             };
             let linechart = new google.visualization.LineChart(
                 document.getElementById('linechart_div')
@@ -484,30 +478,29 @@ De igual manera checar archivos para mandar
 
             if (jsonData.length === 0) { // If Sin datos for selected subject
                 data = new google.visualization.arrayToDataTable([
-                    ['Profesor', 'Calificación', { role: 'style' }],
+                    ['Profesor', 'Calificación', {role: 'style'}],
                     ['Sin datos', 0, '#A7C7E7'],
                 ]);
             } else {
                 data = new google.visualization.arrayToDataTable([
-                    ['Profesor', 'Calificación', { role: 'style' }],
+                    ['Profesor', 'Calificación', {role: 'style'}],
                     ...jsonData.map((row) => [String(row.teacher), parseFloat(row.avg_grade), '#A7C7E7'])
                 ]);
             }
-            //GRAFICA 2
+            // GRAFICA 2
             let barchart_options = {
                 title: "Calificaciones para la materia seleccionada",
-                titleTextStyle: { color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true },
-                hAxis: { title: "Calificación" },
-                vAxis: { title: "Profesor" },
+                titleTextStyle: {color: '#0000', fontName: "Roboto", fontSize: "50px", bold: true},
+                hAxis: {title: "Calificación"},
+                vAxis: {title: "Profesor"},
                 width: 450,
                 height: 400,
-                legendTextStyle: { color: '#0000' },
+                legendTextStyle: {color: '#0000'},
                 is3D: true,
                 backgroundColor: {
                     fill: 'TRANSPARENT',
                     fillOpacity: 0.8
                 },
-
             };
 
             let barchart = new google.visualization.BarChart(
@@ -517,7 +510,7 @@ De igual manera checar archivos para mandar
         }
 
 
-        google.charts.load("current", { packages: ["corechart", "bar"] });
+        google.charts.load("current", {packages: ["corechart", "bar"]});
         google.charts.setOnLoadCallback(drawSemesterPie);
 
         function getData() {
@@ -564,15 +557,9 @@ De igual manera checar archivos para mandar
                     height: 800,
                     alignItems: 'center',
                     backgroundColor: 'transparent',
-                    legendTextStyle: { color: '#0000' },
+                    legendTextStyle: {color: '#0000'},
                     colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2', '#6082B6'],
                     is3D: true,
-                    // slices: {  
-                    //     1: {offset: 0.2},
-                    //     2: {offset: 0.3},
-                    //     4: {offset: 0.4},
-                    //     3: {offset: 0.5},
-                    // },
                 };
                 let piechart = new google.visualization.PieChart(
                     document.getElementById("piechart_div")
@@ -583,7 +570,7 @@ De igual manera checar archivos para mandar
             });
         }
 
-        google.charts.load("current", { packages: ["corechart"] });
+        google.charts.load("current", {packages: ["corechart"]});
         google.charts.setOnLoadCallback(drawCareerDonut);
         google.charts.setOnLoadCallback(drawSemSubjDonut);
 
@@ -624,8 +611,8 @@ De igual manera checar archivos para mandar
                     width: 900,
                     height: 500,
                     backgroundColor: 'transparent',
-                    legendTextStyle: { color: '#0000' },
-                    titleTextStyle: { color: '#0000' },
+                    legendTextStyle: {color: '#0000'},
+                    titleTextStyle: {color: '#0000'},
                     colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2', '#6082B6'],
                 };
 
@@ -671,13 +658,12 @@ De igual manera checar archivos para mandar
 
                 let donut_options = {
                     title: 'Porcentaje de materias de cada semestre',
-                    title: 'Porcentaje de materias de cada semestre',
                     pieHole: 0.4,
                     width: 900,
                     height: 500,
                     backgroundColor: 'transparent',
-                    legendTextStyle: { color: '#0000' },
-                    titleTextStyle: { color: '#0000' },
+                    legendTextStyle: {color: '#0000'},
+                    titleTextStyle: {color: '#0000'},
                     colors: ['#008080', '#6082B6', '#000080', '#A7C7E7', '#B6D0E2', '#6082B6'],
                 };
 
@@ -696,131 +682,136 @@ De igual manera checar archivos para mandar
 
 <body>
 
-    <br><br><br><br><br>
-    <div class="container square">
-        <div class="row">
-            <div class="col-sm-12 center">
-                <h2> Evaluación de profesores</h2>
-            </div>
-            <div class="col-sm-1 center">
-                <br><br><br>
-            </div>
-            <div class="col-sm-3 center">
-                <br><br><br><br><br><br>
-                <h5 class="square2">Total de alumnos: <span id="students-count"></span></h5>
-                <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square3">Total de profesores: <span id="teachers-count"></span></h5>
-                <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square5">Total de Materias: <span id="subjects-count"></span></h5>
-                <p style="color:white; font-size: 1px;">.</p>
-                <h5 class="square4">Calificaciones: <span id="grades-count"></span></h5>
+<br><br><br><br><br>
+<div class="container square">
+    <div class="row">
+        <div class="col-sm-12 center">
+            <h2> Evaluación de profesores</h2>
+        </div>
+        <div class="col-sm-1 center">
+            <br><br><br>
+        </div>
+        <div class="col-sm-3 center">
+            <br><br><br><br><br><br>
+            <h5 class="square2">Total de alumnos: <span id="students-count"></span></h5>
+            <p style="color:white; font-size: 1px;">.</p>
+            <h5 class="square3">Total de profesores: <span id="teachers-count"></span></h5>
+            <p style="color:white; font-size: 1px;">.</p>
+            <h5 class="square5">Total de Materias: <span id="subjects-count"></span></h5>
+            <p style="color:white; font-size: 1px;">.</p>
+            <h5 class="square4">Calificaciones: <span id="grades-count"></span></h5>
 
-                <label for="menu" onmouseover="toggleMenu3()" onmouseout="toggle2Menu4()" class="square2"
-                    style="margin-left: 13px; margin-top: 40px; background-color: #008080; color:white; padding: 10px; padding-left: 40px; padding-right: 40px; text-align: center;">
-                    <h5>Top 3 teachers</h5>
-                </label>
-                <div id="menu-text2" class="menu-text" style="color:black; margin-left: 20px;">
-                    <div id="top3proff_div" style="text-align: center;">Top 3 profesores</div>
+            <label for="menu-text" onmouseover="toggleMenu3()" onmouseout="toggle2Menu4()" class="square2"
+                   style="margin-left: 13px; margin-top: 40px; background-color: #008080; color:white; padding: 10px; padding-left: 40px; padding-right: 40px; text-align: center;">
+                <h5>Top 3 teachers</h5>
+            </label>
+            <div id="menu-text2" class="menu-text" style="color:black; margin-left: 20px;">
+                <div id="top3proff_div" style="text-align: center;">Top 3 profesores</div>
+            </div>
+        </div>
+        <div class="col-sm-7 center">
+
+            <div id="piechart_div"></div>
+
+        </div>
+
+
+    </div>
+</div>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5.5 center-block square">
+            <label for="menu-text" onmouseover="toggleMenu()" onmouseout="toggle2Menu()" class="square2"
+                   style="margin-left: 50px; margin-top: 50px; background-color: #000080; color:white; padding:5px;">
+                Subjects </label>
+            <div id="menu-text" class="menu-text" style="color:black; margin-left: 20px;">
+                <br>
+                <div class="square2" style="color:black">
+                    <ul id="subject-legend">
+                    </ul>
                 </div>
             </div>
-            <div class="col-sm-7 center">
 
-                <div id="piechart_div"></div>
-
+            <select id="subject-dropdown" onchange="updateSubject()">
+            </select>
+            <div id="barchart_div" style="border: 10px solid #0000">
+                <img src="default_dropdown_subjects.png" width="400" height="400"/>
             </div>
 
+        </div>
+        <div class="col-sm-0.8">
+            <p style="color:transparent">.........</p>
+        </div>
+        <div class="col-sm-5.5 center-block square" style="margin-right: -15px;">
+            <br><br>
+            <select id="professor-dropdown" onchange="updateChart()" class="center-block"></select>
+            <div id="columnchart_div" style="border: 10px solid #0000">
+                <img src="default_dropdown_proffesor.png" width="400" height="400"/>
+            </div>
+        </div>
 
+
+    </div>
+    <br><br>
+    <div class="square center-block">
+        <div id="donutchart_div" class="center boxes" style="border: 10px solid #ee1d1d00"></div>
+        <p style="color:white; font-size: 1px;">.</p>
+    </div>
+    <br><br>
+    <div class="square center-block">
+        <div id="donutchart2_div" class="center boxes" style="border: 10px solid #0000"></div>
+        <p style="color:white; font-size: 1px;">.</p>
+    </div>
+    <br><br>
+    <div class="square center-block">
+        <div id="linechart_div"></div>
+    </div>
+    <br><br>
+    <div class="col-sm-12 center-block square">
+        <select id="professor-dropdown2" onchange="updateTeacherYear()">
+        </select>
+        <div id="yearchart_div" style="border: 10px solid #0000">
+            <img src="default_dropdown_teachyears.png" width="900" height="600"/>
         </div>
     </div>
     <br>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-5.5 center-block square">
-                <label for="menu" onmouseover="toggleMenu()" onmouseout="toggle2Menu()" class="square2"
-                    style="margin-left: 50px; margin-top: 50px; background-color: #000080; color:white; padding:5px;">
-                    Subjects </label>
-                <div id="menu-text" class="menu-text" style="color:black; margin-left: 20px;">
-                    <br>
-                    <div class="square2" style="color:black">
-                        <ul id="subject-legend">
-                        </ul>
-                    </div>
-                </div>
-
-                <select id="subject-dropdown" onchange="updateSubject()">
-                </select>
-                <div id="barchart_div" style="border: 10px solid #0000">
-                    <img src="default_dropdown_subjects.png" width="400" height="400" />
-                </div>
-
-            </div>
-            <div class="col-sm-0.8">
-                <p style="color:transparent">.........</p>
-            </div>
-            <div class="col-sm-5.5 center-block square" style="margin-right: -15px;">
-                <br><br>
-                <select id="professor-dropdown" onchange="updateChart()" class="center-block"></select>
-                <div id="columnchart_div" style="border: 10px solid #0000">
-                    <img src="default_dropdown_proffesor.png" width="400" height="400" />
-                </div>
-            </div>
-
-
-        </div>
-        <br><br>
-        <div class="square center-block">
-            <div id="donutchart_div" class="center boxes" style="border: 10px solid #ee1d1d00"></div>
-            <p style="color:white; font-size: 1px;">.</p>
-        </div>
-        <br><br>
-        <div class="square center-block">
-            <div id="donutchart2_div" class="center boxes" style="border: 10px solid #0000"></div>
-            <p style="color:white; font-size: 1px;">.</p>
-        </div>
-        <br><br>
-        <div class="square center-block">
-            <div id="linechart_div"></div>
-        </div>
-        <br><br>
-        <div class="col-sm-12 center-block square">
-            <select id="professor-dropdown2" onchange="updateTeacherYear()">
-            </select>
-            <div id="yearchart_div" style="border: 10px solid #0000">
-                <img src="default_dropdown_teachyears.png" width="900" height="600" />
-            </div>
-        </div>
-        <br>
-        <div class="col-sm-12 center-block" style="margin-left: -50px;">
-            <div id="bubble_chart_div"></div>
-        </div>
-        <br>
-        <br>
-        <p>.</p>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <div class="col-sm-12 center-block" style="margin-left: -50px;">
+        <div id="bubble_chart_div"></div>
+    </div>
+    <br>
+    <br>
+    <p>.</p>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</div>
 </body>
 
 </html>
 <script>
     function toggleMenu() {
-        var menuText = document.getElementById("menu-text");
+        const menuText = document.getElementById("menu-text");
         menuText.style.display = "block";
 
     }
+
     function toggle2Menu() {
-        var menuText = document.getElementById("menu-text");
+        const menuText = document.getElementById("menu-text");
         menuText.style.display = "none";
     }
+
     function toggleMenu3() {
-        var menuText = document.getElementById("menu-text2");
+        const menuText = document.getElementById("menu-text2");
         menuText.style.display = "block";
 
     }
+
     function toggle2Menu4() {
-        var menuText = document.getElementById("menu-text2");
+        const menuText = document.getElementById("menu-text2");
         menuText.style.display = "none";
     }
+
     (function () {
-        var ws = new WebSocket(
+        const ws = new WebSocket(
             "ws://" +
             window.location.host +
             "/jb-server-page?reloadMode=RELOAD_ON_SAVE&" +
@@ -832,20 +823,20 @@ De igual manera checar archivos para mandar
                 window.location.reload();
             }
             if (msg.data.startsWith("update-css ")) {
-                var messageId = msg.data.substring(11);
-                var links = document.getElementsByTagName("link");
-                for (var i = 0; i < links.length; i++) {
-                    var link = links[i];
+                const messageId = msg.data.substring(11);
+                const links = document.getElementsByTagName("link");
+                for (let i = 0; i < links.length; i++) {
+                    const link = links[i];
                     if (link.rel !== "stylesheet") continue;
-                    var clonedLink = link.cloneNode(true);
-                    var newHref = link.href.replace(
+                    const clonedLink = link.cloneNode(true);
+                    const newHref = link.href.replace(
                         /(&|\?)jbUpdateLinksId=\d+/,
                         "$1jbUpdateLinksId=" + messageId
                     );
                     if (newHref !== link.href) {
                         clonedLink.href = newHref;
                     } else {
-                        var indexOfQuest = newHref.indexOf("?");
+                        const indexOfQuest = newHref.indexOf("?");
                         if (indexOfQuest >= 0) {
                             clonedLink.href =
                                 newHref.substring(0, indexOfQuest + 1) +
