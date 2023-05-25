@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <title>KnowEmUP</title>
-    <link rel="stylesheet" href="style2.css">
+    <link rel="stylesheet" href="style.css">
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <link href="css/bootstrap.min.css" rel="stylesheet" media="screen"/>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -13,6 +13,19 @@
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                let jsonData = JSON.parse(xhr.responseText);
+                document.querySelector("#students-count").textContent += jsonData.students;
+                document.querySelector("#teachers-count").textContent += jsonData.teachers;
+                document.querySelector('#subjects-count').textContent += jsonData.subjects;
+                document.querySelector("#grades-count").textContent += jsonData.grades;
+            }
+        };
+        xhr.open('GET', 'http://localhost:8888/KnowEmUP/dashboard/totals.php', true);
+        xhr.send();
+
         document.addEventListener("DOMContentLoaded", function () {
             loadProfessors();
             loadProfessors2();
@@ -177,19 +190,6 @@
                 xhr.send();
             });
         }
-
-        let xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                let jsonData = JSON.parse(xhr.responseText);
-                document.querySelector("#students-count").textContent += jsonData.students;
-                document.querySelector("#teachers-count").textContent += jsonData.teachers;
-                document.querySelector('#subjects-count').textContent += jsonData.subjects;
-                document.querySelector("#grades-count").textContent += jsonData.grades;
-            }
-        };
-        xhr.open('GET', 'http://localhost:8888/KnowEmUP/dashboard/totals.php', true);
-        xhr.send();
 
         function loadProfessors2() {
             const xhr = new XMLHttpRequest();
@@ -508,8 +508,6 @@
             );
             barchart.draw(data, barchart_options);
         }
-
-
         google.charts.load("current", {packages: ["corechart", "bar"]});
         google.charts.setOnLoadCallback(drawSemesterPie);
 
@@ -714,8 +712,6 @@
             <div id="piechart_div"></div>
 
         </div>
-
-
     </div>
 </div>
 <br>
