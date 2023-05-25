@@ -25,10 +25,9 @@ cursor.execute("SELECT COUNT(*) FROM teacher_grades")
 row_count = cursor.fetchone()[0]
 print(row_count, "rows in the table")
 
+years = [2019, 2020, 2021, 2022, 2023]
 
-years = [2019, 2020, 2021, 2022, 2023] 
-
-# CONTINUE UNTIL THERE ARE 100,000 ROWS IN THE TABLE
+# CONTINUE UNTIL THERE ARE 192,567 ROWS IN THE TABLE
 while row_count < 192567:
     # SELECT A RANDOM STUDENT AND TEACHER
     randomTeacher = random.choice(teacherID)

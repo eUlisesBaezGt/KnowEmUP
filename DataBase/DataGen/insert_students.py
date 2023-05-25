@@ -25,7 +25,8 @@ print(row_count, "rows in the table")
 names = [fake.name() for _ in range(650)]
 lastNames = [name.split()[1] for name in names]
 
-carreras = ["Ingenieria en Inteligencia de Datos y Ciberseguridad", "Ingenieria Mecatronica", "Ingenieria Mecanica", "Ingenieria en Animacion y Videojuegos",
+carreras = ["Ingenieria en Inteligencia de Datos y Ciberseguridad", "Ingenieria Mecatronica", "Ingenieria Mecanica",
+            "Ingenieria en Animacion y Videojuegos",
             'Ingenieria en Innovacion y Diseno', "Ingenieria Industrial", "Matematicas Aplicadas"]
 
 # CONTINUE UNTIL THERE ARE 1,250 ROWS IN THE TABLE
