@@ -3,8 +3,8 @@ Conoce a detalle a los profesores de la facultad de Ingeniería. \
 Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuviste tan cerca una guía para elegir clase. 
 
 ### Missing Tasks
-- [ ] Adapt Front-End Based on React Dashboard
-- [ ] Back-End ????
+- [x] Front-End Dashboard
+- [x] Back-End
 - [x] Big Data on TG
 - [x] Automatization for S insertion
     - [x] PgID
@@ -15,12 +15,14 @@ Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuvist
 - [ ] All students available. GContacts?? Filter by engineering
 
 ### How to DB
-- Creations.sql
-- Student insertions.sql
+- creations.sql
+- subjects.sql
+- subject_legend.sql
+- student insertions.sql
+- students.py
 - import teachers.csv
 - import teacher_grades.csv
 - run teacher_grades.py
-
 
 ## Authors
 - [@eUlisesBaezGt](https://github.com/eUlisesBaezGt)
@@ -28,16 +30,10 @@ Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuvist
 - [@saramirandaa](https://github.com/saramirandaa)
 - [@Mauascm](https://github.com/Mauascm)
 
-
 ## Tech Stack
-
-**Client:** HTML, CSS, JS, REACT
-
-**Server:** SQL, PYTHON, FLASK, PHP
-
+**Client:** HTML, CSS, JS
+**Server:** SQL, PYTHON, PHP
 
 ## License
-
 [MIT](https://choosealicense.com/licenses/mit/)
-
 
