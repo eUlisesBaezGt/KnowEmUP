@@ -21,8 +21,8 @@ $sql = "SELECT tg.teacherID, AVG(tg.grade) as promedio
 $result = $conn->query($sql);
 
 $data = array();
-if($result->num_rows > 0){
-    while($row = $result->fetch_assoc()){
+if ($result->num_rows > 0) {
+    while ($row = $result->fetch_assoc()) {
         $data[] = array('teacherID' => $row['teacherID'], 'average_grade' => $row['promedio']);
     }
 } else {
@@ -32,4 +32,3 @@ if($result->num_rows > 0){
 echo json_encode($data);
 
 $conn->close();
-?>

@@ -13,14 +13,14 @@ if ($conn->connect_error) {
 }
 
 $data = array();
-for($semester = 1; $semester <= 8; $semester++){
+for ($semester = 1; $semester <= 8; $semester++) {
     $sql = "SELECT COUNT(*) as total FROM subjects WHERE semester = '$semester';";
     $result = $conn->query($sql);
-    if($result->num_rows > 0){
-        while($row = $result->fetch_assoc()){
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
             $data[] = array('semester' => $semester . '°', 'count' => $row['total']);
         }
-    }else{
+    } else {
         $data[] = array('semester' => $semester . '°', 'count' => 0);
     }
 }

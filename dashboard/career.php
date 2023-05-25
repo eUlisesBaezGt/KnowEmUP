@@ -40,4 +40,4 @@ header('Access-Control-Allow-Origin: *');
 echo json_encode($data);
 
 $conn->close();
-?>
+

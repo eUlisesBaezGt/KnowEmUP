@@ -1,10 +1,9 @@
-
-body{
+body {
     background: rgb(70, 252, 146);
-    background: radial-gradient(circle, rgb(121, 222, 224) 0%, rgba(69,231,142,1) 26%, rgba(63,94,251,1) 100%); font-weight: 400;
+    background: radial-gradient(circle, rgb(121, 222, 224) 0%, rgba(69, 231, 142, 1) 26%, rgba(63, 94, 251, 1) 100%);
+    font-weight: 400;
     line-height: 1.5;
     color: #212529;
-    
 }
 
 .square {
@@ -13,8 +12,7 @@ body{
     background: #FFF;
     border-radius: 10px;
     padding: 20px;
-    
-  }
+}
 
 .square2 {
     margin: 0 auto;
@@ -24,32 +22,35 @@ body{
     padding: 20px;
     opacity: 0.9;
 }
+
 .square3 {
     margin: 0 auto;
     border-radius: 10px;
     z-index: 2;
-    background-color: #008080;  
+    background-color: #008080;
     color: white;
     padding: 20px;
 }
+
 .square4 {
     margin: 0 auto;
     border-radius: 10px;
     z-index: 2;
-    background-color: #000080; 
+    background-color: #000080;
     color: white;
     padding: 15px;
 }
+
 .square5 {
     margin: 0 auto;
     border-radius: 10px;
     z-index: 2;
-    background-color: #A7C7E7; 
+    background-color: #A7C7E7;
     color: black;
     padding: 20px;
 }
 
-.border{
+.border {
     background-color: #729EA7;
     height: 900px;
     width: 100px;
@@ -57,5 +58,4 @@ body{
 
 .menu-text {
     display: none;
-  }
- 
+}

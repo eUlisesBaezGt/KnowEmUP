@@ -17,7 +17,7 @@ $data = array();
 
 $years = [2019, 2020, 2021, 2022, 2023];
 
-foreach($years as $year){
+foreach ($years as $year) {
     $sql = "SELECT AVG(grade) AS avg_grade FROM teacher_grades WHERE teacherID = '$selectedProfessor' AND year = $year";
     $result = $conn->query($sql);
 
@@ -42,4 +42,4 @@ header('Access-Control-Allow-Origin: *');
 echo json_encode($data);
 
 $conn->close();
-?>
+

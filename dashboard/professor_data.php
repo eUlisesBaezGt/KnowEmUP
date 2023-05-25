@@ -45,4 +45,4 @@ foreach ($subjects as $subject) {
 echo json_encode($data);
 
 $conn->close();
-?>
+
