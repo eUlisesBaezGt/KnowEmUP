@@ -2,7 +2,7 @@
 Conoce a detalle a los profesores de la facultad de Ingeniería. \
 Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuviste tan cerca una guía para elegir clase. 
 
-### Missing Tasks
+### Tasks
 - [x] Front-End Dashboard
 - [x] Back-End
 - [x] Big Data on TG
