@@ -31,7 +31,8 @@ Interactivo, fácil de usar, dinámico, todo al alcance de tu mano. Nunca tuvist
 - [@Mauascm](https://github.com/Mauascm)
 
 ## Tech Stack
-**Client:** HTML, CSS, JS \\
+**Client:** HTML, CSS, JS
+
 **Server:** SQL, PYTHON, PHP
 
 ## License
